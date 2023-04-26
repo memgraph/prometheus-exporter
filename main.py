@@ -1,15 +1,10 @@
-from prometheus_client import start_http_server, Summary, Counter, Gauge, Histogram
-import random
 import time
 import requests
 
-# Create a metric to track time spent and requests made.
-REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
-SIZE_CTR = Counter('size_counter', 'Size counter description')
-SIZE_GG = Gauge('size_gauge', 'Size gauge description')
-HISTOGRAM = Histogram('histie', 'Histogram description')
+from prometheus_client import start_http_server
 
-@REQUEST_TIME.time()
+from model import update_metrics
+
 def pull_metrics():
     """ Pull Memgraph metrics """
     res = requests.get("http://localhost:9092/")
@@ -17,10 +12,8 @@ def pull_metrics():
         raise Exception("Status code is not 200!")
     
     json_data = res.json()
-    size = json_data["size"]
-    SIZE_CTR.inc(size)
-    SIZE_GG.set(size)
-    HISTOGRAM.observe(random.random())
+
+    update_metrics(json_data)
 
 
 if __name__ == '__main__':
@@ -28,5 +21,5 @@ if __name__ == '__main__':
     start_http_server(8000)
     # Generate some requests.
     while True:
-        time.sleep(5)
+        time.sleep(1)
         pull_metrics()
