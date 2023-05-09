@@ -54,7 +54,7 @@ $ docker run -d -v ./config:/etc/prometheus -p 9090:9090 prom/prometheus
 6. Open the Prometheus UI by going to http://localhost:9090
 7. Launch Grafana
 ```shell
-$ docker run -d -v ./config:/etc/prometheus -p 9090:9090 prom/prometheus
+$ docker run -d -p 3000:3000 grafana/grafana-enterprise
 ```
 8. Open the Grafana UI by going to http://localhost:3000
 9. Load our basic Grafana setup **TODO**
