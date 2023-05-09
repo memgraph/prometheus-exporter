@@ -47,6 +47,7 @@ $ python3 main.py
 $ curl localhost:8000
 ```
 You should see a Prometheus object containing the metrics information.
+
 5. Launch Prometheus
 ```shell
 $ docker run -d -v ./config:/etc/prometheus -p 9090:9090 prom/prometheus
