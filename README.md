@@ -11,6 +11,7 @@ The metrics currently collected are:
 ```shell
 $ git clone https://github.com/memgraph/prometheus-exporter.git
 $ cd prometheus-exporter
+$ python3 -m pip install requests prometheus_client
 $ python3 main.py
 ```
 
@@ -26,7 +27,9 @@ scrape_configs:
 ```
 Adjust the host accordingly.
 
-_A simple Prometheus configuration [prometheus.yml](config/prometheus.yml)._
+_When running our basic setup as described bellow, the Prometheus configuration is already setup for you._
+
+_For more informatioin about the Prometheus [scrape_configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)._
 
 ## Running and Debugging the Setup
 
@@ -50,7 +53,8 @@ You should see a Prometheus object containing the metrics information.
 
 5. Launch Prometheus
 ```shell
-$ docker run -d -v ./config:/etc/prometheus -p 9090:9090 prom/prometheus
+$ cd prometheus-exporter
+$ docker run -d -v $(pwd)/config:/etc/prometheus -p 9090:9090 prom/prometheus
 ```
 6. Open the Prometheus UI by going to http://localhost:9090
 7. Launch Grafana
