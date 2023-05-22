@@ -1,3 +1,5 @@
 memgraph:
-  host: http://127.0.0.1
+  endpoint_url: http://127.0.0.1
   port: 9092
+exporter:
+  port: 9115

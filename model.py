@@ -1,10 +1,6 @@
 from typing import Dict
 
-from prometheus_client import Gauge, Histogram
-
-SIZE_CTR = Gauge("size_Gauge", "Size Gauge description")
-SIZE_GG = Gauge("size_gauge", "Size gauge description")
-HISTOGRAM = Histogram("histie", "Histogram description")
+from prometheus_client import Gauge
 
 
 class DataCategoryConstants:
