@@ -17,12 +17,12 @@ class DataCategoryConstants:
 
 
 INDEX = {
-    "LabelIndexCreated": Gauge(
-        "LabelIndexCreated", "Number of times a label index was created."
+    "ActiveLabelIndices": Gauge(
+        "ActiveLabelIndices", "Number of active label indices in the system."
     ),
-    "LabelPropertyIndexCreated": Gauge(
-        "LabelPropertyIndexCreated",
-        "Number of times a label property index was created.",
+    "ActiveLabelPropertyIndices": Gauge(
+        "ActiveLabelPropertyIndices",
+        "Number of active label indices in the system.",
     ),
 }
 
@@ -183,11 +183,13 @@ QUERY_TYPE = {
 }
 
 SESSION = {
-    "ActiveBoltSessions": Gauge("ActiveBoltSessions", "Number of active connections."),
-    "ActiveSSLSessions": Gauge(
-        "ActiveSSLSessions", "Number of active Bolt connections."
+    "ActiveBoltSessions": Gauge(
+        "ActiveBoltSessions", "Number of active Bolt connections."
     ),
-    "ActiveSessions": Gauge("ActiveSessions", "Number of active TCP connections."),
+    "ActiveSSLSessions": Gauge(
+        "ActiveSSLSessions", "Number of active SSL connections."
+    ),
+    "ActiveSessions": Gauge("ActiveSessions", "Number of active connections."),
     "ActiveTCPSessions": Gauge(
         "ActiveTCPSessions", "Number of active TCP connections."
     ),
@@ -198,17 +200,29 @@ SESSION = {
 }
 
 SNAPSHOT = {
-    "SnapshotCreationLatency_us_100p": Gauge(
-        "SnapshotCreationLatency_us_100p",
-        "Snapshot creation latency in microseconds, 100th percentile",
+    "SnapshotCreationLatency_us_99p": Gauge(
+        "SnapshotCreationLatency_us_99p",
+        "Snapshot creation latency in microseconds, 99th percentile",
+    ),
+    "SnapshotCreationLatency_us_90p": Gauge(
+        "SnapshotCreationLatency_us_90p",
+        "Snapshot creation latency in microseconds, 90th percentile",
     ),
     "SnapshotCreationLatency_us_50p": Gauge(
         "SnapshotCreationLatency_us_50p",
         "Snapshot creation latency in microseconds, 50th percentile",
     ),
-    "SnapshotCreationLatency_us_90p": Gauge(
-        "SnapshotCreationLatency_us_90p",
+    "SnapshotRecoveryLatency_us_99p": Gauge(
+        "SnapshotRecoveryLatency_us_99p",
+        "Snapshot creation latency in microseconds, 99th percentile",
+    ),
+    "SnapshotRecoveryLatency_us_90p": Gauge(
+        "SnapshotRecoveryLatency_us_90p",
         "Snapshot creation latency in microseconds, 90th percentile",
+    ),
+    "SnapshotRecoveryLatency_us_50p": Gauge(
+        "SnapshotRecoveryLatency_us_50p",
+        "Snapshot creation latency in microseconds, 50th percentile",
     ),
 }
 

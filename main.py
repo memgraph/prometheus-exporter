@@ -18,11 +18,16 @@ class ConfigConstants:
 
 class Config:
     def __init__(
-        self, memgraph_endpoint_url: str, memgraph_port: int, exporter_port: int
+        self,
+        memgraph_endpoint_url: str,
+        memgraph_port: int,
+        exporter_port: int,
+        pull_frequency_seconds: int,
     ) -> None:
         self._memgraph_endpoint_url = memgraph_endpoint_url
         self._memgraph_port = memgraph_port
         self._exporter_port = exporter_port
+        self._pull_frequency_seconds = pull_frequency_seconds
 
     @classmethod
     def from_yaml_file(cls, file_name: str = "config.yaml") -> "Config":
@@ -46,15 +51,20 @@ class Config:
     def memgraph_port(self) -> int:
         return self._memgraph_port
 
+    @property
+    def pull_frequency_seconds(self) -> int:
+        return self._pull_frequency_seconds
+
 
 config_singleton = None
 
 
 def pull_metrics():
-    """Pull Memgraph metrics"""
+    # We first want to fetch metrics from the Memgraph's HTTP endpoint
     res = requests.get(
         f"{config_singleton.memgraph_endpoint_url}:{config_singleton.memgraph_port}"
     )
+
     if res.status_code != 200:
         raise Exception("Status code is not 200!")
 
@@ -64,10 +74,16 @@ def pull_metrics():
 
 
 if __name__ == "__main__":
+    # Parse the configuration for starting the service and retrieve data from correct endpoints
     config_singleton = Config.from_yaml_file()
-    # Start up the server to expose the metrics.
     start_http_server(config_singleton.exporter_port)
-    # Generate some requests.
+
+    # Continuously fetch metrics
     while True:
-        time.sleep(1)
-        pull_metrics()
+        time.sleep(config_singleton.pull_frequency_seconds)
+        try:
+            pull_metrics()
+        except Exception as e:
+            print("Exception occurred while pulling Memgraph metrics!")
+            print(e)
+            exit(1)

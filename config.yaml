@@ -1,5 +1,7 @@
+exporter:
+  port: 9115
 memgraph:
   endpoint_url: http://127.0.0.1
   port: 9092
-exporter:
-  port: 9115
+general:
+  pull_frequency_seconds: 5
