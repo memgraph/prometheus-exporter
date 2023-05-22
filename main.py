@@ -65,8 +65,11 @@ def pull_metrics():
         f"{config_singleton.memgraph_endpoint_url}:{config_singleton.memgraph_port}"
     )
 
+    print(f"Pulled metrics: status code {res.status_code}")
     if res.status_code != 200:
-        raise Exception("Status code is not 200!")
+        raise Exception(
+            f"Status code is not 200, but {res.status_code}, please check running services!"
+        )
 
     json_data = res.json()
 
