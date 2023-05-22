@@ -1,0 +1,18 @@
+# Simple Prometheus config to work with the basic setup from the README
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds.
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# A scrape configuration
+scrape_configs:
+  - job_name: "memgraph"
+    static_configs:
+      - targets: ["host.docker.internal:8000"] # Setup for running Prometheus from the docker image
+

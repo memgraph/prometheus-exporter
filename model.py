@@ -247,25 +247,25 @@ GENERAL = {
     "vertex_count": Gauge("vertex_count", "Vertex count."),
 }
 
+def update_metrics(data: Dict[str, Dict[str, int]]):
+  for key, value in data[DataCategoryConstants.Index].items():
+     INDEX[key].set(value)
+  for key, value in data[DataCategoryConstants.Operator].items():
+     OPERATOR[key].set(value)
+  for key, value in data[DataCategoryConstants.Query].items():
+     QUERY[key].set(value)
+  for key, value in data[DataCategoryConstants.QueryType].items():
+     QUERY_TYPE[key].set(value)
+  for key, value in data[DataCategoryConstants.Session].items():
+     SESSION[key].set(value)
+  for key, value in data[DataCategoryConstants.Snapshot].items():
+     SNAPSHOT[key].set(value)
+  for key, value in data[DataCategoryConstants.Stream].items():
+     STREAM[key].set(value)
+  for key, value in data[DataCategoryConstants.Transaction].items():
+     TRANSACTION[key].set(value)
+  for key, value in data[DataCategoryConstants.Trigger].items():
+     TRIGGER[key].set(value)
+  for key, value in data[DataCategoryConstants.General].items():
+     GENERAL[key].set(value)
 
-def update_metrics(data: Dict[Dict[str, int]]):
-    for key, value in data[DataCategoryConstants.Index]:
-        INDEX[key].set(value)
-    for key, value in data[DataCategoryConstants.Operator]:
-        OPERATOR[key].set(value)
-    for key, value in data[DataCategoryConstants.Query]:
-        QUERY[key].set(value)
-    for key, value in data[DataCategoryConstants.QueryType]:
-        QUERY_TYPE[key].set(value)
-    for key, value in data[DataCategoryConstants.Session]:
-        SESSION[key].set(value)
-    for key, value in data[DataCategoryConstants.Snapshot]:
-        SNAPSHOT[key].set(value)
-    for key, value in data[DataCategoryConstants.Stream]:
-        STREAM[key].set(value)
-    for key, value in data[DataCategoryConstants.Transaction]:
-        TRANSACTION[key].set(value)
-    for key, value in data[DataCategoryConstants.Trigger]:
-        TRIGGER[key].set(value)
-    for key, value in data[DataCategoryConstants.General]:
-        GENERAL[key].set(value)
