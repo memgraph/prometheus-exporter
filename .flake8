@@ -1,0 +1,3 @@
+[flake8]
+exclude = .venv,.vscode
+max-line-length = 120
