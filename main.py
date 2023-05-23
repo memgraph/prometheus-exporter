@@ -11,7 +11,7 @@ from model import update_metrics
 
 class ConfigConstants:
     EXPORTER = "exporter"
-    HOST = "host"
+    ENDPOINT_URL = "endpoint_URL"
     MEMGRAPH = "memgraph"
     PORT = "post"
 
@@ -34,7 +34,7 @@ class Config:
         with open(file_name) as f:
             data = yaml.load(f, Loader=SafeLoader)
             return Config(
-                data[ConfigConstants.MEMGRAPH][ConfigConstants.HOST],
+                data[ConfigConstants.MEMGRAPH][ConfigConstants.ENDPOINT_URL],
                 data[ConfigConstants.MEMGRAPH][ConfigConstants.PORT],
                 data[ConfigConstants.EXPORTER][ConfigConstants.PORT],
             )
