@@ -92,4 +92,3 @@ if __name__ == "__main__":
         except Exception as e:
             print("Exception occurred while pulling Memgraph metrics!")
             print(e)
-            exit(1)
