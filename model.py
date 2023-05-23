@@ -150,29 +150,17 @@ OPERATOR = {
 }
 
 QUERY = {
-    "QueryExecutionLatency_us_0p": Gauge(
-        "QueryExecutionLatency_us_0p",
-        "Query execution latency in microseconds, 0th percentile",
+    "QueryExecutionLatency_us_99p": Gauge(
+        "QueryExecutionLatency_us_99p",
+        "Query execution latency in microseconds, 99th percentile",
     ),
-    "QueryExecutionLatency_us_100p": Gauge(
-        "QueryExecutionLatency_us_100p",
-        "Query execution latency in microseconds, 100th percentile",
-    ),
-    "QueryExecutionLatency_us_25p": Gauge(
-        "QueryExecutionLatency_us_25p",
-        "Query execution latency in microseconds, 25th percentile",
+    "QueryExecutionLatency_us_90p": Gauge(
+        "QueryExecutionLatency_us_90p",
+        "Query execution latency in microseconds, 90th percentile",
     ),
     "QueryExecutionLatency_us_50p": Gauge(
         "QueryExecutionLatency_us_50p",
         "Query execution latency in microseconds, 50th percentile",
-    ),
-    "QueryExecutionLatency_us_75p": Gauge(
-        "QueryExecutionLatency_us_75p",
-        "Query execution latency in microseconds, 75th percentile",
-    ),
-    "QueryExecutionLatency_us_99p": Gauge(
-        "QueryExecutionLatency_us_99p",
-        "Query execution latency in microseconds, 99th percentile",
     ),
 }
 
