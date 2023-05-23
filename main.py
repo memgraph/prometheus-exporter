@@ -11,9 +11,11 @@ from model import update_metrics
 
 class ConfigConstants:
     EXPORTER = "exporter"
-    ENDPOINT_URL = "endpoint_URL"
+    ENDPOINT_URL = "endpoint_url"
+    GENERAL = "general"
     MEMGRAPH = "memgraph"
-    PORT = "post"
+    PORT = "port"
+    PULL_FREQUENCY_SECONDS = "pull_frequency_seconds"
 
 
 class Config:
@@ -37,6 +39,7 @@ class Config:
                 data[ConfigConstants.MEMGRAPH][ConfigConstants.ENDPOINT_URL],
                 data[ConfigConstants.MEMGRAPH][ConfigConstants.PORT],
                 data[ConfigConstants.EXPORTER][ConfigConstants.PORT],
+                data[ConfigConstants.GENERAL][ConfigConstants.PULL_FREQUENCY_SECONDS],
             )
 
     @property
