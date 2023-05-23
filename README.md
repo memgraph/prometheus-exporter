@@ -23,7 +23,7 @@ Add Memgraph target to the Prometheus `scrape_configs`:
 scrape_configs:
   - job_name: 'memgraph-metrics'
   static_configs:
-    - targets: ['<<MEMGRAPH_EXPORTER_HOST>>:8000']
+    - targets: ['<<EXPORTER_HOST>>:<<EXPORTER_PORT>>']
 ```
 Adjust the host accordingly.
 
@@ -36,7 +36,7 @@ _For more informatioin about the Prometheus [scrape_configs](https://prometheus.
 1. Startup your local Memgraph instance.
 2. Make sure Memgraph is sending the metric information
 ```shell
-$ curl localhost:9092
+$ curl <<MEMGRAPH_METRICS_HOST>>:<<MEMGRAPH_METRICS_PORT>>
 ```
 You should see a JSON object containing the metrics information.
 
@@ -47,7 +47,7 @@ $ python3 main.py
 ```
 4. Make sure the exporter is running
 ```shell
-$ curl localhost:8000
+$ curl <<EXPORTER_HOST>>:<<EXPORTER_PORT>>
 ```
 You should see a Prometheus object containing the metrics information.
 
