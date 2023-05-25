@@ -16,15 +16,10 @@ class DataCategoryConstants:
     General = "General"
 
 
-INDEX = {
-    "ActiveLabelIndices": Gauge(
-        "ActiveLabelIndices", "Number of active label indices in the system."
-    ),
-    "ActiveLabelPropertyIndices": Gauge(
-        "ActiveLabelPropertyIndices",
-        "Number of active label indices in the system.",
-    ),
-}
+index_data = [
+    ("ActiveLabelIndices", "Number of active label indices in the system."),
+    ("ActiveLabelPropertyIndices", "Number of active label indices in the system."),
+]
 
 operator_names = [
     "AccumulateOperator",
@@ -66,107 +61,101 @@ operator_names = [
     "UnwindOperator",
 ]
 
+query_data = [
+    (
+        "QueryExecutionLatency_us_99p",
+        "Query execution latency in microseconds, 99th percentile",
+    ),
+    (
+        "QueryExecutionLatency_us_90p",
+        "Query execution latency in microseconds, 90th percentile",
+    ),
+    (
+        "QueryExecutionLatency_us_50p",
+        "Query execution latency in microseconds, 50th percentile",
+    ),
+]
+
+query_type_data = [
+    ("ReadQuery", "Number of read-only queries executed."),
+    ("ReadWriteQuery", "Number of write-only queries executed."),
+    ("WriteQuery", "Number of read-write queries executed."),
+]
+
+session_data = [
+    ("ActiveBoltSessions", "Number of active Bolt connections."),
+    ("ActiveSSLSessions", "Number of active SSL connections."),
+    ("ActiveSessions", "Number of active connections."),
+    ("ActiveTCPSessions", "Number of active TCP connections."),
+    ("ActiveWebSocketSessions", "Number of active websocket connections."),
+    ("BoltMessages", "Number of Bolt messages sent."),
+]
+
+snapshot_data = [
+    (
+        "SnapshotCreationLatency_us_99p",
+        "Snapshot creation latency in microseconds, 99th percentile.",
+    ),
+    (
+        "SnapshotCreationLatency_us_90p",
+        "Snapshot creation latency in microseconds, 90th percentile.",
+    ),
+    (
+        "SnapshotCreationLatency_us_50p",
+        "Snapshot creation latency in microseconds, 50th percentile.",
+    ),
+    (
+        "SnapshotRecoveryLatency_us_99p",
+        "Snapshot recovery latency in microseconds, 99th percentile.",
+    ),
+    (
+        "SnapshotRecoveryLatency_us_90p",
+        "Snapshot recovery latency in microseconds, 90th percentile.",
+    ),
+    (
+        "SnapshotRecoveryLatency_us_50p",
+        "Snapshot recovery latency in microseconds, 50th percentile.",
+    ),
+]
+
+stream_data = [
+    ("MessagesConsumed", "Number of consumed streamed messages."),
+    ("StreamsCreated", "Number of Streams created."),
+]
+
+transaction_data = [
+    ("ActiveTransactions", "Number of active transactions."),
+    ("CommitedTransactions", "Number of committed transactions."),
+    ("FailedQuery", "Number of times executing a query failed."),
+    ("RollbackedTransactions", "Number of rollbacked transactions."),
+]
+
+trigger_data = [
+    ("TriggersCreated", "Number of Triggers created."),
+    ("TriggersExecuted", "Number of Triggers executed."),
+]
+
+general_data = [
+    ("average_degree", "Average node degree."),
+    ("disk_usage", "Amount of disk usage."),
+    ("edge_count", "Edge count."),
+    ("memory_usage", "Amount of memory usage."),
+    ("vertex_count", "Vertex count."),
+]
+
+INDEX = {name: Gauge(name, description) for name, description in index_data}
 OPERATOR = {
     name: Gauge(name, f"Number of times {name} has been called.")
     for name in operator_names
 }
-
-
-QUERY = {
-    "QueryExecutionLatency_us_99p": Gauge(
-        "QueryExecutionLatency_us_99p",
-        "Query execution latency in microseconds, 99th percentile",
-    ),
-    "QueryExecutionLatency_us_90p": Gauge(
-        "QueryExecutionLatency_us_90p",
-        "Query execution latency in microseconds, 90th percentile",
-    ),
-    "QueryExecutionLatency_us_50p": Gauge(
-        "QueryExecutionLatency_us_50p",
-        "Query execution latency in microseconds, 50th percentile",
-    ),
-}
-
-QUERY_TYPE = {
-    "ReadQuery": Gauge("ReadQuery", "Number of read-only queries executed."),
-    "ReadWriteQuery": Gauge("ReadWriteQuery", "Number of write-only queries executed."),
-    "WriteQuery": Gauge("WriteQuery", "Number of read-write queries executed."),
-}
-
-SESSION = {
-    "ActiveBoltSessions": Gauge(
-        "ActiveBoltSessions", "Number of active Bolt connections."
-    ),
-    "ActiveSSLSessions": Gauge(
-        "ActiveSSLSessions", "Number of active SSL connections."
-    ),
-    "ActiveSessions": Gauge("ActiveSessions", "Number of active connections."),
-    "ActiveTCPSessions": Gauge(
-        "ActiveTCPSessions", "Number of active TCP connections."
-    ),
-    "ActiveWebSocketSessions": Gauge(
-        "ActiveWebSocketSessions", "Number of active websocket connections."
-    ),
-    "BoltMessages": Gauge("BoltMessages", "Number of Bolt messages sent."),
-}
-
-SNAPSHOT = {
-    "SnapshotCreationLatency_us_99p": Gauge(
-        "SnapshotCreationLatency_us_99p",
-        "Snapshot creation latency in microseconds, 99th percentile",
-    ),
-    "SnapshotCreationLatency_us_90p": Gauge(
-        "SnapshotCreationLatency_us_90p",
-        "Snapshot creation latency in microseconds, 90th percentile",
-    ),
-    "SnapshotCreationLatency_us_50p": Gauge(
-        "SnapshotCreationLatency_us_50p",
-        "Snapshot creation latency in microseconds, 50th percentile",
-    ),
-    "SnapshotRecoveryLatency_us_99p": Gauge(
-        "SnapshotRecoveryLatency_us_99p",
-        "Snapshot creation latency in microseconds, 99th percentile",
-    ),
-    "SnapshotRecoveryLatency_us_90p": Gauge(
-        "SnapshotRecoveryLatency_us_90p",
-        "Snapshot creation latency in microseconds, 90th percentile",
-    ),
-    "SnapshotRecoveryLatency_us_50p": Gauge(
-        "SnapshotRecoveryLatency_us_50p",
-        "Snapshot creation latency in microseconds, 50th percentile",
-    ),
-}
-
-STREAM = {
-    "MessagesConsumed": Gauge(
-        "MessagesConsumed", "Number of consumed streamed messages."
-    ),
-    "StreamsCreated": Gauge("StreamsCreated", "Number of Streams created."),
-}
-
-TRANSACTION = {
-    "ActiveTransactions": Gauge("ActiveTransactions", "Number of active transactions."),
-    "CommitedTransactions": Gauge(
-        "CommitedTransactions", "Number of committed transactions."
-    ),
-    "FailedQuery": Gauge("FailedQuery", "Number of times executing a query failed."),
-    "RollbackedTransactions": Gauge(
-        "RollbackedTransactions", "Number of rollbacked transactions."
-    ),
-}
-
-TRIGGER = {
-    "TriggersCreated": Gauge("TriggersCreated", "Number of Triggers created."),
-    "TriggersExecuted": Gauge("TriggersExecuted", "Number of Triggers executed."),
-}
-
-GENERAL = {
-    "average_degree": Gauge("average_degree", "Average node degree."),
-    "disk_usage": Gauge("disk_usage", "Amount of disk usage."),
-    "edge_count": Gauge("edge_count", "Edge count."),
-    "memory_usage": Gauge("memory_usage", "Amount of memory usage."),
-    "vertex_count": Gauge("vertex_count", "Vertex count."),
-}
+QUERY = {name: Gauge(name, description) for name, description in query_data}
+QUERY_TYPE = {name: Gauge(name, description) for name, description in query_type_data}
+SESSION = {name: Gauge(name, description) for name, description in session_data}
+SNAPSHOT = {name: Gauge(name, description) for name, description in snapshot_data}
+STREAM = {name: Gauge(name, description) for name, description in stream_data}
+TRANSACTION = {name: Gauge(name, description) for name, description in transaction_data}
+TRIGGER = {name: Gauge(name, description) for name, description in trigger_data}
+GENERAL = {name: Gauge(name, description) for name, description in general_data}
 
 
 def update_metrics(data: Dict[str, Dict[str, int]]):
