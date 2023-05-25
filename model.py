@@ -26,128 +26,51 @@ INDEX = {
     ),
 }
 
+operator_names = [
+    "AccumulateOperator",
+    "AggregateOperator",
+    "ApplyOperator",
+    "CallProcedureOperator",
+    "CartesianOperator",
+    "ConstructNamedPathOperator",
+    "CreateExpandOperator",
+    "CreateNodeOperator",
+    "DeleteOperator",
+    "DistinctOperator",
+    "EdgeUniquenessFilterOperator",
+    "EmptyResultOperator",
+    "EvaluatePatternFilterOperator",
+    "ExpandOperator",
+    "ExpandVariableOperator",
+    "FilterOperator",
+    "ForeachOperator",
+    "LimitOperator",
+    "MergeOperator",
+    "OnceOperator",
+    "OptionalOperator",
+    "OrderByOperator",
+    "ProduceOperator",
+    "RemoveLabelsOperator",
+    "RemovePropertyOperator",
+    "ScanAllByIdOperator",
+    "ScanAllByLabelOperator",
+    "ScanAllByLabelPropertyOperator",
+    "ScanAllByLabelPropertyRangeOperator",
+    "ScanAllByLabelPropertyValueOperator",
+    "ScanAllOperator",
+    "SetLabelsOperator",
+    "SetPropertiesOperator",
+    "SetPropertyOperator",
+    "SkipOperator",
+    "UnionOperator",
+    "UnwindOperator",
+]
+
 OPERATOR = {
-    "AccumulateOperator": Gauge(
-        "AccumulateOperator", "Number of times AccumulateOperator has been called"
-    ),
-    "AggregateOperator": Gauge(
-        "AggregateOperator", "Number of times AggregateOperator has been called"
-    ),
-    "ApplyOperator": Gauge(
-        "ApplyOperator", "Number of times ApplyOperator has been called"
-    ),
-    "CallProcedureOperator": Gauge(
-        "CallProcedureOperator", "Number of times CallProcedureOperator has been called"
-    ),
-    "CartesianOperator": Gauge(
-        "CartesianOperator", "Number of times CartesianOperator has been called"
-    ),
-    "ConstructNamedPathOperator": Gauge(
-        "ConstructNamedPathOperator",
-        "Number of times ConstructNamedPathOperator has been called",
-    ),
-    "CreateExpandOperator": Gauge(
-        "CreateExpandOperator", "Number of times CreateExpandOperator has been called"
-    ),
-    "CreateNodeOperator": Gauge(
-        "CreateNodeOperator", "Number of times CreateNodeOperator has been called"
-    ),
-    "DeleteOperator": Gauge(
-        "DeleteOperator", "Number of times DeleteOperator has been called"
-    ),
-    "DistinctOperator": Gauge(
-        "DistinctOperator", "Number of times DistinctOperator has been called"
-    ),
-    "EdgeUniquenessFilterOperator": Gauge(
-        "EdgeUniquenessFilterOperator",
-        "Number of times EdgeUniquenessFilterOperator has been called",
-    ),
-    "EmptyResultOperator": Gauge(
-        "EmptyResultOperator", "Number of times EmptyResultOperator has been called"
-    ),
-    "EvaluatePatternFilterOperator": Gauge(
-        "EvaluatePatternFilterOperator",
-        "Number of times EvaluatePatternFilterOperator has been called",
-    ),
-    "ExpandOperator": Gauge(
-        "ExpandOperator", "Number of times ExpandOperator has been called"
-    ),
-    "ExpandVariableOperator": Gauge(
-        "ExpandVariableOperator",
-        "Number of times ExpandVariableOperator has been called",
-    ),
-    "FilterOperator": Gauge(
-        "FilterOperator", "Number of times FilterOperator has been called"
-    ),
-    "ForeachOperator": Gauge(
-        "ForeachOperator", "Number of times ForeachOperator has been called"
-    ),
-    "LimitOperator": Gauge(
-        "LimitOperator", "Number of times LimitOperator has been called"
-    ),
-    "MergeOperator": Gauge(
-        "MergeOperator", "Number of times MergeOperator has been called"
-    ),
-    "OnceOperator": Gauge(
-        "OnceOperator", "Number of times OnceOperator has been called"
-    ),
-    "OptionalOperator": Gauge(
-        "OptionalOperator", "Number of times OptionalOperator has been called"
-    ),
-    "OrderByOperator": Gauge(
-        "OrderByOperator", "Number of times OrderByOperator has been called"
-    ),
-    "ProduceOperator": Gauge(
-        "ProduceOperator", "Number of times ProduceOperator has been called"
-    ),
-    "RemoveLabelsOperator": Gauge(
-        "RemoveLabelsOperator", "Number of times RemoveLabelsOperator has been called"
-    ),
-    "RemovePropertyOperator": Gauge(
-        "RemovePropertyOperator",
-        "Number of times RemovePropertyOperator has been called",
-    ),
-    "ScanAllByIdOperator": Gauge(
-        "ScanAllByIdOperator", "Number of times ScanAllByIdOperator has been called"
-    ),
-    "ScanAllByLabelOperator": Gauge(
-        "ScanAllByLabelOperator",
-        "Number of times ScanAllByLabelOperator has been called",
-    ),
-    "ScanAllByLabelPropertyOperator": Gauge(
-        "ScanAllByLabelPropertyOperator",
-        "Number of times ScanAllByLabelPropertyOperator has been called",
-    ),
-    "ScanAllByLabelPropertyRangeOperator": Gauge(
-        "ScanAllByLabelPropertyRangeOperator",
-        "Number of times ScanAllByLabelPropertyRangeOperator has been called",
-    ),
-    "ScanAllByLabelPropertyValueOperator": Gauge(
-        "ScanAllByLabelPropertyValueOperator",
-        "Number of times ScanAllByLabelPropertyValueOperator has been called",
-    ),
-    "ScanAllOperator": Gauge(
-        "ScanAllOperator", "Number of times ScanAllOperator has been called"
-    ),
-    "SetLabelsOperator": Gauge(
-        "SetLabelsOperator", "Number of times SetLabelsOperator has been called"
-    ),
-    "SetPropertiesOperator": Gauge(
-        "SetPropertiesOperator", "Number of times SetPropertiesOperator has been called"
-    ),
-    "SetPropertyOperator": Gauge(
-        "SetPropertyOperator", "Number of times SetPropertyOperator has been called"
-    ),
-    "SkipOperator": Gauge(
-        "SkipOperator", "Number of times SkipOperator has been called"
-    ),
-    "UnionOperator": Gauge(
-        "UnionOperator", "Number of times UnionOperator has been called"
-    ),
-    "UnwindOperator": Gauge(
-        "UnwindOperator", "Number of times UnwindOperator has been called"
-    ),
+    name: Gauge(name, f"Number of times {name} has been called.")
+    for name in operator_names
 }
+
 
 QUERY = {
     "QueryExecutionLatency_us_99p": Gauge(

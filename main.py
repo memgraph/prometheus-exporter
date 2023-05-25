@@ -1,3 +1,4 @@
+import logging
 import time
 import requests
 import yaml
@@ -7,6 +8,11 @@ from yaml.loader import SafeLoader
 from prometheus_client import start_http_server
 
 from model import update_metrics
+
+
+logging.basicConfig(format="%(asctime)-15s [%(levelname)s]: %(message)s")
+logger = logging.getLogger("prometheus_handler")
+logger.setLevel(logging.INFO)
 
 
 class ConfigConstants:
@@ -59,16 +65,9 @@ class Config:
         return self._pull_frequency_seconds
 
 
-config_singleton = None
+def pull_metrics(config: Config):
+    res = requests.get(f"{config.memgraph_endpoint_url}:{config.memgraph_port}")
 
-
-def pull_metrics():
-    # We first want to fetch metrics from the Memgraph's HTTP endpoint
-    res = requests.get(
-        f"{config_singleton.memgraph_endpoint_url}:{config_singleton.memgraph_port}"
-    )
-
-    print(f"Pulled metrics: status code {res.status_code}")
     if res.status_code != 200:
         raise Exception(
             f"Status code is not 200, but {res.status_code}, please check running services!"
@@ -81,14 +80,13 @@ def pull_metrics():
 
 if __name__ == "__main__":
     # Parse the configuration for starting the service and retrieve data from correct endpoints
-    config_singleton = Config.from_yaml_file()
-    start_http_server(config_singleton.exporter_port)
+    config = Config.from_yaml_file()
+    start_http_server(config.exporter_port)
 
     # Continuously fetch metrics
     while True:
-        time.sleep(config_singleton.pull_frequency_seconds)
         try:
-            pull_metrics()
+            time.sleep(config.pull_frequency_seconds)
+            pull_metrics(config)
         except Exception as e:
-            print("Exception occurred while pulling Memgraph metrics!")
-            print(e)
+            logger.error(e)

@@ -220,7 +220,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "requests"
-version = "2.30.0"
+version = "2.31.0"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
@@ -246,7 +246,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "typing-extensions"
-version = "4.5.0"
+version = "4.6.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
 optional = false
@@ -285,8 +285,8 @@ test = ["covdefaults (>=2.3)", "coverage-enable-subprocess (>=1)", "coverage (>=
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.8.1"
-content-hash = "65fb6aebe4ca42693dae34ad99e7f98637889109e9920f180f7bacd6460fae76"
+python-versions = "^3.9.0"
+content-hash = "3bf9af390d981196b51724b566c9fbeea6f0d1d673dec2a390d378e7e583e458"
 
 [metadata.files]
 black = []
