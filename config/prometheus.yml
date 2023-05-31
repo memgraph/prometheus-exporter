@@ -1,17 +1,8 @@
-# Simple Prometheus config to work with the basic setup from the README
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-          # - alertmanager:9093
-
-# A scrape configuration
 scrape_configs:
   - job_name: "memgraph-metrics"
     static_configs:
-      - targets: ["localhost:9115"] # Setup for running Prometheus from the docker image
+      - targets: ["localhost:9115"]
