@@ -5,9 +5,12 @@ description = ""
 authors = ["Josip Mrden <josip.mrden@memgraph.io>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9.0"
 prometheus-client = "^0.16.0"
 requests = "^2.28.2"
+black = "^23.3.0"
+flake8 = "^6.0.0"
+pre-commit = "^3.3.2"
 
 [tool.poetry.dev-dependencies]
 
