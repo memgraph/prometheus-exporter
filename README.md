@@ -2,7 +2,7 @@
 
 [Memgraph](https://github.com/memgraph/memgraph) exporter for Prometheus.
 
-The metrics currently collected can be found [in the documentation](https://memgraph.com/docs/memgraph/next/reference-guide/exposing-system-metrics#system-metrics).
+The metrics currently collected can be found [in the documentation](https://memgraph.com/docs/configuration/monitoring-server#monitoring-via-http-server-enterprise).
 
 ## Running the exporter
 
