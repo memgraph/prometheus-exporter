@@ -11,6 +11,7 @@ class DataCategoryConstants:
     Session = "Session"
     Snapshot = "Snapshot"
     Stream = "Stream"
+    TTL = "TTL"
     Transaction = "Transaction"
     Trigger = "Trigger"
     General = "General"
@@ -19,6 +20,7 @@ class DataCategoryConstants:
 index_data = [
     ("ActiveLabelIndices", "Number of active label indices in the system."),
     ("ActiveLabelPropertyIndices", "Number of active label indices in the system."),
+    ("ActiveTextIndices", "Number of active text indices in the system."),
 ]
 
 operator_names = [
@@ -39,14 +41,21 @@ operator_names = [
     "ExpandVariableOperator",
     "FilterOperator",
     "ForeachOperator",
+    "HashJoinOperator",
+    "IndexedJoinOperator",
     "LimitOperator",
     "MergeOperator",
     "OnceOperator",
     "OptionalOperator",
     "OrderByOperator",
+    "PeriodicCommitOperator",
+    "PeriodicSubqueryOperator",
     "ProduceOperator",
     "RemoveLabelsOperator",
     "RemovePropertyOperator",
+    "RollUpApplyOperator",
+    "ScanAllByEdgeIdOperator",
+    "ScanAllByEdgeTypeOperator",
     "ScanAllByIdOperator",
     "ScanAllByLabelOperator",
     "ScanAllByLabelPropertyOperator",
@@ -123,11 +132,19 @@ stream_data = [
     ("StreamsCreated", "Number of Streams created."),
 ]
 
+TTL = [
+    ("DeletedEdges", "Number of deleted TTL edges."),
+    ("DeletedNodes", "Number of deleted TTL nodes."),
+]
+
 transaction_data = [
     ("ActiveTransactions", "Number of active transactions."),
     ("CommitedTransactions", "Number of committed transactions."),
+    ("FailedPrepare", "Number of failed prepare queries."),
+    ("FailedPull", "Number of failed pulls."),
     ("FailedQuery", "Number of times executing a query failed."),
     ("RollbackedTransactions", "Number of rollbacked transactions."),
+    ("SuccessfulQuery", "Number of successful queries"),
 ]
 
 trigger_data = [
@@ -140,6 +157,8 @@ general_data = [
     ("disk_usage", "Amount of disk usage."),
     ("edge_count", "Edge count."),
     ("memory_usage", "Amount of memory usage."),
+    ("peak_memory_usage", "Peak memory usage."),
+    ("unreleased_delta_objects", "Number of unreleased delta objects."),
     ("vertex_count", "Vertex count."),
 ]
 
