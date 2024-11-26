@@ -198,4 +198,3 @@ def update_metrics(data: Dict[str, Dict[str, int]]):
         TRIGGER[key].set(value)
     for key, value in data[DataCategoryConstants.General].items():
         GENERAL[key].set(value)
-        
