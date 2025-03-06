@@ -76,6 +76,7 @@ def pull_metrics(config: Config):
     json_data = res.json()
 
     update_metrics(json_data)
+    logger.info(f"Sent update to Prometheus")
 
 
 if __name__ == "__main__":
@@ -89,4 +90,4 @@ if __name__ == "__main__":
             time.sleep(config.pull_frequency_seconds)
             pull_metrics(config)
         except Exception as e:
-            logger.error(e)
+            logger.error("Error occurred while updating metrics: {}", e)
