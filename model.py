@@ -4,6 +4,7 @@ from prometheus_client import Gauge
 
 
 class DataCategoryConstants:
+    HighAvailability = "HighAvailability"
     Index = "Index"
     Operator = "Operator"
     Query = "Query"
@@ -15,6 +16,13 @@ class DataCategoryConstants:
     Transaction = "Transaction"
     Trigger = "Trigger"
     General = "General"
+
+
+ha_data = [
+    ("SuccessfulFailovers", "Number of successful failovers performed."),
+    ("RaftFailedFailovers", "Number of failed failovers because of Raft."),
+    ("NoAliveInstanceFailedFailovers", "Number of failed failovers, no data instance was alive.")
+]
 
 
 index_data = [
