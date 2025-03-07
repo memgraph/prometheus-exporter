@@ -177,24 +177,21 @@ TRIGGER = {name: Gauge(name, description) for name, description in trigger_data}
 GENERAL = {name: Gauge(name, description) for name, description in general_data}
 
 
-def update_metrics(data: Dict[str, Dict[str, int]]):
-    for key, value in data[DataCategoryConstants.Index].items():
-        INDEX[key].set(value)
-    for key, value in data[DataCategoryConstants.Operator].items():
-        OPERATOR[key].set(value)
-    for key, value in data[DataCategoryConstants.Query].items():
-        QUERY[key].set(value)
-    for key, value in data[DataCategoryConstants.QueryType].items():
-        QUERY_TYPE[key].set(value)
-    for key, value in data[DataCategoryConstants.Session].items():
-        SESSION[key].set(value)
-    for key, value in data[DataCategoryConstants.Snapshot].items():
-        SNAPSHOT[key].set(value)
-    for key, value in data[DataCategoryConstants.Stream].items():
-        STREAM[key].set(value)
-    for key, value in data[DataCategoryConstants.Transaction].items():
-        TRANSACTION[key].set(value)
-    for key, value in data[DataCategoryConstants.Trigger].items():
-        TRIGGER[key].set(value)
-    for key, value in data[DataCategoryConstants.General].items():
-        GENERAL[key].set(value)
+def update_prom_metrics(mg_data, prom_data):
+    for key, value in mg_data.items():
+        if key not in prom_data:
+            continue
+        prom_data[key].set(value)
+
+
+def update_metrics(mg_data: Dict[str, Dict[str, int]]):
+    update_prom_metrics(mg_data[DataCategoryConstants.Index], INDEX)
+    update_prom_metrics(mg_data[DataCategoryConstants.Operator], OPERATOR)
+    update_prom_metrics(mg_data[DataCategoryConstants.Query], QUERY)
+    update_prom_metrics(mg_data[DataCategoryConstants.QueryType], QUERY_TYPE)
+    update_prom_metrics(mg_data[DataCategoryConstants.Session], SESSION)
+    update_prom_metrics(mg_data[DataCategoryConstants.Snapshot], SNAPSHOT)
+    update_prom_metrics(mg_data[DataCategoryConstants.Stream], STREAM)
+    update_prom_metrics(mg_data[DataCategoryConstants.Transaction], TRANSACTION)
+    update_prom_metrics(mg_data[DataCategoryConstants.Trigger], TRIGGER)
+    update_prom_metrics(mg_data[DataCategoryConstants.General], GENERAL)
