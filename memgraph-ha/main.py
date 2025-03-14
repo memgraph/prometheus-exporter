@@ -61,12 +61,13 @@ if __name__ == "__main__":
     start_http_server(exporter.config.port)
 
     while True:
-        try:
-            data1_metrics = pull_metrics(exporter.instances[3])
-            logger.info("Data1 metrics:\n%s", data1_metrics)
-            update_metrics(data1_metrics, "data1")
-            logger.info("Send update to Prometheus for instance data1")
-        except Exception as e:
-            logger.error("Error occurred while updating metrics: %s", e)
-        finally:
-            time.sleep(exporter.config.pull_frequency_seconds)
+        for instance in exporter.instances:
+            try:
+                instance_metrics = pull_metrics(instance)
+                logger.info("%s metrics:\n%s", instance.name, instance_metrics)
+                update_metrics(instance_metrics, instance.name)
+                logger.info("Send update to Prometheus for instance %s", instance.name)
+            except Exception as e:
+                logger.error("Error occurred while updating metrics: %s", e)
+            finally:
+                time.sleep(exporter.config.pull_frequency_seconds)
