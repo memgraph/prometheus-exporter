@@ -14,6 +14,7 @@ from query_type_metrics import PrometheusQueryTypeData
 from query_metrics import PrometheusQueryData
 from index_metrics import PrometheusIndexData
 from operator_metrics import PrometheusOperatorData
+from ha_metrics import PrometheusHADataInstancesMetrics
 
 
 logger = logging.getLogger("prometheus_handler")
@@ -25,13 +26,6 @@ def safe_execute(func):
         func()
     except Exception as e:
         logger.error("Error occurred while updating metrics: %s", e)
-
-
-def update_prom_metrics(mg_data, prom_data):
-    for key, value in mg_data.items():
-        if key not in prom_data:
-            continue
-        prom_data[key].set(value)
 
 
 def update_prom_metrics_per_instance(mg_data, prom_data, instance_name):
@@ -130,6 +124,15 @@ def update_data_instance_metrics(mg_data, instance_name):
             update_prom_metrics_per_instance,
             mg_data["General"],
             PrometheusGeneralData,
+            instance_name,
+        )
+    )
+
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["HighAvailability"],
+            PrometheusHADataInstancesMetrics,
             instance_name,
         )
     )
