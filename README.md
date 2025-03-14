@@ -10,24 +10,25 @@ The metrics currently collected can be found [in the documentation](https://memg
 $ git clone https://github.com/memgraph/prometheus-exporter.git
 $ cd prometheus-exporter
 $ python3 -m pip install requests prometheus_client
-$ python3 main.py
+$ python3 mg_exporter.py --type={standalone,HA}
 ```
 
-## Basic Prometheus Configuration
+## Standalone exporter
 
-Add Memgraph target to the Prometheus `scrape_configs`:
-
-```yaml
-scrape_configs:
-  - job_name: 'memgraph-metrics'
-  static_configs:
-    - targets: ['<<EXPORTER_HOST>>:<<EXPORTER_PORT>>']
+Standalone exporter can attach only to the single Memgraph instance. It can be started by running:
+```bash
+python3 mg_exporter.py --type=standalone
 ```
-Adjust the host accordingly.
 
-_When running our basic setup as described bellow, the Prometheus configuration is already setup for you._
+Make sure to adjust host and port in `standalone_config.yaml`.
 
-_For more informatioin about the Prometheus [scrape_configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)._
+
+## HA exporter
+
+High availability exporter attaches to multiple memgraph instances which are connected in cluster. It exposes for each instance all metrics
+which are exposed through standalone exporter but it also adds HA metrics. The full list of metrics used can be found on Memgraph docs.
+
+Make sure to adjust url and port for each instance in the cluster in `ha_config.yaml` file.
 
 ## Running and Debugging the Setup
 
@@ -41,7 +42,7 @@ You should see a JSON object containing the metrics information.
 3. Run the Memgraph exporter
 ```shell
 $ cd prometheus-exporter
-$ python3 main.py
+$ python3 mg_exporter.py --type=standalone
 ```
 4. Make sure the exporter is running
 ```shell
@@ -55,9 +56,3 @@ $ cd prometheus-exporter
 $ docker run --name memgraph-prometheus -d --network host -v $(pwd)/config:/etc/prometheus -p 9090:9090 prom/prometheus
 ```
 6. Open the Prometheus UI by going to http://localhost:9090
-7. Launch Grafana
-```shell
-$ docker run --name memgraph-grafana -d --network host -p 3000:3000 grafana/grafana-enterprise
-```
-8. Open the Grafana UI by going to http://localhost:3000
-9. Load our basic Grafana setup **TODO**

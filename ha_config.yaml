@@ -1,0 +1,24 @@
+exporter:
+  port: 9115
+  pull_frequency_seconds: 5
+instances:
+  - name: coord1
+    url: http://127.0.0.1
+    port: 9091
+    type: coordinator
+  - name: coord2
+    url: http://127.0.0.1
+    port: 9092
+    type: coordinator
+  - name: coord3
+    url: http://127.0.0.1
+    port: 9093
+    type: coordinator
+  - name: data1
+    url: http://127.0.0.1
+    port: 9094
+    type: data_instance
+  - name: data2
+    url: http://127.0.0.1
+    port: 9095
+    type: data_instance

@@ -1,7 +1,7 @@
 FROM python:3.9
 
 # Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update \
   && apt-get -y upgrade \
@@ -19,4 +19,8 @@ RUN rm -rf .venv \
   && poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
-ENTRYPOINT [ "python3", "main.py" ]
+# Set an environment variable default to standalone
+ENV DEPLOYMENT_TYPE=standalone
+
+# Run main.py when the container launches
+ENTRYPOINT ["sh", "-c", "python3 mg_exporter.py --type=$DEPLOYMENT_TYPE"]

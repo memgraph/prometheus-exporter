@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "prometheus-exporter"
-version = "0.1.0"
-description = ""
-authors = ["Josip Mrden <josip.mrden@memgraph.io>"]
+name = "mg_exporter"
+version = "0.2.0"
+description = "Prometheus exporter for Memgraph. Supports standalone and HA mode."
+authors = ["Josip Mrden <josip.mrden@memgraph.io>", "Andi Skrgat <andi.skrgat@memgraph.io>"]
 
 [tool.poetry.dependencies]
 python = "^3.9.0"
