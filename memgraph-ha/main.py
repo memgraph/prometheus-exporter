@@ -7,7 +7,6 @@ from prometheus_client import start_http_server
 
 from model import update_metrics
 
-
 logging.basicConfig(format="%(asctime)-15s [%(levelname)s]: %(message)s")
 logger = logging.getLogger("prometheus_handler")
 logger.setLevel(logging.INFO)
@@ -48,9 +47,6 @@ def pull_metrics(instance):
 
     return res.json()
 
-    # update_metrics(json_data)
-    # logger.info(f"Sent update to Prometheus")
-
 
 if __name__ == "__main__":
     config = load_yaml_config("config.yaml")
@@ -66,8 +62,11 @@ if __name__ == "__main__":
 
     while True:
         try:
-            time.sleep(exporter.config.pull_frequency_seconds)
             data1_metrics = pull_metrics(exporter.instances[3])
             logger.info("Data1 metrics:\n%s", data1_metrics)
+            update_metrics(data1_metrics, "data1")
+            logger.info("Send update to Prometheus for instance data1")
         except Exception as e:
             logger.error("Error occurred while updating metrics: %s", e)
+        finally:
+            time.sleep(exporter.config.pull_frequency_seconds)

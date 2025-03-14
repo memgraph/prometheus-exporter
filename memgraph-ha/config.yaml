@@ -1,6 +1,6 @@
 exporter:
   port: 9115
-  pull_frequency_seconds: 5
+  pull_frequency_seconds: 25
 instances:
   - name: coord1
     url: http://127.0.0.1
