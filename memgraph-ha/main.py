@@ -19,10 +19,11 @@ class GeneralConfig:
 
 
 class InstanceConfig:
-    def __init__(self, name, url, port):
+    def __init__(self, name, url, port, type):
         self.name = name
         self.url = url
         self.port = port
+        self.type = type
 
     def __str__(self):
         return f"InstanceConfig(name={self.name}, url={self.url}, port={self.port})"
@@ -50,7 +51,7 @@ def pull_metrics(instance):
 
 if __name__ == "__main__":
     config = load_yaml_config("config.yaml")
-    instances = [InstanceConfig(name=instance['name'], url=instance['url'], port=instance['port']) for instance in config.get('instances', [])]
+    instances = [InstanceConfig(name=instance['name'], url=instance['url'], port=instance['port'], type=instance["type"]) for instance in config.get('instances', [])]
     instances_str = '\n\t'.join(str(instance) for instance in instances)
     logger.info("HA exporter will use the following instances to collect metrics:\n\t%s", instances_str)
     general_config = GeneralConfig(port=config.get('exporter', {}).get('port', 9115), pull_frequency_seconds=config.get('exporter', {}).get('pull_frequency_seconds', 0))
@@ -65,7 +66,7 @@ if __name__ == "__main__":
             try:
                 instance_metrics = pull_metrics(instance)
                 logger.info("%s metrics:\n%s", instance.name, instance_metrics)
-                update_metrics(instance_metrics, instance.name)
+                update_metrics(instance_metrics, instance)
                 logger.info("Send update to Prometheus for instance %s", instance.name)
             except Exception as e:
                 logger.error("Error occurred while updating metrics: %s", e)

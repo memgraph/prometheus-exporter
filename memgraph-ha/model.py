@@ -1,3 +1,6 @@
+from functools import partial
+import logging
+import sys
 from typing import Dict
 
 from general_metrics import PrometheusGeneralData
@@ -13,16 +16,15 @@ from index_metrics import PrometheusIndexData
 from operator_metrics import PrometheusOperatorData
 
 
-class DataCategoryConstants:
-    Index = "Index"
-    Operator = "Operator"
-    Query = "Query"
-    QueryType = "QueryType"
-    Session = "Session"
-    Snapshot = "Snapshot"
-    Stream = "Stream"
-    TTL = "TTL"
-    Transaction = "Transaction"
+logger = logging.getLogger("prometheus_handler")
+logger.setLevel(logging.INFO)
+
+
+def safe_execute(func):
+    try:
+        func()
+    except Exception as e:
+        logger.error("Error occurred while updating metrics: %s", e)
 
 
 def update_prom_metrics(mg_data, prom_data):
@@ -42,21 +44,119 @@ def update_prom_metrics_per_instance(mg_data, prom_data, instance_name):
         prom_data[key].labels(instance_name=instance_name).set(value)
 
 
-def update_metrics(mg_data: Dict[str, Dict[str, int]], instance_name):
+def update_data_instance_metrics(mg_data, instance_name):
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Index"],
+            PrometheusIndexData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Operator"],
+            PrometheusOperatorData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Query"],
+            PrometheusQueryData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["QueryType"],
+            PrometheusQueryTypeData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Session"],
+            PrometheusSessionData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Snapshot"],
+            PrometheusSnapshotData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Stream"],
+            PrometheusStreamData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Transaction"],
+            PrometheusTransactionData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["Trigger"],
+            PrometheusTriggerData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["TTL"],
+            PrometheusTTLData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["General"],
+            PrometheusGeneralData,
+            instance_name,
+        )
+    )
+
+
+def update_coordinator_metrics(mg_data, instance_name):
+    safe_execute(
+        partial(
+            update_prom_metrics_per_instance,
+            mg_data["General"],
+            PrometheusGeneralData,
+            instance_name,
+        )
+    )
+
+
+def update_metrics(mg_data: Dict[str, Dict[str, int]], instance):
     """
-    Updates data on Prometheus based on metrics received for instance with name 'instance_name'.
+    Updates data on Prometheus based on metrics received for instance 'instance'.
     Parameters:
     mg_data: Data received from Memgraph instance with name 'instance_name'.
-    instance_name: The name of the instance whose data is being processed.
+    instance: The instance whose data is being processed.
     """
-    update_prom_metrics_per_instance(mg_data["Index"], PrometheusIndexData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Operator"], PrometheusOperatorData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Query"], PrometheusQueryData, instance_name)
-    update_prom_metrics_per_instance(mg_data["QueryType"], PrometheusQueryTypeData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Session"], PrometheusSessionData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Snapshot"], PrometheusSnapshotData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Stream"], PrometheusStreamData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Transaction"], PrometheusTransactionData, instance_name)
-    update_prom_metrics_per_instance(mg_data["Trigger"], PrometheusTriggerData, instance_name)
-    update_prom_metrics_per_instance(mg_data["TTL"], PrometheusTTLData, instance_name)
-    update_prom_metrics_per_instance(mg_data["General"], PrometheusGeneralData, instance_name)
+    if instance.type == "data_instance":
+        update_data_instance_metrics(mg_data, instance.name)
+    elif instance.type == "coordinator":
+        update_coordinator_metrics(mg_data, instance.name)
+    else:
+        logger.error("Unknown instance type %s", instance.type)
+        sys.exit(-1)
