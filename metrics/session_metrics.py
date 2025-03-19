@@ -1,6 +1,4 @@
-from prometheus_client import Gauge
-
-_data = [
+session_data = [
     ("ActiveBoltSessions", "Number of active Bolt connections."),
     ("ActiveSSLSessions", "Number of active SSL connections."),
     ("ActiveSessions", "Number of active connections."),
@@ -8,6 +6,3 @@ _data = [
     ("ActiveWebSocketSessions", "Number of active websocket connections."),
     ("BoltMessages", "Number of Bolt messages sent."),
 ]
-
-
-PrometheusSessionData = {name: Gauge(name, description, ["instance_name"]) for name, description in _data}

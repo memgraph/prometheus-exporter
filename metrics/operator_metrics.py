@@ -1,7 +1,4 @@
-from prometheus_client import Gauge
-
-
-_data = [
+operator_data = [
     "AccumulateOperator",
     "AggregateOperator",
     "ApplyOperator",
@@ -53,6 +50,3 @@ _data = [
     "UnionOperator",
     "UnwindOperator",
 ]
-
-
-PrometheusOperatorData = {name: Gauge(name, f"Number of times {name} has been called.", ["instance_name"]) for name in _data}

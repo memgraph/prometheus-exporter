@@ -1,6 +1,4 @@
-from prometheus_client import Gauge
-
-_data = [
+query_data = [
     (
         "QueryExecutionLatency_us_99p",
         "Query execution latency in microseconds, 99th percentile",
@@ -14,6 +12,3 @@ _data = [
         "Query execution latency in microseconds, 50th percentile",
     ),
 ]
-
-
-PrometheusQueryData = {name: Gauge(name, description, ["instance_name"]) for name, description in _data}

@@ -5,9 +5,9 @@ import yaml
 
 from prometheus_client import start_http_server
 
-from model import update_metrics
+from ha_model import update_metrics
 
-logging.basicConfig(format="%(asctime)-15s [%(levelname)s]: %(message)s")
+
 logger = logging.getLogger("prometheus_handler")
 logger.setLevel(logging.INFO)
 
@@ -49,8 +49,8 @@ def pull_metrics(instance):
     return res.json()
 
 
-if __name__ == "__main__":
-    config = load_yaml_config("config.yaml")
+def run():
+    config = load_yaml_config("ha_config.yaml")
     instances = [InstanceConfig(name=instance['name'], url=instance['url'], port=instance['port'], type=instance["type"]) for instance in config.get('instances', [])]
     instances_str = '\n\t'.join(str(instance) for instance in instances)
     logger.info("HA exporter will use the following instances to collect metrics:\n\t%s", instances_str)
@@ -65,10 +65,13 @@ if __name__ == "__main__":
         for instance in exporter.instances:
             try:
                 instance_metrics = pull_metrics(instance)
-                logger.info("%s metrics:\n%s", instance.name, instance_metrics)
                 update_metrics(instance_metrics, instance)
                 logger.info("Send update to Prometheus for instance %s", instance.name)
             except Exception as e:
                 logger.error("Error occurred while updating metrics: %s", e)
             finally:
                 time.sleep(exporter.config.pull_frequency_seconds)
+
+
+if __name__ == "__main__":
+    run()

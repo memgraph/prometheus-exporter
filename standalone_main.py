@@ -7,10 +7,8 @@ from yaml.loader import SafeLoader
 
 from prometheus_client import start_http_server
 
-from model import update_metrics
+from standalone_model import update_metrics
 
-
-logging.basicConfig(format="%(asctime)-15s [%(levelname)s]: %(message)s")
 logger = logging.getLogger("prometheus_handler")
 logger.setLevel(logging.INFO)
 
@@ -38,7 +36,7 @@ class Config:
         self._pull_frequency_seconds = pull_frequency_seconds
 
     @classmethod
-    def from_yaml_file(cls, file_name: str = "config.yaml") -> "Config":
+    def from_yaml_file(cls, file_name: str = "standalone_config.yaml") -> "Config":
         with open(file_name) as f:
             data = yaml.load(f, Loader=SafeLoader)
             return Config(
@@ -76,10 +74,10 @@ def pull_metrics(config: Config):
     json_data = res.json()
 
     update_metrics(json_data)
-    logger.info(f"Sent update to Prometheus")
+    logger.info("Sent update to Prometheus")
 
 
-if __name__ == "__main__":
+def run():
     # Parse the configuration for starting the service and retrieve data from correct endpoints
     config = Config.from_yaml_file()
     start_http_server(config.exporter_port)
@@ -91,3 +89,7 @@ if __name__ == "__main__":
             pull_metrics(config)
         except Exception as e:
             logger.error("Error occurred while updating metrics: {}", e)
+
+
+if __name__ == "__main__":
+    run()

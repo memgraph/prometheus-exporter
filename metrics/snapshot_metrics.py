@@ -1,6 +1,4 @@
-from prometheus_client import Gauge
-
-_data = [
+snapshot_data = [
     (
         "SnapshotCreationLatency_us_99p",
         "Snapshot creation latency in microseconds, 99th percentile.",
@@ -26,6 +24,3 @@ _data = [
         "Snapshot recovery latency in microseconds, 50th percentile.",
     ),
 ]
-
-
-PrometheusSnapshotData = {name: Gauge(name, description, ["instance_name"]) for name, description in _data}

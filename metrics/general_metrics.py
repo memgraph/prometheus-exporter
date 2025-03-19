@@ -1,6 +1,4 @@
-from prometheus_client import Gauge
-
-_data = [
+general_data = [
     ("average_degree", "Average node degree."),
     ("disk_usage", "Amount of disk usage."),
     ("edge_count", "Edge count."),
@@ -12,6 +10,3 @@ _data = [
     ("SocketConnect_us_90p", "Latency of connecting to the socket, 90th percentile."),
     ("SocketConnect_us_99p", "Latency of connecting to the socket, 99th percentile.")
 ]
-
-# General metrics specific to each instance
-PrometheusGeneralData = {name: Gauge(name, description, ["instance_name"]) for name, description in _data}

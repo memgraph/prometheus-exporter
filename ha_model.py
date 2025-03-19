@@ -3,22 +3,47 @@ import logging
 import sys
 from typing import Dict
 
-from general_metrics import PrometheusGeneralData
-from trigger_metrics import PrometheusTriggerData
-from transaction_metrics import PrometheusTransactionData
-from session_metrics import PrometheusSessionData
-from ttl_metrics import PrometheusTTLData
-from stream_metrics import PrometheusStreamData
-from snapshot_metrics import PrometheusSnapshotData
-from query_type_metrics import PrometheusQueryTypeData
-from query_metrics import PrometheusQueryData
-from index_metrics import PrometheusIndexData
-from operator_metrics import PrometheusOperatorData
-from ha_metrics import (
-    PrometheusHADataInstancesMetrics,
-    PrometheusHACoordinatorsAggMetrics,
-    PrometheusHACoordinatorMetrics,
-)
+from prometheus_client import Counter, Gauge
+
+from metrics.general_metrics import general_data
+from metrics.trigger_metrics import trigger_data
+from metrics.transaction_metrics import txn_data
+from metrics.session_metrics import session_data
+from metrics.ttl_metrics import ttl_data
+from metrics.stream_metrics import stream_data
+from metrics.snapshot_metrics import snapshot_data
+from metrics.query_type_metrics import query_type_data
+from metrics.query_metrics import query_data
+from metrics.index_metrics import index_data
+from metrics.operator_metrics import operator_data
+from metrics.ha_metrics import ha_data_instances_metrics, ha_coordinator_metrics, ha_coordinators_agg_metrics
+
+# Metrics related to HA specific to each data instance
+PrometheusHADataInstancesMetrics = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in ha_data_instances_metrics
+}
+# Metrics specific to each coordinator
+PrometheusHACoordinatorMetrics = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in ha_coordinator_metrics
+}
+# Metrics common to all coordinators
+PrometheusHACoordinatorsAggMetrics = {
+    name: Counter(name, description) for name, description in ha_coordinators_agg_metrics
+}
+
+PrometheusIndexData = {name: Gauge(name, description, ["instance_name"]) for name, description in index_data}
+PrometheusGeneralData = {name: Gauge(name, description, ["instance_name"]) for name, description in general_data}
+PrometheusOperatorData = {name: Gauge(name, f"Number of times {name} has been called.", ["instance_name"]) for name in operator_data}
+PrometheusQueryData = {name: Gauge(name, description, ["instance_name"]) for name, description in query_data}
+PrometheusQueryTypeData = {name: Gauge(name, description, ["instance_name"]) for name, description in query_type_data}
+PrometheusSessionData = {name: Gauge(name, description, ["instance_name"]) for name, description in session_data}
+PrometheusSnapshotData = {name: Gauge(name, description, ["instance_name"]) for name, description in snapshot_data}
+PrometheusStreamData = {name: Gauge(name, description, ["instance_name"]) for name, description in stream_data}
+PrometheusTransactionData = {name: Gauge(name, description, ["instance_name"]) for name, description in txn_data}
+PrometheusTriggerData = {name: Gauge(name, description, ["instance_name"]) for name, description in trigger_data}
+PrometheusTTLData = {name: Gauge(name, description, ["instance_name"]) for name, description in ttl_data}
 
 
 logger = logging.getLogger("prometheus_handler")
