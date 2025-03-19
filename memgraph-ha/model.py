@@ -171,13 +171,13 @@ def update_coordinator_metrics(mg_data, instance_name):
         )
     )
 
-    # safe_execute(
-    #     partial(
-    #         aggregate_gauges,
-    #         mg_data["HighAvailability"],
-    #         PrometheusHACoordinatorsAggMetrics,
-    #     )
-    # )
+    safe_execute(
+        partial(
+            aggregate_gauges,
+            mg_data["HighAvailability"],
+            PrometheusHACoordinatorsAggMetrics,
+        )
+    )
 
 
 def update_metrics(mg_data: Dict[str, Dict[str, int]], instance):
