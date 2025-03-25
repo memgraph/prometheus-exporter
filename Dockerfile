@@ -23,4 +23,4 @@ RUN rm -rf .venv \
 ENV DEPLOYMENT_TYPE=standalone
 
 # Run main.py when the container launches
-CMD ["sh", "-c", "python3 mg_exporter.py --type=$DEPLOYMENT_TYPE"]
+ENTRYPOINT ["sh", "-c", "python3 mg_exporter.py --type=$DEPLOYMENT_TYPE"]

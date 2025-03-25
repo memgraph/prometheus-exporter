@@ -47,7 +47,6 @@ PrometheusTTLData = {name: Gauge(name, description, ["instance_name"]) for name,
 
 
 logger = logging.getLogger("prometheus_handler")
-logger.setLevel(logging.INFO)
 
 
 def safe_execute(func):

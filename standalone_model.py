@@ -17,7 +17,6 @@ from metrics.index_metrics import index_data
 from metrics.operator_metrics import operator_data
 
 logger = logging.getLogger("prometheus_handler")
-logger.setLevel(logging.INFO)
 
 
 PrometheusIndexData = {name: Gauge(name, description) for name, description in index_data}

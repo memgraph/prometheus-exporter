@@ -10,7 +10,6 @@ from prometheus_client import start_http_server
 from standalone_model import update_metrics
 
 logger = logging.getLogger("prometheus_handler")
-logger.setLevel(logging.INFO)
 
 
 class ConfigConstants:
