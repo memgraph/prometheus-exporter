@@ -14,6 +14,7 @@ def generate_timer_metrics(metric):
 ha_data_instances_metrics = (
     generate_timer_metrics("AppendDeltasRpc")
     + generate_timer_metrics("CurrentWalRpc")
+    + generate_timer_metrics("WalFilesRpc")
     + generate_timer_metrics("SnapshotRpc")
     + generate_timer_metrics("FrequentHeartbeatRpc")
     + generate_timer_metrics("HeartbeatRpc")
@@ -64,11 +65,11 @@ ha_coordinators_agg_metrics = [
     ),
     (
         "StateCheckRpcFail",
-        "How many times we received unsuccessful or no response to StateCheckRpc",
+        "How many times coordinators received unsuccessful or no response to StateCheckRpc",
     ),
     (
         "StateCheckRpcSuccess",
-        "How many times we received sucessful response to StateCheckRpc",
+        "How many times we received successful response to StateCheckRpc",
     ),
     (
         "UnregisterReplicaRpcFail",
