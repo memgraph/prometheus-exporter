@@ -126,6 +126,8 @@ jobs:
         run: |
           release_image_amd=${release_image}-amd64
           release_image_arm=${release_image}-arm64
+          echo "release_image_amd=${release_image_amd}" >> $GITHUB_ENV
+          echo "release_image_arm=${release_image_arm}" >> $GITHUB_ENV
           release_image_latest=${docker_repo_release}:latest
         
           # Download and load, retag if necessary, push temporary arm64 image if available
@@ -183,14 +185,14 @@ jobs:
         run: |
           if [ "${has_rc_package_amd}" = "true" ]; then
             echo "Deleting temporary image ${release_image_amd} ..."
-            curl -i -n -X DELETE -H "Authorization: JWT ${dockerhub_token}" https://hub.docker.com/v2/repositories/${docker_repo_release}/tags/${release_image#*:}-amd64/
+            curl -i -n -X DELETE -H "Authorization: JWT ${dockerhub_token}" https://hub.docker.com/v2/repositories/${docker_repo_release}/tags/${release_image_amd#*:}/
           else
             echo "Skipping deletion for amd64: image not promoted."
           fi
 
           if [ "${has_rc_package_arm}" = "true" ]; then
             echo "Deleting temporary image ${release_image_arm} ..."
-            curl -i -n -X DELETE -H "Authorization: JWT ${dockerhub_token}" https://hub.docker.com/v2/repositories/${docker_repo_release}/tags/${release_image#*:}-arm64/
+            curl -i -n -X DELETE -H "Authorization: JWT ${dockerhub_token}" https://hub.docker.com/v2/repositories/${docker_repo_release}/tags/${release_image_arm#*:}/
           else
             echo "Skipping deletion for arm64: image not promoted."
           fi
