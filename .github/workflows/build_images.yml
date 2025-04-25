@@ -54,7 +54,7 @@ jobs:
           name="mg-prometheus-exporter-${tag}-docker.tar.gz"
           echo "FILE_NAME=$name" >> $GITHUB_ENV
         
-          basedir="prometheus-exporter${{ inputs.test == true && '-test' || '' }}"
+          basedir="prometheus-exporter${{ inputs.test == true && '-test' || '' }}/v${{ env.TAG }}"
           outdir="$basedir/docker${{ (matrix.arch == 'arm64') && '-aarch64' || '' }}"
           echo "OUT_DIR=$outdir" >> $GITHUB_ENV
 
