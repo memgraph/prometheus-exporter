@@ -39,7 +39,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.s3_region }}
+          aws-region: "eu-west-1"
 
       - name: Extract Tag From pyproject.toml
         run: |
@@ -50,7 +50,7 @@ jobs:
 
       - name: Set Name and Output Directory
         run: |
-          name="mg-prometheus-exporter-${tag}${{ (matrix.arch == 'arm64') && '-arm64' || '' }}-docker.tar.gz"
+          name="mg-prometheus-exporter-${{ env.TAG }}${{ (matrix.arch == 'arm64') && '-arm64' || '' }}-docker.tar.gz"
           echo "FILE_NAME=$name" >> $GITHUB_ENV
         
           outdir="prometheus-exporter${{ inputs.test == true && '-test' || '' }}/v${{ env.TAG }}"
