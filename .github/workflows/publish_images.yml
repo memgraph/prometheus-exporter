@@ -32,8 +32,8 @@ jobs:
       - name: Setup Environment Variables
         run: |
           rc_dir="prometheus-exporter/v${{ inputs.version }}"
-          docker_tar_arm="mg-prometheus-exporter-${{ inputs.version }}-docker.tar.gz"
-          docker_tar_amd="mg-prometheus-exporter-${{ inputs.version }}-arm64-docker.tar.gz"
+          docker_tar_arm="mg-prometheus-exporter-${{ inputs.version }}-arm64-docker.tar.gz"
+          docker_tar_amd="mg-prometheus-exporter-${{ inputs.version }}-docker.tar.gz"
 
           echo "rc_dir=${rc_dir}" >> $GITHUB_ENV
           echo "docker_tar_arm=$docker_tar_arm" >> $GITHUB_ENV
