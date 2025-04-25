@@ -51,11 +51,10 @@ jobs:
 
       - name: Set Name and Output Directory
         run: |
-          name="mg-prometheus-exporter-${tag}-docker.tar.gz"
+          name="mg-prometheus-exporter-${tag}${{ (matrix.arch == 'arm64') && '-arm64' || '' }}-docker.tar.gz"
           echo "FILE_NAME=$name" >> $GITHUB_ENV
         
-          basedir="prometheus-exporter${{ inputs.test == true && '-test' || '' }}/v${{ env.TAG }}"
-          outdir="$basedir/docker${{ (matrix.arch == 'arm64') && '-aarch64' || '' }}"
+          outdir="prometheus-exporter${{ inputs.test == true && '-test' || '' }}/v${{ env.TAG }}"
           echo "OUT_DIR=$outdir" >> $GITHUB_ENV
 
           echo "Output: $outdir/$name"
