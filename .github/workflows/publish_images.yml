@@ -77,6 +77,9 @@ jobs:
 
       - name: Check if release image for this build already exists
         run: |
+          # nuke any local manifest list so we truly query the registry
+          docker manifest rm "${release_image}" || true
+
           existing_amd64=false
           existing_arm64=false
 
