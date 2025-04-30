@@ -20,7 +20,8 @@ RUN rm -rf .venv \
   && poetry install --no-interaction --no-ansi
 
 # Set an environment variable default to standalone
-ENV DEPLOYMENT_TYPE=standalone
+ENV DEPLOYMENT_TYPE=HA
+ENV CONFIG_FILE=/code/ha_config.yaml
 
 # Run main.py when the container launches
-ENTRYPOINT ["sh", "-c", "python3 mg_exporter.py --type=$DEPLOYMENT_TYPE"]
+ENTRYPOINT ["sh", "-c", "python3 mg_exporter.py --type=$DEPLOYMENT_TYPE --config-file=$CONFIG_FILE"]

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mg_exporter"
-version = "0.2.0"
+version = "0.2.1"
 description = "Prometheus exporter for Memgraph. Supports standalone and HA mode."
 authors = ["Josip Mrden <josip.mrden@memgraph.io>", "Andi Skrgat <andi.skrgat@memgraph.io>"]
 

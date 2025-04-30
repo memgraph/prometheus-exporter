@@ -76,9 +76,9 @@ def pull_metrics(config: Config):
     logger.info("Sent update to Prometheus")
 
 
-def run():
+def run(config_file):
     # Parse the configuration for starting the service and retrieve data from correct endpoints
-    config = Config.from_yaml_file()
+    config = Config.from_yaml_file(file_name=config_file)
     start_http_server(config.exporter_port)
 
     # Continuously fetch metrics
@@ -91,4 +91,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    run("standalone_config.yaml")
