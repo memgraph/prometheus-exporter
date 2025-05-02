@@ -4,31 +4,47 @@
 
 The metrics currently collected can be found [in the documentation](https://memgraph.com/docs/configuration/monitoring-server#monitoring-via-http-server-enterprise).
 
-## Running the exporter
+## Running the exporter as Python script
 
 ```shell
 $ git clone https://github.com/memgraph/prometheus-exporter.git
 $ cd prometheus-exporter
 $ python3 -m pip install requests prometheus_client
-$ python3 mg_exporter.py --type={standalone,HA}
+$ python3 mg_exporter.py --type={standalone,HA} --config-file=config_file.yaml
 ```
 
-## Standalone exporter
+### Standalone exporter
 
 Standalone exporter can attach only to the single Memgraph instance. It can be started by running:
+
 ```bash
-python3 mg_exporter.py --type=standalone
+python3 mg_exporter.py --type=standalone --config-file=/code/standalone_config.yaml
 ```
+The file `standalone_config.yaml` serves as a template for your configuration file when running in standalone mode.
 
 Make sure to adjust host and port in `standalone_config.yaml`.
 
 
-## HA exporter
+### HA exporter
 
 High availability exporter attaches to multiple memgraph instances which are connected in cluster. It exposes for each instance all metrics
-which are exposed through standalone exporter but it also adds HA metrics. The full list of metrics used can be found on Memgraph docs.
+which are exposed through standalone exporter but it also adds HA metrics. The full list of metrics used can be found on [here](https://memgraph.com/docs/database-management/monitoring#ha-metrics).
+
+```bash
+python3 mg_exporter.py --type=HA --config-file=/code/ha_config.yaml
+```
+
+The file `ha_config.yaml` serves as a template for your configuration file when running in HA mode.
 
 Make sure to adjust url and port for each instance in the cluster in `ha_config.yaml` file.
+
+## Running through Docker
+
+The code is also available on DockerHub as `memgraph/prometheus-exporter`.
+
+```bash
+docker run -e DEPLOYMENT_TYPE=HA -e CONFIG_FILE=/etc/ha_config.yaml memgraph/prometheus-exporter
+```
 
 ## Running and Debugging the Setup
 

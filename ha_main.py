@@ -43,18 +43,38 @@ def pull_metrics(instance):
     res = requests.get(f"{instance.url}:{instance.port}")
 
     if res.status_code != 200:
-        raise Exception(f"Memgraph instance on {instance.url}:{instance.port} couldn't be reached.")
+        raise Exception(
+            f"Memgraph instance on {instance.url}:{instance.port} couldn't be reached."
+        )
 
     return res.json()
 
 
-def run():
-    config = load_yaml_config("ha_config.yaml")
-    instances = [InstanceConfig(name=instance['name'], url=instance['url'], port=instance['port'], type=instance["type"]) for instance in config.get('instances', [])]
-    instances_str = '\n\t'.join(str(instance) for instance in instances)
-    logger.info("HA exporter will use the following instances to collect metrics:\n\t%s", instances_str)
-    general_config = GeneralConfig(port=config.get('exporter', {}).get('port', 9115), pull_frequency_seconds=config.get('exporter', {}).get('pull_frequency_seconds', 0))
-    logger.info("HA exporter will pull metrics every %ds", general_config.pull_frequency_seconds)
+def run(config_file):
+    config = load_yaml_config(config_file)
+    instances = [
+        InstanceConfig(
+            name=instance["name"],
+            url=instance["url"],
+            port=instance["port"],
+            type=instance["type"],
+        )
+        for instance in config.get("instances", [])
+    ]
+    instances_str = "\n\t".join(str(instance) for instance in instances)
+    logger.info(
+        "HA exporter will use the following instances to collect metrics:\n\t%s",
+        instances_str,
+    )
+    general_config = GeneralConfig(
+        port=config.get("exporter", {}).get("port", 9115),
+        pull_frequency_seconds=config.get("exporter", {}).get(
+            "pull_frequency_seconds", 0
+        ),
+    )
+    logger.info(
+        "HA exporter will pull metrics every %ds", general_config.pull_frequency_seconds
+    )
     logger.info("HA exporter is started on: localhost:%s\n\n", general_config.port)
     exporter = HAExporterConfig(instances=instances, config=general_config)
 
@@ -73,4 +93,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    run("ha_config.yaml")

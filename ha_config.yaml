@@ -1,3 +1,4 @@
+# Template for the configuration
 exporter:
   port: 9115
   pull_frequency_seconds: 5
