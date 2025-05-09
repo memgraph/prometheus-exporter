@@ -69,6 +69,6 @@ You should see a Prometheus object containing the metrics information.
 5. Launch Prometheus
 ```shell
 $ cd prometheus-exporter
-$ docker run --name memgraph-prometheus -d --network host -v $(pwd)/config:/etc/prometheus -p 9090:9090 prom/prometheus
+$ docker run --name memgraph-prometheus -d -v $(pwd)/config:/etc/prometheus -p 9090:9090 prom/prometheus
 ```
 6. Open the Prometheus UI by going to http://localhost:9090
