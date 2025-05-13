@@ -20,6 +20,8 @@ ha_data_instances_metrics = (
     + generate_timer_metrics("HeartbeatRpc")
     + generate_timer_metrics("ReplicaStream")
     + generate_timer_metrics("SystemRecoveryRpc")
+    + generate_timer_metrics("StartTxnReplication")
+    + generate_timer_metrics("FinalizeTxnReplication")
 )
 
 
@@ -36,6 +38,7 @@ ha_coordinator_metrics = (
     + generate_timer_metrics("RegisterReplicaOnMainRpc")
     + generate_timer_metrics("StateCheckRpc")
     + generate_timer_metrics("UnregisterReplicaRpc")
+    + generate_timer_metrics("DataFailover")
 )
 
 
