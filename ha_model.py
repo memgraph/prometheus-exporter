@@ -16,13 +16,25 @@ from metrics.query_type_metrics import query_type_data
 from metrics.query_metrics import query_data
 from metrics.index_metrics import index_data
 from metrics.operator_metrics import operator_data
-from metrics.ha_metrics import ha_data_instances_metrics, ha_coordinator_metrics, ha_coordinators_agg_metrics
+from metrics.ha_metrics import (
+    ha_data_instances_metrics,
+    ha_coordinator_metrics,
+    ha_coordinators_agg_metrics,
+    ha_data_instances_counter_metrics,
+)
 
 # Metrics related to HA specific to each data instance
 PrometheusHADataInstancesMetrics = {
     name: Gauge(name, description, ["instance_name"])
     for name, description in ha_data_instances_metrics
 }
+
+# Counter metrics for data instances
+PrometheusHADataInstancesCounterMetrics = {
+    name: Counter(name, description)
+    for name, description in ha_data_instances_counter_metrics
+}
+
 # Metrics specific to each coordinator
 PrometheusHACoordinatorMetrics = {
     name: Gauge(name, description, ["instance_name"])
@@ -30,20 +42,52 @@ PrometheusHACoordinatorMetrics = {
 }
 # Metrics common to all coordinators
 PrometheusHACoordinatorsAggMetrics = {
-    name: Counter(name, description) for name, description in ha_coordinators_agg_metrics
+    name: Counter(name, description)
+    for name, description in ha_coordinators_agg_metrics
 }
 
-PrometheusIndexData = {name: Gauge(name, description, ["instance_name"]) for name, description in index_data}
-PrometheusGeneralData = {name: Gauge(name, description, ["instance_name"]) for name, description in general_data}
-PrometheusOperatorData = {name: Gauge(name, f"Number of times {name} has been called.", ["instance_name"]) for name in operator_data}
-PrometheusQueryData = {name: Gauge(name, description, ["instance_name"]) for name, description in query_data}
-PrometheusQueryTypeData = {name: Gauge(name, description, ["instance_name"]) for name, description in query_type_data}
-PrometheusSessionData = {name: Gauge(name, description, ["instance_name"]) for name, description in session_data}
-PrometheusSnapshotData = {name: Gauge(name, description, ["instance_name"]) for name, description in snapshot_data}
-PrometheusStreamData = {name: Gauge(name, description, ["instance_name"]) for name, description in stream_data}
-PrometheusTransactionData = {name: Gauge(name, description, ["instance_name"]) for name, description in txn_data}
-PrometheusTriggerData = {name: Gauge(name, description, ["instance_name"]) for name, description in trigger_data}
-PrometheusTTLData = {name: Gauge(name, description, ["instance_name"]) for name, description in ttl_data}
+PrometheusIndexData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in index_data
+}
+PrometheusGeneralData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in general_data
+}
+PrometheusOperatorData = {
+    name: Gauge(name, f"Number of times {name} has been called.", ["instance_name"])
+    for name in operator_data
+}
+PrometheusQueryData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in query_data
+}
+PrometheusQueryTypeData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in query_type_data
+}
+PrometheusSessionData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in session_data
+}
+PrometheusSnapshotData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in snapshot_data
+}
+PrometheusStreamData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in stream_data
+}
+PrometheusTransactionData = {
+    name: Gauge(name, description, ["instance_name"]) for name, description in txn_data
+}
+PrometheusTriggerData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in trigger_data
+}
+PrometheusTTLData = {
+    name: Gauge(name, description, ["instance_name"]) for name, description in ttl_data
+}
 
 
 logger = logging.getLogger("prometheus_handler")
@@ -171,6 +215,15 @@ def update_data_instance_metrics(mg_data, instance_name):
             update_gauges,
             mg_data["HighAvailability"],
             PrometheusHADataInstancesMetrics,
+            instance_name,
+        )
+    )
+
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data["HighAvailability"],
+            PrometheusHADataInstancesCounterMetrics,
             instance_name,
         )
     )

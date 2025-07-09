@@ -24,6 +24,18 @@ ha_data_instances_metrics = (
     + generate_timer_metrics("FinalizeTxnReplication")
 )
 
+ha_data_instances_counter_metrics = [
+    (
+        "ReplicaRecoverySuccess",
+        "Number of times the replica recovery finished successfully",
+    ),
+    (
+        "ReplicaRecoveryFail",
+        "Number of times the replica recovery finished unsuccessfully",
+    ),
+    ("ReplicaRecoverySkip", "Number of times the replica recovery task was skipped"),
+]
+
 
 # Metrics specific to each coordinators
 ha_coordinator_metrics = (
