@@ -87,7 +87,7 @@ def run(config_file):
             time.sleep(config.pull_frequency_seconds)
             pull_metrics(config)
         except Exception as e:
-            logger.error("Error occurred while updating metrics: {}", e)
+            logger.error("Error occurred while updating metrics: %s", e)
 
 
 if __name__ == "__main__":
