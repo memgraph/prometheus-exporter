@@ -54,8 +54,18 @@ _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
 
 LEGEND_NON_HA = "{{__name__}} (instance={{instance}})"
 LEGEND_HA = "{{__name__}} (instance_name={{instance_name}})"
-LEGEND_INSTANCE_NAME = "{{__name__}} (instance_name={{instance_name}})"
 LEGEND_BOTH = "{{__name__}} (instance_name={{instance_name}}, instance={{instance}})"
+
+# "Auto" legend support:
+# - In HA mode, exporter metrics include `instance_name`, so we want to show that.
+# - In standalone mode, metrics do NOT include `instance_name`, so we fall back to a
+#   fixed string (e.g. "memgraph") instead of showing exporter pod IPs.
+#
+# We implement this by adding a derived label `mg_instance` in the PromQL expression:
+# 1) set mg_instance=<fallback> for all series (based on an always-present label like `instance`)
+# 2) override mg_instance=<instance_name> only for series that have `instance_name`
+MG_INSTANCE_LABEL = "mg_instance"
+LEGEND_INSTANCE_NAME_AUTO = "{{__name__}} (instance_name={{mg_instance}})"
 
 PANEL_COLS = 4
 PANEL_W = 24 // PANEL_COLS  # 6
@@ -294,6 +304,22 @@ def _templating() -> dict:
     }
 
 
+def _prom_escape_string_literal(s: str) -> str:
+    # Escape for PromQL double-quoted string literal.
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def _with_mg_instance(expr: str, *, fallback: str) -> str:
+    fallback = _prom_escape_string_literal(fallback)
+    # Always set MG_INSTANCE_LABEL to a fallback value.
+    out = f'label_replace({expr}, "{MG_INSTANCE_LABEL}", "{fallback}", "instance", ".*")'
+    # If `instance_name` exists, override MG_INSTANCE_LABEL with its value.
+    # Note: if a label is missing, Prometheus treats its value as an empty string.
+    # Using (.*) would match that and overwrite the fallback with "", so require non-empty.
+    out = f'label_replace({out}, "{MG_INSTANCE_LABEL}", "$1", "instance_name", "(.+)")'
+    return out
+
+
 def _prom_expr_for_metric(*, name: str, kind: str) -> str:
     selector = '{job=~"$job", instance=~"$instance"}'
 
@@ -306,7 +332,12 @@ def _prom_expr_for_metric(*, name: str, kind: str) -> str:
     return f"{name}{selector}"
 
 
-def build_dashboard(*, groups: Sequence[MetricGroup]) -> dict:
+def build_dashboard(
+    *,
+    groups: Sequence[MetricGroup],
+    add_mg_instance: bool = False,
+    mg_instance_fallback: str = "memgraph",
+) -> dict:
     panels: List[dict] = []
     panel_id = 1
     y = 0
@@ -327,6 +358,8 @@ def build_dashboard(*, groups: Sequence[MetricGroup]) -> dict:
             desc = _metric_desc(m)
 
             expr = _prom_expr_for_metric(name=metric, kind=group.kind)
+            if add_mg_instance:
+                expr = _with_mg_instance(expr, fallback=mg_instance_fallback)
             unit = _infer_unit(metric)
             title = TITLE_MAP.get(metric, metric)
 
@@ -391,20 +424,32 @@ def main() -> None:
     )
     parser.add_argument(
         "--non-ha-legend-label",
-        choices=["instance", "instance_name", "both"],
-        default="instance_name",
+        choices=["auto", "instance", "instance_name", "both"],
+        default="auto",
         help=(
             "Which Prometheus label(s) to show in panel legends for non-HA metric groups. "
             "'instance' is the scrape target address (often <pod-ip>:<port>). "
-            "For the Memgraph HA exporter, metrics typically include 'instance_name' (e.g. data0)."
+            "For the Memgraph HA exporter, metrics typically include 'instance_name' (e.g. data0). "
+            "'auto' shows instance_name when present, otherwise falls back to a fixed string "
+            "(see --standalone-instance-name)."
+        ),
+    )
+    parser.add_argument(
+        "--standalone-instance-name",
+        default="memgraph",
+        help=(
+            "Fallback name to show in legends when `instance_name` isn't present "
+            "(e.g. when scraping the standalone exporter). Used with --non-ha-legend-label=auto."
         ),
     )
     args = parser.parse_args()
 
+    add_mg_instance = args.non_ha_legend_label == "auto"
     legend_non_ha = {
         "instance": LEGEND_NON_HA,
-        "instance_name": LEGEND_INSTANCE_NAME,
+        "instance_name": LEGEND_HA,
         "both": LEGEND_BOTH,
+        "auto": LEGEND_INSTANCE_NAME_AUTO,
     }[args.non_ha_legend_label]
 
     groups: List[MetricGroup] = [
@@ -448,7 +493,11 @@ def main() -> None:
         ),
     ]
 
-    dashboard = build_dashboard(groups=groups)
+    dashboard = build_dashboard(
+        groups=groups,
+        add_mg_instance=add_mg_instance,
+        mg_instance_fallback=args.standalone_instance_name,
+    )
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(dashboard, f, indent=2, sort_keys=False)
         f.write("\n")
