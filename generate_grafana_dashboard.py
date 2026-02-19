@@ -56,6 +56,8 @@ _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
 
 LEGEND_NON_HA = "{{__name__}} (instance={{instance}})"
 LEGEND_HA = "{{__name__}} (instance_name={{instance_name}})"
+LEGEND_INSTANCE_NAME = "{{__name__}} (instance_name={{instance_name}})"
+LEGEND_BOTH = "{{__name__}} (instance_name={{instance_name}}, instance={{instance}})"
 
 PANEL_COLS = 4
 PANEL_W = 24 // PANEL_COLS  # 6
@@ -389,20 +391,36 @@ def main() -> None:
         default="memgraph-grafana-dashboard.json",
         help="Output dashboard JSON path (relative to current directory).",
     )
+    parser.add_argument(
+        "--non-ha-legend-label",
+        choices=["instance", "instance_name", "both"],
+        default="instance_name",
+        help=(
+            "Which Prometheus label(s) to show in panel legends for non-HA metric groups. "
+            "'instance' is the scrape target address (often <pod-ip>:<port>). "
+            "For the Memgraph HA exporter, metrics typically include 'instance_name' (e.g. data0)."
+        ),
+    )
     args = parser.parse_args()
 
+    legend_non_ha = {
+        "instance": LEGEND_NON_HA,
+        "instance_name": LEGEND_INSTANCE_NAME,
+        "both": LEGEND_BOTH,
+    }[args.non_ha_legend_label]
+
     groups: List[MetricGroup] = [
-        MetricGroup("General metrics", general_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Index metrics", index_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Operator metrics", operator_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Query metrics", query_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Query type metrics", query_type_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Session metrics", session_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Snapshot metrics", snapshot_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Stream metrics", stream_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Transaction metrics", txn_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("Trigger metrics", trigger_data, legend_format=LEGEND_NON_HA),
-        MetricGroup("TTL metrics", ttl_data, legend_format=LEGEND_NON_HA),
+        MetricGroup("General metrics", general_data, legend_format=legend_non_ha),
+        MetricGroup("Index metrics", index_data, legend_format=legend_non_ha),
+        MetricGroup("Operator metrics", operator_data, legend_format=legend_non_ha),
+        MetricGroup("Query metrics", query_data, legend_format=legend_non_ha),
+        MetricGroup("Query type metrics", query_type_data, legend_format=legend_non_ha),
+        MetricGroup("Session metrics", session_data, legend_format=legend_non_ha),
+        MetricGroup("Snapshot metrics", snapshot_data, legend_format=legend_non_ha),
+        MetricGroup("Stream metrics", stream_data, legend_format=legend_non_ha),
+        MetricGroup("Transaction metrics", txn_data, legend_format=legend_non_ha),
+        MetricGroup("Trigger metrics", trigger_data, legend_format=legend_non_ha),
+        MetricGroup("TTL metrics", ttl_data, legend_format=legend_non_ha),
         MetricGroup(
             "HA data instances — latency (p50/p90/p99)",
             ha_data_instances_metrics,
@@ -426,7 +444,9 @@ def main() -> None:
             ha_coordinators_agg_metrics,
             kind="counter",
             # These don't have `instance_name`.
-            legend_format=LEGEND_NON_HA,
+            legend_format=LEGEND_NON_HA
+            if args.non_ha_legend_label == "instance_name"
+            else legend_non_ha,
         ),
     ]
 

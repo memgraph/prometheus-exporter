@@ -146,7 +146,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "average_degree{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -242,7 +242,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "disk_usage{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -338,7 +338,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "edge_count{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -434,7 +434,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "memory_usage{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -530,7 +530,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "peak_memory_usage{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -626,7 +626,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "unreleased_delta_objects{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -722,7 +722,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "vertex_count{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -818,7 +818,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SocketConnect_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -914,7 +914,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SocketConnect_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1010,7 +1010,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SocketConnect_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1119,7 +1119,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveLabelIndices{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1215,7 +1215,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveLabelPropertyIndices{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1311,7 +1311,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActivePointIndices{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1407,7 +1407,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveTextIndices{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1516,7 +1516,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "AccumulateOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1612,7 +1612,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "AggregateOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1708,7 +1708,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ApplyOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1804,7 +1804,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "CallProcedureOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1900,7 +1900,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "CartesianOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -1996,7 +1996,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ConstructNamedPathOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2092,7 +2092,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "CreateExpandOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2188,7 +2188,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "CreateNodeOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2284,7 +2284,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "DeleteOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2380,7 +2380,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "DistinctOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2476,7 +2476,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "EdgeUniquenessFilterOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2572,7 +2572,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "EmptyResultOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2668,7 +2668,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "EvaluatePatternFilterOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2764,7 +2764,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ExpandOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2860,7 +2860,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ExpandVariableOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -2956,7 +2956,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "FilterOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3052,7 +3052,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ForeachOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3148,7 +3148,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "HashJoinOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3244,7 +3244,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "IndexedJoinOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3340,7 +3340,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "LimitOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3436,7 +3436,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "MergeOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3532,7 +3532,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "OnceOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3628,7 +3628,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "OptionalOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3724,7 +3724,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "OrderByOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3820,7 +3820,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "PeriodicCommitOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -3916,7 +3916,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "PeriodicSubqueryOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4012,7 +4012,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ProduceOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4108,7 +4108,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "RemoveLabelsOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4204,7 +4204,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "RemovePropertyOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4300,7 +4300,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "RollUpApplyOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4396,7 +4396,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByEdgeIdOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4492,7 +4492,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByEdgeOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4588,7 +4588,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByEdgeTypeOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4684,7 +4684,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByEdgeTypePropertyOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4780,7 +4780,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByEdgeTypePropertyRangeOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4876,7 +4876,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByEdgeTypePropertyValueOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -4972,7 +4972,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByIdOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5068,7 +5068,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByLabelOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5164,7 +5164,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByLabelPropertyOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5260,7 +5260,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByLabelPropertyRangeOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5356,7 +5356,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByLabelPropertyValueOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5452,7 +5452,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByPointDistanceOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5548,7 +5548,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllByPointWithinbboxOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5644,7 +5644,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ScanAllOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5740,7 +5740,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "SetLabelsOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5836,7 +5836,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "SetPropertiesOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -5932,7 +5932,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "SetPropertyOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6028,7 +6028,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "SkipOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6124,7 +6124,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "UnionOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6220,7 +6220,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "UnwindOperator{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6329,7 +6329,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(QueryExecutionLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6425,7 +6425,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(QueryExecutionLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6521,7 +6521,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(QueryExecutionLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6630,7 +6630,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ReadQuery{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6726,7 +6726,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ReadWriteQuery{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6822,7 +6822,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "WriteQuery{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -6931,7 +6931,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveBoltSessions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7027,7 +7027,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveSSLSessions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7123,7 +7123,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveSessions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7219,7 +7219,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveTCPSessions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7315,7 +7315,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveWebSocketSessions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7411,7 +7411,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "BoltMessages{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7520,7 +7520,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SnapshotCreationLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7616,7 +7616,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SnapshotCreationLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7712,7 +7712,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SnapshotCreationLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7808,7 +7808,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SnapshotRecoveryLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -7904,7 +7904,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SnapshotRecoveryLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8000,7 +8000,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "(SnapshotRecoveryLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8109,7 +8109,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "MessagesConsumed{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8205,7 +8205,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "StreamsCreated{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8314,7 +8314,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "ActiveTransactions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8410,7 +8410,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "CommitedTransactions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8506,7 +8506,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "FailedPrepare{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8602,7 +8602,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "FailedPull{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8698,7 +8698,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "FailedQuery{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8794,7 +8794,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "RollbackedTransactions{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8890,7 +8890,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "SuccessfulQuery{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -8999,7 +8999,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "TriggersCreated{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -9095,7 +9095,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "TriggersExecuted{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -9204,7 +9204,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "DeletedEdges{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
@@ -9300,7 +9300,7 @@ extraManifests:
                   },
                   "editorMode": "builder",
                   "expr": "DeletedNodes{job=~\"$job\", instance=~\"$instance\"}",
-                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance={{ "{{" }}instance{{ "}}" }})",
+                  "legendFormat": "{{ "{{" }}__name__{{ "}}" }} (instance_name={{ "{{" }}instance_name{{ "}}" }})",
                   "range": true,
                   "refId": "A"
                 }
