@@ -85,4 +85,4 @@ helm upgrade --install kube-prometheus-stack oci://ghcr.io/prometheus-community/
 
 ### Updating the dashboard
 
-If changes are made to the exporter metrics, the `generate_grafana_dashboard.py` script can be used to update the `memgraph-grafana-dashboard.json` file. It scrapes the metrics listed in the `metrics/` directory and generates a Grafana dashboard JSON file. Then, the `generate_kube_prometheus_stack_dashboard_values.py` script can be used to update the `kube_prometheus_stack_memgraph_dashboard.yaml` file.
+If changes are made to the exporter metrics, the `tools/generate_grafana_dashboard.py` script can be used to update the `memgraph-grafana-dashboard.json` file. It scrapes the metrics listed in the `metrics/` directory and generates a Grafana dashboard JSON file. Then, the `tools/generate_kube_prometheus_stack_dashboard_values.py` script can be used to update the `kube_prometheus_stack_memgraph_dashboard.yaml` file.
