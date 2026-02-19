@@ -7,6 +7,9 @@ Grafana's dashboard sidecar:
   grafana.sidecar.dashboards.label: grafana_dashboard
   grafana.sidecar.dashboards.labelValue: "1"
 
+Optionally, it can also emit a `grafana:` values block (admin creds + NodePort
+service) in the same values file, so you can `helm upgrade ... -f <out>`.
+
 Usage:
   ./generate_kube_prometheus_stack_dashboard_values.py \
     --dashboard-json memgraph-grafana-dashboard.json \
@@ -41,6 +44,11 @@ def _escape_for_helm_tpl(text: str) -> str:
     return text
 
 
+def _yaml_double_quote(value: str) -> str:
+    # Minimal escaping for double-quoted YAML scalars.
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -67,6 +75,32 @@ def main() -> None:
         "--manifest-key",
         default="memgraphGrafanaDashboard",
         help="Key under extraManifests (useful for merging multiple values files).",
+    )
+    parser.add_argument(
+        "--no-grafana-values",
+        action="store_true",
+        help="Do not include the `grafana:` admin/service block in the output values YAML.",
+    )
+    parser.add_argument(
+        "--grafana-admin-user",
+        default="admin",
+        help="Grafana admin username to place under `grafana.adminUser`.",
+    )
+    parser.add_argument(
+        "--grafana-admin-password",
+        default="change-me",
+        help="Grafana admin password to place under `grafana.adminPassword` (stored in values YAML).",
+    )
+    parser.add_argument(
+        "--grafana-service-type",
+        default="NodePort",
+        help="Grafana service type to place under `grafana.service.type` (e.g. NodePort, ClusterIP, LoadBalancer).",
+    )
+    parser.add_argument(
+        "--grafana-node-port",
+        type=int,
+        default=32000,
+        help="Grafana service NodePort to place under `grafana.service.nodePort` (only meaningful for NodePort).",
     )
     args = parser.parse_args()
 
@@ -98,7 +132,24 @@ def main() -> None:
     #         { ... }
     #
     # The JSON block content must be indented 8 spaces to sit under the `|`.
-    yaml_text = f"""extraManifests:
+    grafana_values = ""
+    if not args.no_grafana_values:
+        grafana_values = f"""grafana:
+  # WARNING: This stores the admin password in a Helm values file.
+  # Consider using `grafana.admin.existingSecret` for a safer setup.
+  adminUser: {_yaml_double_quote(args.grafana_admin_user)}
+  adminPassword: {_yaml_double_quote(args.grafana_admin_password)}
+
+  service:
+    # Expose Grafana outside the cluster:
+    # - reachable at: http://<node-ip>:{args.grafana_node_port}
+    # - binds on the node's network interfaces (effectively "0.0.0.0" on that node)
+    type: {args.grafana_service_type}
+    nodePort: {args.grafana_node_port}
+
+"""
+
+    yaml_text = f"""{grafana_values}extraManifests:
   {args.manifest_key}:
     apiVersion: v1
     kind: ConfigMap
