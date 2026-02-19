@@ -16,10 +16,8 @@ from typing import Dict, List, Optional, Sequence, Tuple, Union
 
 # Allow running this script from the repo root by adding the Prometheus exporter
 # package path (which contains the `metrics/` module) to PYTHONPATH.
-_REPO_DIR = Path(__file__).resolve().parent
-_EXPORTER_DIR = _REPO_DIR / "prometheus-exporter"
-if _EXPORTER_DIR.exists():
-    sys.path.insert(0, str(_EXPORTER_DIR))
+_REPO_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_REPO_DIR))
 
 from metrics.general_metrics import general_data
 from metrics.ha_metrics import (
