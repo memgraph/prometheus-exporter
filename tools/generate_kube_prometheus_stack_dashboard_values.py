@@ -7,9 +7,6 @@ Grafana's dashboard sidecar:
   grafana.sidecar.dashboards.label: grafana_dashboard
   grafana.sidecar.dashboards.labelValue: "1"
 
-Optionally, it can also emit a `grafana:` values block (admin creds + NodePort
-service) in the same values file, so you can `helm upgrade ... -f <out>`.
-
 Usage:
   ./generate_kube_prometheus_stack_dashboard_values.py \
     --dashboard-json memgraph-grafana-dashboard.json \
@@ -61,47 +58,6 @@ def main() -> None:
         default="kube_prometheus_stack_memgraph_dashboard.yaml",
         help="Output values YAML path.",
     )
-    parser.add_argument(
-        "--namespace",
-        default="monitoring",
-        help="Namespace where Grafana is running (usually 'monitoring').",
-    )
-    parser.add_argument(
-        "--configmap-name",
-        default="memgraph-grafana-dashboard",
-        help="Name of the ConfigMap to create.",
-    )
-    parser.add_argument(
-        "--manifest-key",
-        default="memgraphGrafanaDashboard",
-        help="Key under extraManifests (useful for merging multiple values files).",
-    )
-    parser.add_argument(
-        "--no-grafana-values",
-        action="store_true",
-        help="Do not include the `grafana:` admin/service block in the output values YAML.",
-    )
-    parser.add_argument(
-        "--grafana-admin-user",
-        default="admin",
-        help="Grafana admin username to place under `grafana.adminUser`.",
-    )
-    parser.add_argument(
-        "--grafana-admin-password",
-        default="change-me",
-        help="Grafana admin password to place under `grafana.adminPassword` (stored in values YAML).",
-    )
-    parser.add_argument(
-        "--grafana-service-type",
-        default="NodePort",
-        help="Grafana service type to place under `grafana.service.type` (e.g. NodePort, ClusterIP, LoadBalancer).",
-    )
-    parser.add_argument(
-        "--grafana-node-port",
-        type=int,
-        default=32000,
-        help="Grafana service NodePort to place under `grafana.service.nodePort` (only meaningful for NodePort).",
-    )
     args = parser.parse_args()
 
     dashboard_path = Path(args.dashboard_json)
@@ -121,6 +77,10 @@ def main() -> None:
         json_key = f"{json_key}.json"
 
     # YAML structure:
+    # grafana:
+    #   service:
+    #     type: NodePort
+    #     nodePort: 32000
     # extraManifests:
     #   <manifest-key>:
     #     apiVersion: v1
@@ -132,36 +92,34 @@ def main() -> None:
     #         { ... }
     #
     # The JSON block content must be indented 8 spaces to sit under the `|`.
-    grafana_values = ""
-    if not args.no_grafana_values:
-        grafana_values = f"""grafana:
-  # WARNING: This stores the admin password in a Helm values file.
-  # Consider using `grafana.admin.existingSecret` for a safer setup.
-  adminUser: {_yaml_double_quote(args.grafana_admin_user)}
-  adminPassword: {_yaml_double_quote(args.grafana_admin_password)}
-
-  service:
-    # Expose Grafana outside the cluster:
-    # - reachable at: http://<node-ip>:{args.grafana_node_port}
-    # - binds on the node's network interfaces (effectively "0.0.0.0" on that node)
-    type: {args.grafana_service_type}
-    nodePort: {args.grafana_node_port}
-
-"""
-
-    yaml_text = f"""{grafana_values}extraManifests:
-  {args.manifest_key}:
+    #
+    # Hard-coded defaults (kept intentionally simple):
+    # - namespace: monitoring
+    # - ConfigMap name: memgraph-grafana-dashboard
+    # - extraManifests key: memgraphGrafanaDashboard
+    # - Grafana service exposure: NodePort 32000
+    yaml_text = f"""extraManifests:
+  memgraphGrafanaDashboard:
     apiVersion: v1
     kind: ConfigMap
     metadata:
-      name: {args.configmap_name}
-      namespace: {args.namespace}
+      name: memgraph-grafana-dashboard
+      namespace: monitoring
       labels:
         grafana_dashboard: "1"
     data:
       {json_key}: |
 {_indent_block(dashboard_json.rstrip('\\n'), 8)}
 """
+    yaml_text = (
+        "grafana:\n"
+        "  service:\n"
+        "    # Expose Grafana outside the cluster at http://<node-ip>:32000\n"
+        "    type: NodePort\n"
+        "    nodePort: 32000\n"
+        "\n"
+        + yaml_text
+    )
 
     out_path.write_text(yaml_text, encoding="utf-8")
 

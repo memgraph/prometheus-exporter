@@ -1,13 +1,6 @@
 grafana:
-  # WARNING: This stores the admin password in a Helm values file.
-  # Consider using `grafana.admin.existingSecret` for a safer setup.
-  adminUser: "admin"
-  adminPassword: "change-me"
-
   service:
-    # Expose Grafana outside the cluster:
-    # - reachable at: http://<node-ip>:32000
-    # - binds on the node's network interfaces (effectively "0.0.0.0" on that node)
+    # Expose Grafana outside the cluster at http://<node-ip>:32000
     type: NodePort
     nodePort: 32000
 

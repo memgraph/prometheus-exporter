@@ -82,6 +82,7 @@ helm upgrade --install kube-prometheus-stack oci://ghcr.io/prometheus-community/
   --create-namespace \
   -f kube_prometheus_stack_memgraph_dashboard.yaml
 ```
+This values file also exposes Grafana via a NodePort on `32000` (reachable at `http://<node-ip>:32000`).
 
 ### Updating the dashboard
 
