@@ -52,20 +52,15 @@ class MetricGroup:
 
 _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
 
-LEGEND_NON_HA = "{{__name__}} (instance={{instance}})"
-LEGEND_HA = "{{__name__}} (instance_name={{instance_name}})"
-LEGEND_BOTH = "{{__name__}} (instance_name={{instance_name}}, instance={{instance}})"
-
-# "Auto" legend support:
-# - In HA mode, exporter metrics include `instance_name`, so we want to show that.
-# - In standalone mode, metrics do NOT include `instance_name`, so we fall back to a
-#   fixed string (e.g. "memgraph") instead of showing exporter pod IPs.
+# Legend support that works for both HA and standalone:
+# - HA exporter metrics include `instance_name` (e.g. data0/coord1) → show that.
+# - Standalone exporter metrics do NOT include `instance_name` → show a fixed fallback string.
 #
 # We implement this by adding a derived label `mg_instance` in the PromQL expression:
 # 1) set mg_instance=<fallback> for all series (based on an always-present label like `instance`)
 # 2) override mg_instance=<instance_name> only for series that have `instance_name`
 MG_INSTANCE_LABEL = "mg_instance"
-LEGEND_INSTANCE_NAME_AUTO = "{{__name__}} (instance_name={{mg_instance}})"
+LEGEND = "{{__name__}} (instance_name={{mg_instance}})"
 
 PANEL_COLS = 4
 PANEL_W = 24 // PANEL_COLS  # 6
@@ -335,7 +330,6 @@ def _prom_expr_for_metric(*, name: str, kind: str) -> str:
 def build_dashboard(
     *,
     groups: Sequence[MetricGroup],
-    add_mg_instance: bool = False,
     mg_instance_fallback: str = "memgraph",
 ) -> dict:
     panels: List[dict] = []
@@ -358,8 +352,7 @@ def build_dashboard(
             desc = _metric_desc(m)
 
             expr = _prom_expr_for_metric(name=metric, kind=group.kind)
-            if add_mg_instance:
-                expr = _with_mg_instance(expr, fallback=mg_instance_fallback)
+            expr = _with_mg_instance(expr, fallback=mg_instance_fallback)
             unit = _infer_unit(metric)
             title = TITLE_MAP.get(metric, metric)
 
@@ -423,79 +416,55 @@ def main() -> None:
         help="Output dashboard JSON path (relative to current directory).",
     )
     parser.add_argument(
-        "--non-ha-legend-label",
-        choices=["auto", "instance", "instance_name", "both"],
-        default="auto",
-        help=(
-            "Which Prometheus label(s) to show in panel legends for non-HA metric groups. "
-            "'instance' is the scrape target address (often <pod-ip>:<port>). "
-            "For the Memgraph HA exporter, metrics typically include 'instance_name' (e.g. data0). "
-            "'auto' shows instance_name when present, otherwise falls back to a fixed string "
-            "(see --standalone-instance-name)."
-        ),
-    )
-    parser.add_argument(
         "--standalone-instance-name",
         default="memgraph",
         help=(
             "Fallback name to show in legends when `instance_name` isn't present "
-            "(e.g. when scraping the standalone exporter). Used with --non-ha-legend-label=auto."
+            "(e.g. when scraping the standalone exporter)."
         ),
     )
     args = parser.parse_args()
 
-    add_mg_instance = args.non_ha_legend_label == "auto"
-    legend_non_ha = {
-        "instance": LEGEND_NON_HA,
-        "instance_name": LEGEND_HA,
-        "both": LEGEND_BOTH,
-        "auto": LEGEND_INSTANCE_NAME_AUTO,
-    }[args.non_ha_legend_label]
-
     groups: List[MetricGroup] = [
-        MetricGroup("General metrics", general_data, legend_format=legend_non_ha),
-        MetricGroup("Index metrics", index_data, legend_format=legend_non_ha),
-        MetricGroup("Operator metrics", operator_data, legend_format=legend_non_ha),
-        MetricGroup("Query metrics", query_data, legend_format=legend_non_ha),
-        MetricGroup("Query type metrics", query_type_data, legend_format=legend_non_ha),
-        MetricGroup("Session metrics", session_data, legend_format=legend_non_ha),
-        MetricGroup("Snapshot metrics", snapshot_data, legend_format=legend_non_ha),
-        MetricGroup("Stream metrics", stream_data, legend_format=legend_non_ha),
-        MetricGroup("Transaction metrics", txn_data, legend_format=legend_non_ha),
-        MetricGroup("Trigger metrics", trigger_data, legend_format=legend_non_ha),
-        MetricGroup("TTL metrics", ttl_data, legend_format=legend_non_ha),
+        MetricGroup("General metrics", general_data, legend_format=LEGEND),
+        MetricGroup("Index metrics", index_data, legend_format=LEGEND),
+        MetricGroup("Operator metrics", operator_data, legend_format=LEGEND),
+        MetricGroup("Query metrics", query_data, legend_format=LEGEND),
+        MetricGroup("Query type metrics", query_type_data, legend_format=LEGEND),
+        MetricGroup("Session metrics", session_data, legend_format=LEGEND),
+        MetricGroup("Snapshot metrics", snapshot_data, legend_format=LEGEND),
+        MetricGroup("Stream metrics", stream_data, legend_format=LEGEND),
+        MetricGroup("Transaction metrics", txn_data, legend_format=LEGEND),
+        MetricGroup("Trigger metrics", trigger_data, legend_format=LEGEND),
+        MetricGroup("TTL metrics", ttl_data, legend_format=LEGEND),
         MetricGroup(
             "HA data instances — latency (p50/p90/p99)",
             ha_data_instances_metrics,
             kind="gauge",
-            legend_format=LEGEND_HA,
+            legend_format=LEGEND,
         ),
         MetricGroup(
             "HA data instances — counters (rate/s)",
             ha_data_instances_counter_metrics,
             kind="counter",
-            legend_format=LEGEND_HA,
+            legend_format=LEGEND,
         ),
         MetricGroup(
             "HA coordinators — latency (p50/p90/p99)",
             ha_coordinator_metrics,
             kind="gauge",
-            legend_format=LEGEND_HA,
+            legend_format=LEGEND,
         ),
         MetricGroup(
             "HA coordinators — aggregate counters (rate/s)",
             ha_coordinators_agg_metrics,
             kind="counter",
-            # These don't have `instance_name`.
-            legend_format=LEGEND_NON_HA
-            if args.non_ha_legend_label == "instance_name"
-            else legend_non_ha,
+            legend_format=LEGEND,
         ),
     ]
 
     dashboard = build_dashboard(
         groups=groups,
-        add_mg_instance=add_mg_instance,
         mg_instance_fallback=args.standalone_instance_name,
     )
     with open(args.out, "w", encoding="utf-8") as f:

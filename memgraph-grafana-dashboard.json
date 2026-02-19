@@ -121,7 +121,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(average_degree{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(average_degree{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -217,7 +217,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(disk_usage{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(disk_usage{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -313,7 +313,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(edge_count{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(edge_count{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -409,7 +409,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(memory_usage{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(memory_usage{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -505,7 +505,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(peak_memory_usage{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(peak_memory_usage{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -601,7 +601,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(unreleased_delta_objects{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(unreleased_delta_objects{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -697,7 +697,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(vertex_count{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(vertex_count{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -793,7 +793,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SocketConnect_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SocketConnect_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -889,7 +889,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SocketConnect_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SocketConnect_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -985,7 +985,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SocketConnect_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SocketConnect_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1094,7 +1094,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveLabelIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveLabelIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1190,7 +1190,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveLabelPropertyIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveLabelPropertyIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1286,7 +1286,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActivePointIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActivePointIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1382,7 +1382,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveTextIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveTextIndices{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1491,7 +1491,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(AccumulateOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(AccumulateOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1587,7 +1587,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(AggregateOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(AggregateOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1683,7 +1683,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ApplyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ApplyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1779,7 +1779,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(CallProcedureOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(CallProcedureOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1875,7 +1875,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(CartesianOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(CartesianOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -1971,7 +1971,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ConstructNamedPathOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ConstructNamedPathOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2067,7 +2067,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(CreateExpandOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(CreateExpandOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2163,7 +2163,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(CreateNodeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(CreateNodeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2259,7 +2259,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(DeleteOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(DeleteOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2355,7 +2355,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(DistinctOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(DistinctOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2451,7 +2451,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(EdgeUniquenessFilterOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(EdgeUniquenessFilterOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2547,7 +2547,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(EmptyResultOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(EmptyResultOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2643,7 +2643,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(EvaluatePatternFilterOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(EvaluatePatternFilterOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2739,7 +2739,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ExpandOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ExpandOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2835,7 +2835,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ExpandVariableOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ExpandVariableOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -2931,7 +2931,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(FilterOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(FilterOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3027,7 +3027,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ForeachOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ForeachOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3123,7 +3123,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(HashJoinOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(HashJoinOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3219,7 +3219,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(IndexedJoinOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(IndexedJoinOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3315,7 +3315,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(LimitOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(LimitOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3411,7 +3411,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(MergeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(MergeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3507,7 +3507,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(OnceOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(OnceOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3603,7 +3603,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(OptionalOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(OptionalOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3699,7 +3699,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(OrderByOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(OrderByOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3795,7 +3795,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(PeriodicCommitOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(PeriodicCommitOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3891,7 +3891,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(PeriodicSubqueryOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(PeriodicSubqueryOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -3987,7 +3987,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ProduceOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ProduceOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4083,7 +4083,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(RemoveLabelsOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(RemoveLabelsOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4179,7 +4179,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(RemovePropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(RemovePropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4275,7 +4275,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(RollUpApplyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(RollUpApplyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4371,7 +4371,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByEdgeIdOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByEdgeIdOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4467,7 +4467,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByEdgeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByEdgeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4563,7 +4563,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByEdgeTypeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByEdgeTypeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4659,7 +4659,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByEdgeTypePropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByEdgeTypePropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4755,7 +4755,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByEdgeTypePropertyRangeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByEdgeTypePropertyRangeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4851,7 +4851,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByEdgeTypePropertyValueOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByEdgeTypePropertyValueOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -4947,7 +4947,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByIdOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByIdOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5043,7 +5043,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByLabelOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByLabelOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5139,7 +5139,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByLabelPropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByLabelPropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5235,7 +5235,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByLabelPropertyRangeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByLabelPropertyRangeOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5331,7 +5331,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByLabelPropertyValueOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByLabelPropertyValueOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5427,7 +5427,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByPointDistanceOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByPointDistanceOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5523,7 +5523,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllByPointWithinbboxOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllByPointWithinbboxOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5619,7 +5619,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ScanAllOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ScanAllOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5715,7 +5715,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(SetLabelsOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(SetLabelsOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5811,7 +5811,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(SetPropertiesOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(SetPropertiesOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -5907,7 +5907,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(SetPropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(SetPropertyOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6003,7 +6003,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(SkipOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(SkipOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6099,7 +6099,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(UnionOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(UnionOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6195,7 +6195,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(UnwindOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(UnwindOperator{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6304,7 +6304,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((QueryExecutionLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((QueryExecutionLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6400,7 +6400,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((QueryExecutionLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((QueryExecutionLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6496,7 +6496,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((QueryExecutionLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((QueryExecutionLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6605,7 +6605,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ReadQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ReadQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6701,7 +6701,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ReadWriteQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ReadWriteQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6797,7 +6797,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(WriteQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(WriteQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -6906,7 +6906,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveBoltSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveBoltSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7002,7 +7002,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveSSLSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveSSLSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7098,7 +7098,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7194,7 +7194,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveTCPSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveTCPSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7290,7 +7290,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveWebSocketSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveWebSocketSessions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7386,7 +7386,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(BoltMessages{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(BoltMessages{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7495,7 +7495,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotCreationLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SnapshotCreationLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7591,7 +7591,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotCreationLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SnapshotCreationLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7687,7 +7687,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotCreationLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SnapshotCreationLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7783,7 +7783,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotRecoveryLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SnapshotRecoveryLatency_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7879,7 +7879,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotRecoveryLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SnapshotRecoveryLatency_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -7975,7 +7975,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotRecoveryLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace((SnapshotRecoveryLatency_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8084,7 +8084,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(MessagesConsumed{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(MessagesConsumed{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8180,7 +8180,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(StreamsCreated{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(StreamsCreated{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8289,7 +8289,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(ActiveTransactions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(ActiveTransactions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8385,7 +8385,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(CommitedTransactions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(CommitedTransactions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8481,7 +8481,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(FailedPrepare{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(FailedPrepare{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8577,7 +8577,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(FailedPull{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(FailedPull{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8673,7 +8673,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(FailedQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(FailedQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8769,7 +8769,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(RollbackedTransactions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(RollbackedTransactions{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8865,7 +8865,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(SuccessfulQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(SuccessfulQuery{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -8974,7 +8974,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(TriggersCreated{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(TriggersCreated{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -9070,7 +9070,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(TriggersExecuted{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(TriggersExecuted{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -9179,7 +9179,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(DeletedEdges{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(DeletedEdges{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -9275,7 +9275,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(DeletedNodes{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(DeletedNodes{job=~\"$job\", instance=~\"$instance\"}, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -9384,8 +9384,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((AppendDeltasRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((AppendDeltasRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -9480,8 +9480,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((AppendDeltasRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((AppendDeltasRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -9576,8 +9576,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((AppendDeltasRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((AppendDeltasRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -9672,8 +9672,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((CurrentWalRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((CurrentWalRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -9768,8 +9768,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((CurrentWalRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((CurrentWalRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -9864,8 +9864,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((CurrentWalRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((CurrentWalRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -9960,8 +9960,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((WalFilesRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((WalFilesRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10056,8 +10056,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((WalFilesRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((WalFilesRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10152,8 +10152,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((WalFilesRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((WalFilesRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10248,8 +10248,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((SnapshotRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10344,8 +10344,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((SnapshotRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10440,8 +10440,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SnapshotRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((SnapshotRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10536,8 +10536,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((FrequentHeartbeatRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((FrequentHeartbeatRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10632,8 +10632,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((FrequentHeartbeatRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((FrequentHeartbeatRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10728,8 +10728,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((FrequentHeartbeatRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((FrequentHeartbeatRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10824,8 +10824,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((HeartbeatRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((HeartbeatRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -10920,8 +10920,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((HeartbeatRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((HeartbeatRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11016,8 +11016,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((HeartbeatRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((HeartbeatRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11112,8 +11112,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((ReplicaStream_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((ReplicaStream_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11208,8 +11208,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((ReplicaStream_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((ReplicaStream_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11304,8 +11304,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((ReplicaStream_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((ReplicaStream_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11400,8 +11400,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SystemRecoveryRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((SystemRecoveryRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11496,8 +11496,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SystemRecoveryRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((SystemRecoveryRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11592,8 +11592,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((SystemRecoveryRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((SystemRecoveryRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11688,8 +11688,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((StartTxnReplication_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((StartTxnReplication_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11784,8 +11784,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((StartTxnReplication_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((StartTxnReplication_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11880,8 +11880,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((StartTxnReplication_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((StartTxnReplication_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -11976,8 +11976,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((FinalizeTxnReplication_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((FinalizeTxnReplication_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12072,8 +12072,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((FinalizeTxnReplication_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((FinalizeTxnReplication_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12168,8 +12168,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((FinalizeTxnReplication_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((FinalizeTxnReplication_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12277,8 +12277,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(ReplicaRecoverySuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace(rate(ReplicaRecoverySuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12373,8 +12373,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(ReplicaRecoveryFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace(rate(ReplicaRecoveryFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12469,8 +12469,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(ReplicaRecoverySkip_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace(rate(ReplicaRecoverySkip_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12578,8 +12578,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((ChooseMostUpToDateInstance_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((ChooseMostUpToDateInstance_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12674,8 +12674,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((ChooseMostUpToDateInstance_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((ChooseMostUpToDateInstance_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12770,8 +12770,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((ChooseMostUpToDateInstance_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((ChooseMostUpToDateInstance_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12866,8 +12866,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((DemoteMainToReplicaRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((DemoteMainToReplicaRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -12962,8 +12962,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((DemoteMainToReplicaRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((DemoteMainToReplicaRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13058,8 +13058,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((DemoteMainToReplicaRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((DemoteMainToReplicaRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13154,8 +13154,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((EnableWritingOnMainRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((EnableWritingOnMainRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13250,8 +13250,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((EnableWritingOnMainRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((EnableWritingOnMainRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13346,8 +13346,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((EnableWritingOnMainRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((EnableWritingOnMainRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13442,8 +13442,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((GetDatabaseHistoriesRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((GetDatabaseHistoriesRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13538,8 +13538,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((GetDatabaseHistoriesRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((GetDatabaseHistoriesRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13634,8 +13634,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((GetDatabaseHistoriesRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((GetDatabaseHistoriesRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13730,8 +13730,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((GetHistories_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((GetHistories_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13826,8 +13826,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((GetHistories_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((GetHistories_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -13922,8 +13922,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((GetHistories_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((GetHistories_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14018,8 +14018,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((InstanceFailCallback_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((InstanceFailCallback_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14114,8 +14114,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((InstanceFailCallback_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((InstanceFailCallback_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14210,8 +14210,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((InstanceFailCallback_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((InstanceFailCallback_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14306,8 +14306,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((InstanceSuccCallback_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((InstanceSuccCallback_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14402,8 +14402,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((InstanceSuccCallback_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((InstanceSuccCallback_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14498,8 +14498,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((InstanceSuccCallback_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((InstanceSuccCallback_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14594,8 +14594,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((PromoteToMainRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((PromoteToMainRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14690,8 +14690,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((PromoteToMainRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((PromoteToMainRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14786,8 +14786,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((PromoteToMainRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((PromoteToMainRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14882,8 +14882,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((RegisterReplicaOnMainRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((RegisterReplicaOnMainRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -14978,8 +14978,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((RegisterReplicaOnMainRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((RegisterReplicaOnMainRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15074,8 +15074,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((RegisterReplicaOnMainRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((RegisterReplicaOnMainRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15170,8 +15170,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((StateCheckRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((StateCheckRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15266,8 +15266,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((StateCheckRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((StateCheckRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15362,8 +15362,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((StateCheckRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((StateCheckRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15458,8 +15458,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((UnregisterReplicaRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((UnregisterReplicaRpc_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15554,8 +15554,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((UnregisterReplicaRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((UnregisterReplicaRpc_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15650,8 +15650,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((UnregisterReplicaRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((UnregisterReplicaRpc_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15746,8 +15746,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((DataFailover_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((DataFailover_us_50p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15842,8 +15842,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((DataFailover_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((DataFailover_us_90p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -15938,8 +15938,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace((DataFailover_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
-          "legendFormat": "{{__name__}} (instance_name={{instance_name}})",
+          "expr": "label_replace(label_replace((DataFailover_us_99p{job=~\"$job\", instance=~\"$instance\"}) / 1e6, \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
         }
@@ -16047,7 +16047,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(BecomeLeaderSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(BecomeLeaderSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16143,7 +16143,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(FailedToBecomeLeader_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(FailedToBecomeLeader_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16239,7 +16239,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(SuccessfulFailovers_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(SuccessfulFailovers_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16335,7 +16335,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(RaftFailedFailovers_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(RaftFailedFailovers_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16431,7 +16431,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(NoAliveInstanceFailedFailovers_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(NoAliveInstanceFailedFailovers_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16527,7 +16527,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(ShowInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(ShowInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16623,7 +16623,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(ShowInstances_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(ShowInstances_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16719,7 +16719,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(DemoteInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(DemoteInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16815,7 +16815,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(UnregisterReplInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(UnregisterReplInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -16911,7 +16911,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(RemoveCoordInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(RemoveCoordInstance_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17007,7 +17007,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(StateCheckRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(StateCheckRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17103,7 +17103,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(StateCheckRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(StateCheckRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17199,7 +17199,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(UnregisterReplicaRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(UnregisterReplicaRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17295,7 +17295,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(UnregisterReplicaRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(UnregisterReplicaRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17391,7 +17391,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(EnableWritingOnMainRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(EnableWritingOnMainRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17487,7 +17487,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(EnableWritingOnMainRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(EnableWritingOnMainRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17583,7 +17583,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(PromoteToMainRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(PromoteToMainRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17679,7 +17679,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(PromoteToMainRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(PromoteToMainRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17775,7 +17775,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(DemoteMainToReplicaRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(DemoteMainToReplicaRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17871,7 +17871,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(DemoteMainToReplicaRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(DemoteMainToReplicaRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -17967,7 +17967,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(RegisterReplicaOnMainRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(RegisterReplicaOnMainRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -18063,7 +18063,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(RegisterReplicaOnMainRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(RegisterReplicaOnMainRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -18159,7 +18159,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(SwapMainUUIDRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(SwapMainUUIDRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -18255,7 +18255,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(SwapMainUUIDRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(SwapMainUUIDRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -18351,7 +18351,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(GetDatabaseHistoriesRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(GetDatabaseHistoriesRpcFail_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
@@ -18447,7 +18447,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(rate(GetDatabaseHistoriesRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"database\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
+          "expr": "label_replace(label_replace(rate(GetDatabaseHistoriesRpcSuccess_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval]), \"mg_instance\", \"memgraph\", \"instance\", \".*\"), \"mg_instance\", \"$1\", \"instance_name\", \"(.+)\")",
           "legendFormat": "{{__name__}} (instance_name={{mg_instance}})",
           "range": true,
           "refId": "A"
