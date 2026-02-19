@@ -9,8 +9,17 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple, Union
+
+# Allow running this script from the repo root by adding the Prometheus exporter
+# package path (which contains the `metrics/` module) to PYTHONPATH.
+_REPO_DIR = Path(__file__).resolve().parent
+_EXPORTER_DIR = _REPO_DIR / "prometheus-exporter"
+if _EXPORTER_DIR.exists():
+    sys.path.insert(0, str(_EXPORTER_DIR))
 
 from metrics.general_metrics import general_data
 from metrics.ha_metrics import (
@@ -237,15 +246,24 @@ def _templating() -> dict:
             {
                 "current": {"selected": False, "text": "All", "value": "$__all"},
                 "datasource": {"type": "prometheus", "uid": "prometheus"},
-                "definition": "label_values(up, job)",
+                # Use a Memgraph metric (not `up`) so instance/job lists include
+                # series that existed within the dashboard time range, even if the
+                # target is no longer active at "now" (e.g. after restarts).
+                "definition": "label_values(edge_count, job)",
                 "hide": 0,
                 "includeAll": True,
+                # Make "All" truly match all series, not just the enumerated options.
+                "allValue": ".*",
                 "label": "job",
                 "multi": True,
                 "name": "job",
                 "options": [],
-                "query": {"query": "label_values(up, job)", "refId": "PrometheusVariableQueryEditor-VariableQuery"},
-                "refresh": 1,
+                "query": {
+                    "query": "label_values(edge_count, job)",
+                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
+                },
+                # Refresh on time range change so options track the dashboard window.
+                "refresh": 2,
                 "regex": "",
                 "skipUrlSync": False,
                 "sort": 1,
@@ -254,18 +272,19 @@ def _templating() -> dict:
             {
                 "current": {"selected": False, "text": "All", "value": "$__all"},
                 "datasource": {"type": "prometheus", "uid": "prometheus"},
-                "definition": 'label_values(up{job=~"$job"}, instance)',
+                "definition": 'label_values(edge_count{job=~"$job"}, instance)',
                 "hide": 0,
                 "includeAll": True,
+                "allValue": ".*",
                 "label": "instance",
                 "multi": True,
                 "name": "instance",
                 "options": [],
                 "query": {
-                    "query": 'label_values(up{job=~"$job"}, instance)',
+                    "query": 'label_values(edge_count{job=~"$job"}, instance)',
                     "refId": "PrometheusVariableQueryEditor-VariableQuery",
                 },
-                "refresh": 1,
+                "refresh": 2,
                 "regex": "",
                 "skipUrlSync": False,
                 "sort": 1,
