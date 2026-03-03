@@ -245,12 +245,12 @@ def _timeseries_panel(
     }
 
 
-def _templating() -> dict:
+def _templating(*, datasource_uid: str) -> dict:
     return {
         "list": [
             {
                 "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": "prometheus"},
+                "datasource": {"type": "prometheus", "uid": datasource_uid},
                 # Use a Memgraph metric (not `up`) so instance/job lists include
                 # series that existed within the dashboard time range, even if the
                 # target is no longer active at "now" (e.g. after restarts).
@@ -276,7 +276,7 @@ def _templating() -> dict:
             },
             {
                 "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": "prometheus"},
+                "datasource": {"type": "prometheus", "uid": datasource_uid},
                 "definition": 'label_values(edge_count{job=~"$job"}, cluster_id)',
                 "hide": 0,
                 "includeAll": True,
@@ -297,7 +297,7 @@ def _templating() -> dict:
             },
             {
                 "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": "prometheus"},
+                "datasource": {"type": "prometheus", "uid": datasource_uid},
                 "definition": 'label_values(edge_count{job=~"$job", cluster_id=~"$cluster_id"}, instance)',
                 "hide": 0,
                 "includeAll": True,
@@ -352,6 +352,9 @@ def build_dashboard(
     *,
     groups: Sequence[MetricGroup],
     mg_instance_fallback: str = "memgraph",
+    datasource_uid: str = "prometheus",
+    dashboard_uid: str = "memgraph-prometheus-exporter",
+    title: str = "Memgraph",
 ) -> dict:
     panels: List[dict] = []
     panel_id = 1
@@ -387,6 +390,7 @@ def build_dashboard(
                     x=x,
                     unit=unit,
                     legend_format=group.legend_format,
+                    datasource_uid=datasource_uid,
                 )
             )
             panel_id += 1
@@ -419,12 +423,12 @@ def build_dashboard(
         "preload": False,
         "schemaVersion": 42,
         "tags": ["memgraph", "prometheus-exporter"],
-        "templating": _templating(),
+        "templating": _templating(datasource_uid=datasource_uid),
         "time": {"from": "now-6h", "to": "now"},
         "timepicker": {},
         "timezone": "browser",
-        "title": "Memgraph",
-        "uid": "memgraph-prometheus-exporter",
+        "title": title,
+        "uid": dashboard_uid,
         "version": 1,
     }
 
@@ -435,6 +439,27 @@ def main() -> None:
         "--out",
         default="memgraph-grafana-dashboard.json",
         help="Output dashboard JSON path (relative to current directory).",
+    )
+    parser.add_argument(
+        "--datasource-uid",
+        default="prometheus",
+        help=(
+            "Grafana datasource UID to use for all panel queries and dashboard variables "
+            '(e.g. "prometheus" or "victoriametrics").'
+        ),
+    )
+    parser.add_argument(
+        "--dashboard-uid",
+        default="memgraph-prometheus-exporter",
+        help=(
+            "Grafana dashboard UID. If you generate multiple variants (e.g. Prometheus and "
+            "VictoriaMetrics) into the same Grafana instance, set different UIDs to avoid overwrites."
+        ),
+    )
+    parser.add_argument(
+        "--title",
+        default="Memgraph",
+        help="Grafana dashboard title.",
     )
     parser.add_argument(
         "--standalone-instance-name",
@@ -487,6 +512,9 @@ def main() -> None:
     dashboard = build_dashboard(
         groups=groups,
         mg_instance_fallback=args.standalone_instance_name,
+        datasource_uid=args.datasource_uid,
+        dashboard_uid=args.dashboard_uid,
+        title=args.title,
     )
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(dashboard, f, indent=2, sort_keys=False)
