@@ -86,4 +86,20 @@ This values file also exposes Grafana via a NodePort on `32000` (reachable at `h
 
 ### Updating the dashboard
 
-If changes are made to the exporter metrics, the `tools/generate_grafana_dashboard.py` script can be used to update the `memgraph-grafana-dashboard.json` file. It scrapes the metrics listed in the `metrics/` directory and generates a Grafana dashboard JSON file. Then, the `tools/generate_kube_prometheus_stack_dashboard_values.py` script can be used to update the `kube_prometheus_stack_memgraph_dashboard.yaml` file.
+If changes are made to the exporter metrics, the `tools/generate_grafana_dashboard.py` script can be used to update the `memgraph-grafana-dashboard.json` file. It scrapes the metrics listed in the `metrics/` directory and generates a Grafana dashboard JSON file. Then, the `tools/generate_kube_prometheus_stack_dashboard_values.py` script can be used to update the `kube_prometheus_stack_memgraph_dashboard.yaml` file, e.g.:
+
+```bash
+python3 tools/generate_grafana_dashboard.py
+python3 tools/generate_dashboard_values.py
+```
+
+For VictoriaMetrics, you can create the `victoria_metrics_dashboard.yaml` file instead by running:
+
+```bash
+python3 tools/generate_grafana_dashboard.py  \
+  --datasource-uid victoriametrics   \
+  --out memgraph-grafana-dashboard-victoriametrics.json
+python3 tools/generate_dashboard_values.py \
+  --dashboard-json memgraph-grafana-dashboard-victoriametrics.json \
+  --out victoria_metrics_dashboard.yaml
+```
