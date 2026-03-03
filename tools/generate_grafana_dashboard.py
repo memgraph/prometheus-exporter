@@ -277,7 +277,28 @@ def _templating() -> dict:
             {
                 "current": {"selected": False, "text": "All", "value": "$__all"},
                 "datasource": {"type": "prometheus", "uid": "prometheus"},
-                "definition": 'label_values(edge_count{job=~"$job"}, instance)',
+                "definition": 'label_values(edge_count{job=~"$job"}, cluster_id)',
+                "hide": 0,
+                "includeAll": True,
+                "allValue": ".*",
+                "label": "Cluster ID",
+                "multi": True,
+                "name": "cluster_id",
+                "options": [],
+                "query": {
+                    "query": 'label_values(edge_count{job=~"$job"}, cluster_id)',
+                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": False,
+                "sort": 1,
+                "type": "query",
+            },
+            {
+                "current": {"selected": False, "text": "All", "value": "$__all"},
+                "datasource": {"type": "prometheus", "uid": "prometheus"},
+                "definition": 'label_values(edge_count{job=~"$job", cluster_id=~"$cluster_id"}, instance)',
                 "hide": 0,
                 "includeAll": True,
                 "allValue": ".*",
@@ -286,7 +307,7 @@ def _templating() -> dict:
                 "name": "instance",
                 "options": [],
                 "query": {
-                    "query": 'label_values(edge_count{job=~"$job"}, instance)',
+                    "query": 'label_values(edge_count{job=~"$job", cluster_id=~"$cluster_id"}, instance)',
                     "refId": "PrometheusVariableQueryEditor-VariableQuery",
                 },
                 "refresh": 2,
@@ -316,7 +337,7 @@ def _with_mg_instance(expr: str, *, fallback: str) -> str:
 
 
 def _prom_expr_for_metric(*, name: str, kind: str) -> str:
-    selector = '{job=~"$job", instance=~"$instance"}'
+    selector = '{job=~"$job", instance=~"$instance", cluster_id=~"$cluster_id"}'
 
     if _LATENCY_RE.match(name):
         return f"({name}{selector}) / 1e6"
