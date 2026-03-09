@@ -66,6 +66,17 @@ PANEL_COLS = 4
 PANEL_W = 24 // PANEL_COLS  # 6
 PANEL_H = 8
 
+FILTER_VARIABLES: Sequence[Tuple[str, str]] = (
+    ("job", "job"),
+    ("cluster_id", "Cluster ID"),
+    ("cluster_env", "Cluster Env"),
+    ("service_name", "Service Name"),
+    ("service_uuid", "Service UUID"),
+    ("instance_id", "Instance ID"),
+    ("database_name", "Database Name"),
+    ("instance", "instance"),
+)
+
 
 def _metric_name(m: MetricDef) -> str:
     return m if isinstance(m, str) else m[0]
@@ -245,79 +256,57 @@ def _timeseries_panel(
     }
 
 
+def _selector_for_labels(labels: Sequence[str]) -> str:
+    if not labels:
+        return ""
+    joined = ", ".join([f'{label}=~"${label}"' for label in labels])
+    return "{" + joined + "}"
+
+
+def _label_values_query(*, metric: str, target_label: str, filter_labels: Sequence[str]) -> str:
+    selector = _selector_for_labels(filter_labels)
+    return f"label_values({metric}{selector}, {target_label})"
+
+
 def _templating(*, datasource_uid: str) -> dict:
-    return {
-        "list": [
-            {
-                "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": datasource_uid},
-                # Use a Memgraph metric (not `up`) so instance/job lists include
-                # series that existed within the dashboard time range, even if the
-                # target is no longer active at "now" (e.g. after restarts).
-                "definition": "label_values(edge_count, job)",
-                "hide": 0,
-                "includeAll": True,
-                # Make "All" truly match all series, not just the enumerated options.
-                "allValue": ".*",
-                "label": "job",
-                "multi": True,
-                "name": "job",
-                "options": [],
-                "query": {
-                    "query": "label_values(edge_count, job)",
-                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
-                },
-                # Refresh on time range change so options track the dashboard window.
-                "refresh": 2,
-                "regex": "",
-                "skipUrlSync": False,
-                "sort": 1,
-                "type": "query",
+    templating_list = []
+
+    # Use a Memgraph metric (not `up`) so variable options include series that
+    # existed within the dashboard time range, even if the target is no longer
+    # active at "now" (e.g. after restarts).
+    for index, (name, label) in enumerate(FILTER_VARIABLES):
+        filter_labels = [variable_name for variable_name, _ in FILTER_VARIABLES[:index]]
+        query = _label_values_query(
+            metric="edge_count",
+            target_label=name,
+            filter_labels=filter_labels,
+        )
+
+        variable = {
+            "current": {"selected": False, "text": "All", "value": "$__all"},
+            "datasource": {"type": "prometheus", "uid": datasource_uid},
+            "definition": query,
+            "hide": 0,
+            "includeAll": True,
+            "allValue": ".*",
+            "label": label,
+            "multi": True,
+            "name": name,
+            "options": [],
+            "query": {
+                "query": query,
+                "refId": "PrometheusVariableQueryEditor-VariableQuery",
             },
-            {
-                "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": datasource_uid},
-                "definition": 'label_values(edge_count{job=~"$job"}, cluster_id)',
-                "hide": 0,
-                "includeAll": True,
-                "allValue": ".*",
-                "label": "Cluster ID",
-                "multi": True,
-                "name": "cluster_id",
-                "options": [],
-                "query": {
-                    "query": 'label_values(edge_count{job=~"$job"}, cluster_id)',
-                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
-                },
-                "refresh": 2,
-                "regex": "",
-                "skipUrlSync": False,
-                "sort": 1,
-                "type": "query",
-            },
-            {
-                "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": datasource_uid},
-                "definition": 'label_values(edge_count{job=~"$job", cluster_id=~"$cluster_id"}, instance)',
-                "hide": 0,
-                "includeAll": True,
-                "allValue": ".*",
-                "label": "instance",
-                "multi": True,
-                "name": "instance",
-                "options": [],
-                "query": {
-                    "query": 'label_values(edge_count{job=~"$job", cluster_id=~"$cluster_id"}, instance)',
-                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
-                },
-                "refresh": 2,
-                "regex": "",
-                "skipUrlSync": False,
-                "sort": 1,
-                "type": "query",
-            },
-        ]
-    }
+            "refresh": 2,
+            "regex": "",
+            "skipUrlSync": False,
+            "sort": 1,
+            "type": "query",
+        }
+
+        templating_list.append(variable)
+
+    return {"list": templating_list}
 
 
 def _prom_escape_string_literal(s: str) -> str:
@@ -337,7 +326,7 @@ def _with_mg_instance(expr: str, *, fallback: str) -> str:
 
 
 def _prom_expr_for_metric(*, name: str, kind: str) -> str:
-    selector = '{job=~"$job", instance=~"$instance", cluster_id=~"$cluster_id"}'
+    selector = _selector_for_labels([name for name, _ in FILTER_VARIABLES])
 
     if _LATENCY_RE.match(name):
         return f"({name}{selector}) / 1e6"
