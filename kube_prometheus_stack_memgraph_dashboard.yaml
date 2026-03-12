@@ -18714,7 +18714,7 @@ extraManifests:
           },
           "timepicker": {},
           "timezone": "browser",
-          "title": "Get Database Histories RPC Success",
+          "title": "Memgraph",
           "uid": "memgraph-prometheus-exporter",
           "version": 1
         }
