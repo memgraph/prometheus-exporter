@@ -59,15 +59,16 @@ _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
 # We implement this by adding a derived label `mg_instance` in the PromQL expression:
 # 1) set mg_instance=<fallback> for all series (based on an always-present label like `instance`)
 # 2) override mg_instance=<instance_name> only for series that have `instance_name`
+#
+# We also include filter labels (cluster_id, cluster_env, service_name, etc.) in the legend.
+# Grafana renders missing labels as empty; labels only appear with a value when present on the series.
 MG_INSTANCE_LABEL = "mg_instance"
-LEGEND = "{{__name__}} (instance_name={{mg_instance}})"
 
 PANEL_COLS = 4
 PANEL_W = 24 // PANEL_COLS  # 6
 PANEL_H = 8
 
 FILTER_VARIABLES: Sequence[Tuple[str, str]] = (
-    ("job", "job"),
     ("cluster_id", "Cluster ID"),
     ("cluster_env", "Cluster Env"),
     ("service_name", "Service Name"),
@@ -76,6 +77,23 @@ FILTER_VARIABLES: Sequence[Tuple[str, str]] = (
     ("database_name", "Database Name"),
     ("instance", "instance"),
 )
+
+# Labels to omit from the legend (still used as filters).
+LEGEND_EXCLUDE: frozenset[str] = frozenset({"service_uuid", "instance_id", "instance", "database_name"})
+
+
+def _legend_format() -> str:
+    """Build legend format: metric name, mg_instance, and filter labels (values only when set on series)."""
+    parts = ["{{__name__}}", "(instance_name={{mg_instance}}"]
+    for name, _ in FILTER_VARIABLES:
+        if name in LEGEND_EXCLUDE:
+            continue
+        parts.append(", " + name + "={{" + name + "}}")
+    parts.append(")")
+    return " ".join(parts)
+
+
+LEGEND = _legend_format()
 
 
 def _metric_name(m: MetricDef) -> str:
