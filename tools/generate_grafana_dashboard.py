@@ -51,6 +51,7 @@ class MetricGroup:
 
 
 _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
+_PERCENTILE_RE = re.compile(r"^(?P<base>.+)_(?P<pct>\d+)p$")
 
 # Legend support that works for both HA and standalone:
 # - HA exporter metrics include `instance_name` (e.g. data0/coord1) → show that.
@@ -138,6 +139,13 @@ def _nice_title_for_metric(name: str) -> str:
         base_title = _normalize_acronyms(_split_camel(base)).strip()
         return f"{base_title} (p{pct})"
 
+    m = _PERCENTILE_RE.match(name)
+    if m:
+        base = m.group("base")
+        pct = m.group("pct")
+        base_title = _normalize_acronyms(_title_case_snake(base))
+        return f"{base_title} (p{pct})"
+
     if "_" in name:
         return _normalize_acronyms(_title_case_snake(name))
 
@@ -203,11 +211,10 @@ def _timeseries_panel(
     panel_id: int,
     title: str,
     description: str,
-    expr: str,
+    targets: Sequence[Tuple[str, str]],
     y: int,
     x: int,
     unit: Optional[str],
-    legend_format: str,
     w: int = PANEL_W,
     h: int = PANEL_H,
     datasource_uid: str = "prometheus",
@@ -266,12 +273,31 @@ def _timeseries_panel(
                 "expr": expr,
                 "legendFormat": legend_format,
                 "range": True,
-                "refId": "A",
+                "refId": chr(ord("A") + i),
             }
+            for i, (expr, legend_format) in enumerate(targets)
         ],
         "title": title,
         "type": "timeseries",
     }
+
+
+def _percentile_suffix(metric: str) -> Optional[Tuple[str, str]]:
+    m = _PERCENTILE_RE.match(metric)
+    if not m:
+        return None
+    return m.group("base"), m.group("pct")
+
+
+def _panel_title_without_percentile(title: str) -> str:
+    return re.sub(r"\s+\(p\d+\)$", "", title)
+
+
+def _legend_for_percentile(base_legend: str, pct: str) -> str:
+    percentile = f"p{pct}"
+    if "{{__name__}}" in base_legend:
+        return base_legend.replace("{{__name__}}", percentile)
+    return f"{percentile} {base_legend}".strip()
 
 
 def _selector_for_labels(labels: Sequence[str]) -> str:
@@ -372,13 +398,10 @@ def build_dashboard(
         panel_id += 1
         y += 1
 
-        i = 0
-        line_y = y
-        for m in group.metrics:
-            x = (i % PANEL_COLS) * PANEL_W
-            if i > 0 and i % PANEL_COLS == 0:
-                line_y += PANEL_H
+        panel_specs: List[Tuple[str, str, Optional[str], List[Tuple[str, str]]]] = []
+        percentile_panel_index: Dict[str, int] = {}
 
+        for m in group.metrics:
             metric = _metric_name(m)
             desc = _metric_desc(m)
 
@@ -387,24 +410,45 @@ def build_dashboard(
             unit = _infer_unit(metric)
             title = TITLE_MAP.get(metric, metric)
 
+            percentile = _percentile_suffix(metric)
+            if percentile is None:
+                panel_specs.append((title, desc, unit, [(expr, group.legend_format)]))
+                continue
+
+            metric_base, pct = percentile
+            panel_key = metric_base
+            existing_index = percentile_panel_index.get(panel_key)
+            target = (expr, _legend_for_percentile(group.legend_format, pct))
+            if existing_index is None:
+                panel_specs.append((_panel_title_without_percentile(title), desc, unit, [target]))
+                percentile_panel_index[panel_key] = len(panel_specs) - 1
+            else:
+                panel_specs[existing_index][3].append(target)
+
+        i = 0
+        line_y = y
+        for title, desc, unit, targets in panel_specs:
+            x = (i % PANEL_COLS) * PANEL_W
+            if i > 0 and i % PANEL_COLS == 0:
+                line_y += PANEL_H
+
             panels.append(
                 _timeseries_panel(
                     panel_id=panel_id,
                     title=title,
                     description=desc,
-                    expr=expr,
+                    targets=targets,
                     y=line_y,
                     x=x,
                     unit=unit,
-                    legend_format=group.legend_format,
                     datasource_uid=datasource_uid,
                 )
             )
             panel_id += 1
             i += 1
 
-        if len(group.metrics) > 0:
-            lines = (len(group.metrics) + PANEL_COLS - 1) // PANEL_COLS
+        if len(panel_specs) > 0:
+            lines = (len(panel_specs) + PANEL_COLS - 1) // PANEL_COLS
             y = y + (lines * PANEL_H)
 
     return {
