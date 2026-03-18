@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from typing import Iterable
 
 
 def _indent_block(text: str, spaces: int) -> str:
@@ -46,6 +47,43 @@ def _yaml_double_quote(value: str) -> str:
     return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
+def _default_logs_dashboard(main_dashboard: Path) -> Path | None:
+    # Pair known datasource-specific metric dashboards with their log dashboards.
+    dashboard_to_logs = {
+        "memgraph-grafana-dashboard-victoriametrics.json": "victoria-logs-dashboard.json",
+        "memgraph-grafana-dashboard.json": "loki-logs-dashboard.json",
+    }
+    logs_name = dashboard_to_logs.get(main_dashboard.name)
+    if logs_name is None:
+        return None
+    return main_dashboard.with_name(logs_name)
+
+
+def _load_dashboard_json(path: Path) -> str:
+    dashboard_json = path.read_text(encoding="utf-8")
+    # Ensure trailing newline inside the block.
+    if not dashboard_json.endswith("\n"):
+        dashboard_json += "\n"
+
+    # Escape any Grafana/Prometheus legend templates like `{{__name__}}` so Helm
+    # doesn't try to interpret them when processing extraManifests via `tpl`.
+    return _escape_for_helm_tpl(dashboard_json)
+
+
+def _dashboard_data_block(dashboard_paths: Iterable[Path]) -> str:
+    data_entries = []
+    for dashboard_path in dashboard_paths:
+        dashboard_json = _load_dashboard_json(dashboard_path)
+        json_key = dashboard_path.name
+        if not json_key.endswith(".json"):
+            json_key = f"{json_key}.json"
+        data_entries.append(
+            f"      {json_key}: |\n"
+            f"{_indent_block(dashboard_json.rstrip('\\n'), 8)}"
+        )
+    return "\n".join(data_entries)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -58,23 +96,28 @@ def main() -> None:
         default="kube_prometheus_stack_memgraph_dashboard.yaml",
         help="Output values YAML path.",
     )
+    parser.add_argument(
+        "--extra-dashboard-json",
+        action="append",
+        default=[],
+        help=(
+            "Additional Grafana dashboard JSON file to embed. "
+            "Can be passed multiple times."
+        ),
+    )
     args = parser.parse_args()
 
     dashboard_path = Path(args.dashboard_json)
     out_path = Path(args.out)
 
-    dashboard_json = dashboard_path.read_text(encoding="utf-8")
-    # Ensure trailing newline inside the block.
-    if not dashboard_json.endswith("\n"):
-        dashboard_json += "\n"
+    all_dashboard_paths = [dashboard_path]
+    auto_logs_dashboard = _default_logs_dashboard(dashboard_path)
+    if auto_logs_dashboard is not None and auto_logs_dashboard.exists():
+        all_dashboard_paths.append(auto_logs_dashboard)
+    all_dashboard_paths.extend(Path(path) for path in args.extra_dashboard_json)
 
-    # Escape any Grafana/Prometheus legend templates like `{{__name__}}` so Helm
-    # doesn't try to interpret them when processing extraManifests via `tpl`.
-    dashboard_json = _escape_for_helm_tpl(dashboard_json)
-
-    json_key = dashboard_path.name
-    if not json_key.endswith(".json"):
-        json_key = f"{json_key}.json"
+    # Keep order stable and remove duplicates.
+    unique_dashboard_paths = list(dict.fromkeys(all_dashboard_paths))
 
     # YAML structure:
     # grafana:
@@ -108,8 +151,7 @@ def main() -> None:
       labels:
         grafana_dashboard: "1"
     data:
-      {json_key}: |
-{_indent_block(dashboard_json.rstrip('\\n'), 8)}
+{_dashboard_data_block(unique_dashboard_paths)}
 """
     yaml_text = (
         "grafana:\n"
