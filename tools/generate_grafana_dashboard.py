@@ -444,7 +444,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--out",
-        default="memgraph-grafana-dashboard.json",
+        default="dashboards/memgraph_prometheus.json",
         help="Output dashboard JSON path (relative to current directory).",
     )
     parser.add_argument(

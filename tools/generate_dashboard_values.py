@@ -8,9 +8,9 @@ Grafana's dashboard sidecar:
   grafana.sidecar.dashboards.labelValue: "1"
 
 Usage:
-  ./generate_kube_prometheus_stack_dashboard_values.py \
-    --dashboard-json memgraph-grafana-dashboard.json \
-    --out kube_prometheus_stack_memgraph_dashboard.yaml
+  python3 tools/generate_dashboard_values.py \
+    --dashboard-json dashboards/memgraph_prometheus.json \
+    --out dashboards/memgraph_prometheus.yaml
 """
 
 from __future__ import annotations
@@ -50,8 +50,11 @@ def _yaml_double_quote(value: str) -> str:
 def _default_logs_dashboard(main_dashboard: Path) -> Path | None:
     # Pair known datasource-specific metric dashboards with their log dashboards.
     dashboard_to_logs = {
-        "memgraph-grafana-dashboard-victoriametrics.json": "victoria-logs-dashboard.json",
-        "memgraph-grafana-dashboard.json": "loki-logs-dashboard.json",
+        "memgraph_victoriametrics.json": "memgraph_victorialogs.json",
+        "memgraph_prometheus.json": "memgraph_loki.json",
+        "memgraph_victoria.json": "memgraph_victorialogs.json",
+        "memgraph-grafana-dashboard-victoriametrics.json": "memgraph_victorialogs.json",
+        "memgraph-grafana-dashboard.json": "memgraph_loki.json",
     }
     logs_name = dashboard_to_logs.get(main_dashboard.name)
     if logs_name is None:
@@ -88,12 +91,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dashboard-json",
-        default="memgraph-grafana-dashboard.json",
+        default="dashboards/memgraph_prometheus.json",
         help="Path to the Grafana dashboard JSON file.",
     )
     parser.add_argument(
         "--out",
-        default="kube_prometheus_stack_memgraph_dashboard.yaml",
+        default="dashboards/memgraph_prometheus.yaml",
         help="Output values YAML path.",
     )
     parser.add_argument(
