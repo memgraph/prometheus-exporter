@@ -14383,7 +14383,7 @@ extraManifests:
                     "uid": "victorialogs"
                   },
                   "editorMode": "code",
-                  "expr": "app:memgraph | stats by (_time:1m) count() as logs",
+                  "expr": "app:memgraph pod:$pod level:$level | stats by (_time:1m) count() as logs",
                   "queryType": "statsRange",
                   "refId": "A"
                 },
@@ -14393,7 +14393,7 @@ extraManifests:
                     "uid": "victorialogs"
                   },
                   "editorMode": "code",
-                  "expr": "app:memgraph | stats by (_time:1m, service_name) count() as logs",
+                  "expr": "app:memgraph pod:$pod level:$level | stats by (_time:1m, service_name) count() as logs",
                   "queryType": "statsRange",
                   "refId": "B"
                 }
@@ -14438,7 +14438,7 @@ extraManifests:
                     "uid": "victorialogs"
                   },
                   "editorMode": "code",
-                  "expr": "* cluster_id:$cluster_id cluster_env:$cluster_env service_uuid:$service_uuid service_name:$service_name instance_id:$instance_id instance:$instance database_name:$database_name",
+                  "expr": "* cluster_id:$cluster_id cluster_env:$cluster_env service_uuid:$service_uuid service_name:$service_name instance_id:$instance_id instance:$instance database_name:$database_name pod:$pod level:$level",
                   "queryType": "instant",
                   "refId": "A"
                 }
@@ -14449,7 +14449,10 @@ extraManifests:
           ],
           "preload": false,
           "schemaVersion": 42,
-          "tags": [],
+          "tags": [
+            "memgraph",
+            "victoria-logs"
+          ],
           "templating": {
             "list": [
               {
@@ -14627,6 +14630,62 @@ extraManifests:
                 "query": {
                   "query": "label_values(edge_count{cluster_id=~\"$cluster_id\", cluster_env=~\"$cluster_env\", service_name=~\"$service_name\", service_uuid=~\"$service_uuid\", instance_id=~\"$instance_id\", database_name=~\"$database_name\"}, instance)",
                   "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                },
+                "refresh": 2,
+                "regex": "",
+                "regexApplyTo": "value",
+                "sort": 1,
+                "type": "query"
+              },
+              {
+                "allValue": ".*",
+                "current": {
+                  "text": "All",
+                  "value": "$__all"
+                },
+                "datasource": {
+                  "type": "victoriametrics-logs-datasource",
+                  "uid": "victorialogs"
+                },
+                "definition": "field_values(pod)",
+                "includeAll": true,
+                "label": "Pod",
+                "multi": true,
+                "name": "pod",
+                "options": [],
+                "query": {
+                  "field": "pod",
+                  "query": "app:memgraph cluster_id:$cluster_id cluster_env:$cluster_env service_uuid:$service_uuid service_name:$service_name instance_id:$instance_id instance:$instance database_name:$database_name",
+                  "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+                  "type": "fieldValue"
+                },
+                "refresh": 2,
+                "regex": "",
+                "regexApplyTo": "value",
+                "sort": 1,
+                "type": "query"
+              },
+              {
+                "allValue": ".*",
+                "current": {
+                  "text": "All",
+                  "value": "$__all"
+                },
+                "datasource": {
+                  "type": "victoriametrics-logs-datasource",
+                  "uid": "victorialogs"
+                },
+                "definition": "field_values(level)",
+                "includeAll": true,
+                "label": "Log Level",
+                "multi": true,
+                "name": "level",
+                "options": [],
+                "query": {
+                  "field": "level",
+                  "query": "app:memgraph cluster_id:$cluster_id cluster_env:$cluster_env service_uuid:$service_uuid service_name:$service_name instance_id:$instance_id instance:$instance database_name:$database_name pod:$pod",
+                  "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+                  "type": "fieldValue"
                 },
                 "refresh": 2,
                 "regex": "",
