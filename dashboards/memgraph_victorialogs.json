@@ -176,7 +176,10 @@
   ],
   "preload": false,
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "memgraph",
+    "victoria-logs"
+  ],
   "templating": {
     "list": [
       {
