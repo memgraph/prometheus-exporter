@@ -14702,7 +14702,7 @@ extraManifests:
           "timepicker": {},
           "timezone": "browser",
           "title": "Memgraph Logs",
-          "uid": "ad55thv",
+          "uid": "memgraph-victoria-logs",
           "version": 8,
           "weekStart": ""
         }

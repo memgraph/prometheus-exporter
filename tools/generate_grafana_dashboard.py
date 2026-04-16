@@ -478,7 +478,7 @@ def build_dashboard(
         "time": {"from": "now-6h", "to": "now"},
         "timepicker": {},
         "timezone": "browser",
-        "title": "Memgraph",
+        "title": title,
         "uid": dashboard_uid,
         "version": 1,
     }
