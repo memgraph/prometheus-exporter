@@ -51,6 +51,7 @@ class MetricGroup:
 
 
 _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
+_PERCENTILE_RE = re.compile(r"^(?P<base>.+)_(?P<pct>\d+)p$")
 
 # Legend support that works for both HA and standalone:
 # - HA exporter metrics include `instance_name` (e.g. data0/coord1) → show that.
@@ -59,12 +60,41 @@ _LATENCY_RE = re.compile(r"^(?P<base>.+)_us_(?P<pct>\d+)p$")
 # We implement this by adding a derived label `mg_instance` in the PromQL expression:
 # 1) set mg_instance=<fallback> for all series (based on an always-present label like `instance`)
 # 2) override mg_instance=<instance_name> only for series that have `instance_name`
+#
+# We also include filter labels (cluster_id, cluster_env, service_name, etc.) in the legend.
+# Grafana renders missing labels as empty; labels only appear with a value when present on the series.
 MG_INSTANCE_LABEL = "mg_instance"
-LEGEND = "{{__name__}} (instance_name={{mg_instance}})"
 
 PANEL_COLS = 4
 PANEL_W = 24 // PANEL_COLS  # 6
 PANEL_H = 8
+
+FILTER_VARIABLES: Sequence[Tuple[str, str]] = (
+    ("cluster_id", "Cluster ID"),
+    ("cluster_env", "Cluster Env"),
+    ("service_name", "Service Name"),
+    ("service_uuid", "Service UUID"),
+    ("instance_id", "Instance ID"),
+    ("database_name", "Database Name"),
+    ("instance", "instance"),
+)
+
+# Labels to omit from the legend (still used as filters).
+LEGEND_EXCLUDE: frozenset[str] = frozenset({"service_uuid", "instance_id", "instance", "database_name"})
+
+
+def _legend_format() -> str:
+    """Build legend format: metric name, mg_instance, and filter labels (values only when set on series)."""
+    parts = ["{{__name__}}", "(instance_name={{mg_instance}}"]
+    for name, _ in FILTER_VARIABLES:
+        if name in LEGEND_EXCLUDE:
+            continue
+        parts.append(", " + name + "={{" + name + "}}")
+    parts.append(")")
+    return " ".join(parts)
+
+
+LEGEND = _legend_format()
 
 
 def _metric_name(m: MetricDef) -> str:
@@ -107,6 +137,13 @@ def _nice_title_for_metric(name: str) -> str:
         base = m.group("base")
         pct = m.group("pct")
         base_title = _normalize_acronyms(_split_camel(base)).strip()
+        return f"{base_title} (p{pct})"
+
+    m = _PERCENTILE_RE.match(name)
+    if m:
+        base = m.group("base")
+        pct = m.group("pct")
+        base_title = _normalize_acronyms(_title_case_snake(base))
         return f"{base_title} (p{pct})"
 
     if "_" in name:
@@ -174,11 +211,10 @@ def _timeseries_panel(
     panel_id: int,
     title: str,
     description: str,
-    expr: str,
+    targets: Sequence[Tuple[str, str]],
     y: int,
     x: int,
     unit: Optional[str],
-    legend_format: str,
     w: int = PANEL_W,
     h: int = PANEL_H,
     datasource_uid: str = "prometheus",
@@ -237,66 +273,84 @@ def _timeseries_panel(
                 "expr": expr,
                 "legendFormat": legend_format,
                 "range": True,
-                "refId": "A",
+                "refId": chr(ord("A") + i),
             }
+            for i, (expr, legend_format) in enumerate(targets)
         ],
         "title": title,
         "type": "timeseries",
     }
 
 
-def _templating() -> dict:
-    return {
-        "list": [
-            {
-                "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": "prometheus"},
-                # Use a Memgraph metric (not `up`) so instance/job lists include
-                # series that existed within the dashboard time range, even if the
-                # target is no longer active at "now" (e.g. after restarts).
-                "definition": "label_values(edge_count, job)",
-                "hide": 0,
-                "includeAll": True,
-                # Make "All" truly match all series, not just the enumerated options.
-                "allValue": ".*",
-                "label": "job",
-                "multi": True,
-                "name": "job",
-                "options": [],
-                "query": {
-                    "query": "label_values(edge_count, job)",
-                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
-                },
-                # Refresh on time range change so options track the dashboard window.
-                "refresh": 2,
-                "regex": "",
-                "skipUrlSync": False,
-                "sort": 1,
-                "type": "query",
+def _percentile_suffix(metric: str) -> Optional[Tuple[str, str]]:
+    m = _PERCENTILE_RE.match(metric)
+    if not m:
+        return None
+    return m.group("base"), m.group("pct")
+
+
+def _panel_title_without_percentile(title: str) -> str:
+    return re.sub(r"\s+\(p\d+\)$", "", title)
+
+
+def _legend_for_percentile(base_legend: str, pct: str) -> str:
+    percentile = f"p{pct}"
+    if "{{__name__}}" in base_legend:
+        return base_legend.replace("{{__name__}}", percentile)
+    return f"{percentile} {base_legend}".strip()
+
+
+def _selector_for_labels(labels: Sequence[str]) -> str:
+    if not labels:
+        return ""
+    joined = ", ".join([f'{label}=~"${label}"' for label in labels])
+    return "{" + joined + "}"
+
+
+def _label_values_query(*, metric: str, target_label: str, filter_labels: Sequence[str]) -> str:
+    selector = _selector_for_labels(filter_labels)
+    return f"label_values({metric}{selector}, {target_label})"
+
+
+def _templating(*, datasource_uid: str) -> dict:
+    templating_list = []
+
+    # Use a Memgraph metric (not `up`) so variable options include series that
+    # existed within the dashboard time range, even if the target is no longer
+    # active at "now" (e.g. after restarts).
+    for index, (name, label) in enumerate(FILTER_VARIABLES):
+        filter_labels = [variable_name for variable_name, _ in FILTER_VARIABLES[:index]]
+        query = _label_values_query(
+            metric="edge_count",
+            target_label=name,
+            filter_labels=filter_labels,
+        )
+
+        variable = {
+            "current": {"selected": False, "text": "All", "value": "$__all"},
+            "datasource": {"type": "prometheus", "uid": datasource_uid},
+            "definition": query,
+            "hide": 0,
+            "includeAll": True,
+            "allValue": ".*",
+            "label": label,
+            "multi": True,
+            "name": name,
+            "options": [],
+            "query": {
+                "query": query,
+                "refId": "PrometheusVariableQueryEditor-VariableQuery",
             },
-            {
-                "current": {"selected": False, "text": "All", "value": "$__all"},
-                "datasource": {"type": "prometheus", "uid": "prometheus"},
-                "definition": 'label_values(edge_count{job=~"$job"}, instance)',
-                "hide": 0,
-                "includeAll": True,
-                "allValue": ".*",
-                "label": "instance",
-                "multi": True,
-                "name": "instance",
-                "options": [],
-                "query": {
-                    "query": 'label_values(edge_count{job=~"$job"}, instance)',
-                    "refId": "PrometheusVariableQueryEditor-VariableQuery",
-                },
-                "refresh": 2,
-                "regex": "",
-                "skipUrlSync": False,
-                "sort": 1,
-                "type": "query",
-            },
-        ]
-    }
+            "refresh": 2,
+            "regex": "",
+            "skipUrlSync": False,
+            "sort": 1,
+            "type": "query",
+        }
+
+        templating_list.append(variable)
+
+    return {"list": templating_list}
 
 
 def _prom_escape_string_literal(s: str) -> str:
@@ -316,7 +370,7 @@ def _with_mg_instance(expr: str, *, fallback: str) -> str:
 
 
 def _prom_expr_for_metric(*, name: str, kind: str) -> str:
-    selector = '{job=~"$job", instance=~"$instance"}'
+    selector = _selector_for_labels([name for name, _ in FILTER_VARIABLES])
 
     if _LATENCY_RE.match(name):
         return f"({name}{selector}) / 1e6"
@@ -331,6 +385,9 @@ def build_dashboard(
     *,
     groups: Sequence[MetricGroup],
     mg_instance_fallback: str = "memgraph",
+    datasource_uid: str = "prometheus",
+    dashboard_uid: str = "memgraph-prometheus-exporter",
+    title: str = "Memgraph",
 ) -> dict:
     panels: List[dict] = []
     panel_id = 1
@@ -341,13 +398,10 @@ def build_dashboard(
         panel_id += 1
         y += 1
 
-        i = 0
-        line_y = y
-        for m in group.metrics:
-            x = (i % PANEL_COLS) * PANEL_W
-            if i > 0 and i % PANEL_COLS == 0:
-                line_y += PANEL_H
+        panel_specs: List[Tuple[str, str, Optional[str], List[Tuple[str, str]]]] = []
+        percentile_panel_index: Dict[str, int] = {}
 
+        for m in group.metrics:
             metric = _metric_name(m)
             desc = _metric_desc(m)
 
@@ -356,23 +410,45 @@ def build_dashboard(
             unit = _infer_unit(metric)
             title = TITLE_MAP.get(metric, metric)
 
+            percentile = _percentile_suffix(metric)
+            if percentile is None:
+                panel_specs.append((title, desc, unit, [(expr, group.legend_format)]))
+                continue
+
+            metric_base, pct = percentile
+            panel_key = metric_base
+            existing_index = percentile_panel_index.get(panel_key)
+            target = (expr, _legend_for_percentile(group.legend_format, pct))
+            if existing_index is None:
+                panel_specs.append((_panel_title_without_percentile(title), desc, unit, [target]))
+                percentile_panel_index[panel_key] = len(panel_specs) - 1
+            else:
+                panel_specs[existing_index][3].append(target)
+
+        i = 0
+        line_y = y
+        for title, desc, unit, targets in panel_specs:
+            x = (i % PANEL_COLS) * PANEL_W
+            if i > 0 and i % PANEL_COLS == 0:
+                line_y += PANEL_H
+
             panels.append(
                 _timeseries_panel(
                     panel_id=panel_id,
                     title=title,
                     description=desc,
-                    expr=expr,
+                    targets=targets,
                     y=line_y,
                     x=x,
                     unit=unit,
-                    legend_format=group.legend_format,
+                    datasource_uid=datasource_uid,
                 )
             )
             panel_id += 1
             i += 1
 
-        if len(group.metrics) > 0:
-            lines = (len(group.metrics) + PANEL_COLS - 1) // PANEL_COLS
+        if len(panel_specs) > 0:
+            lines = (len(panel_specs) + PANEL_COLS - 1) // PANEL_COLS
             y = y + (lines * PANEL_H)
 
     return {
@@ -398,12 +474,12 @@ def build_dashboard(
         "preload": False,
         "schemaVersion": 42,
         "tags": ["memgraph", "prometheus-exporter"],
-        "templating": _templating(),
+        "templating": _templating(datasource_uid=datasource_uid),
         "time": {"from": "now-6h", "to": "now"},
         "timepicker": {},
         "timezone": "browser",
-        "title": "Memgraph",
-        "uid": "memgraph-prometheus-exporter",
+        "title": title,
+        "uid": dashboard_uid,
         "version": 1,
     }
 
@@ -412,8 +488,29 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--out",
-        default="memgraph-grafana-dashboard.json",
+        default="dashboards/memgraph_prometheus.json",
         help="Output dashboard JSON path (relative to current directory).",
+    )
+    parser.add_argument(
+        "--datasource-uid",
+        default="prometheus",
+        help=(
+            "Grafana datasource UID to use for all panel queries and dashboard variables "
+            '(e.g. "prometheus" or "victoriametrics").'
+        ),
+    )
+    parser.add_argument(
+        "--dashboard-uid",
+        default="memgraph-prometheus-exporter",
+        help=(
+            "Grafana dashboard UID. If you generate multiple variants (e.g. Prometheus and "
+            "VictoriaMetrics) into the same Grafana instance, set different UIDs to avoid overwrites."
+        ),
+    )
+    parser.add_argument(
+        "--title",
+        default="Memgraph",
+        help="Grafana dashboard title.",
     )
     parser.add_argument(
         "--standalone-instance-name",
@@ -466,6 +563,9 @@ def main() -> None:
     dashboard = build_dashboard(
         groups=groups,
         mg_instance_fallback=args.standalone_instance_name,
+        datasource_uid=args.datasource_uid,
+        dashboard_uid=args.dashboard_uid,
+        title=args.title,
     )
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(dashboard, f, indent=2, sort_keys=False)

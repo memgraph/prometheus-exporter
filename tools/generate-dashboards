@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+cd "${REPO_ROOT}"
+
+python3 tools/generate_grafana_dashboard.py \
+  --out dashboards/memgraph_prometheus.json
+
+python3 tools/generate_dashboard_values.py \
+  --dashboard-json dashboards/memgraph_prometheus.json \
+  --out dashboards/memgraph_prometheus.yaml
+
+python3 tools/generate_grafana_dashboard.py \
+  --datasource-uid victoriametrics \
+  --out dashboards/memgraph_victoriametrics.json
+
+python3 tools/generate_dashboard_values.py \
+  --dashboard-json dashboards/memgraph_victoriametrics.json \
+  --out dashboards/memgraph_victoria.yaml

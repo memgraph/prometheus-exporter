@@ -75,15 +75,28 @@ $ docker run --name memgraph-prometheus -d -v $(pwd)/config:/etc/prometheus -p 9
 
 ## Grafana dashboard
 
-To add the Memgraph Grafana dashboard to your Grafana instance, you can download the `kube_prometheus_stack_memgraph_dashboard.yaml` file and apply it to your Grafana instance using `helm upgrade` and pass it as a value file, or `helm install` when setting up the monitoring stack, e.g.
+To add the Memgraph Grafana dashboard to your Grafana instance, you can download the `dashboards/memgraph_prometheus.yaml` file and apply it to your Grafana instance using `helm upgrade` and pass it as a value file, or `helm install` when setting up the monitoring stack, e.g.
 ```bash
 helm upgrade --install kube-prometheus-stack oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack \
   --namespace monitoring \
   --create-namespace \
-  -f kube_prometheus_stack_memgraph_dashboard.yaml
+  -f dashboards/memgraph_prometheus.yaml
 ```
 This values file also exposes Grafana via a NodePort on `32000` (reachable at `http://<node-ip>:32000`).
 
 ### Updating the dashboard
 
-If changes are made to the exporter metrics, the `tools/generate_grafana_dashboard.py` script can be used to update the `memgraph-grafana-dashboard.json` file. It scrapes the metrics listed in the `metrics/` directory and generates a Grafana dashboard JSON file. Then, the `tools/generate_kube_prometheus_stack_dashboard_values.py` script can be used to update the `kube_prometheus_stack_memgraph_dashboard.yaml` file.
+If changes are made to the exporter metrics, run:
+
+```bash
+tools/generate-dashboards
+```
+
+This regenerates both dashboard sets:
+
+- Prometheus/Loki:
+  - `dashboards/memgraph_prometheus.json`
+  - `dashboards/memgraph_prometheus.yaml`
+- VictoriaMetrics/VictoriaLogs:
+  - `dashboards/memgraph_victoriametrics.json`
+  - `dashboards/memgraph_victoria.yaml`
