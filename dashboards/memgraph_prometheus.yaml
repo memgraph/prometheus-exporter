@@ -1,8 +1,8 @@
 grafana:
   service:
-    # Expose Grafana outside the cluster at http://<node-ip>:32000
-    type: NodePort
-    nodePort: 32000
+    # Expose Grafana via a cloud LoadBalancer.
+    # For local/bare-metal clusters without a LB controller, switch to NodePort.
+    type: LoadBalancer
 
 extraManifests:
   memgraphGrafanaDashboard:
@@ -14460,7 +14460,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count, cluster_id)",
                 "includeAll": true,
@@ -14486,7 +14486,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count{cluster_id=~\"$cluster_id\"}, cluster_env)",
                 "includeAll": true,
@@ -14512,7 +14512,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count{cluster_id=~\"$cluster_id\", cluster_env=~\"$cluster_env\"}, service_name)",
                 "includeAll": true,
@@ -14538,7 +14538,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count{cluster_id=~\"$cluster_id\", cluster_env=~\"$cluster_env\", service_name=~\"$service_name\"}, service_uuid)",
                 "includeAll": true,
@@ -14564,7 +14564,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count{cluster_id=~\"$cluster_id\", cluster_env=~\"$cluster_env\", service_name=~\"$service_name\", service_uuid=~\"$service_uuid\"}, instance_id)",
                 "includeAll": true,
@@ -14590,7 +14590,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count{cluster_id=~\"$cluster_id\", cluster_env=~\"$cluster_env\", service_name=~\"$service_name\", service_uuid=~\"$service_uuid\", instance_id=~\"$instance_id\"}, database_name)",
                 "includeAll": true,
@@ -14616,7 +14616,7 @@ extraManifests:
                 },
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "victoriametrics"
+                  "uid": "prometheus"
                 },
                 "definition": "label_values(edge_count{cluster_id=~\"$cluster_id\", cluster_env=~\"$cluster_env\", service_name=~\"$service_name\", service_uuid=~\"$service_uuid\", instance_id=~\"$instance_id\", database_name=~\"$database_name\"}, instance)",
                 "includeAll": true,

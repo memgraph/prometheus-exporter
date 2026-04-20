@@ -1,8 +1,8 @@
 grafana:
   service:
-    # Expose Grafana outside the cluster at http://<node-ip>:32000
-    type: NodePort
-    nodePort: 32000
+    # Expose Grafana via a cloud LoadBalancer.
+    # For local/bare-metal clusters without a LB controller, switch to NodePort.
+    type: LoadBalancer
 
 extraManifests:
   memgraphGrafanaDashboard:

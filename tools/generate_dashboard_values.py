@@ -125,8 +125,7 @@ def main() -> None:
     # YAML structure:
     # grafana:
     #   service:
-    #     type: NodePort
-    #     nodePort: 32000
+    #     type: LoadBalancer
     # extraManifests:
     #   <manifest-key>:
     #     apiVersion: v1
@@ -143,7 +142,7 @@ def main() -> None:
     # - namespace: monitoring
     # - ConfigMap name: memgraph-grafana-dashboard
     # - extraManifests key: memgraphGrafanaDashboard
-    # - Grafana service exposure: NodePort 32000
+    # - Grafana service exposure: LoadBalancer
     yaml_text = f"""extraManifests:
   memgraphGrafanaDashboard:
     apiVersion: v1
@@ -159,9 +158,9 @@ def main() -> None:
     yaml_text = (
         "grafana:\n"
         "  service:\n"
-        "    # Expose Grafana outside the cluster at http://<node-ip>:32000\n"
-        "    type: NodePort\n"
-        "    nodePort: 32000\n"
+        "    # Expose Grafana via a cloud LoadBalancer.\n"
+        "    # For local/bare-metal clusters without a LB controller, switch to NodePort.\n"
+        "    type: LoadBalancer\n"
         "\n"
         + yaml_text
     )
