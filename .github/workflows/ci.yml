@@ -95,7 +95,9 @@ jobs:
           python3 tools/verify_metrics.py \
             --url "http://localhost:${EXPORTER_PORT}/metrics" \
             --attempts 30 \
-            --delay 2
+            --delay 2 \
+            --require-non-zero memory_usage \
+            --non-zero-timeout 180
 
       - name: Show exporter logs
         if: always()

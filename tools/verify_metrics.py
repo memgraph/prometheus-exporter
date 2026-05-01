@@ -5,6 +5,10 @@ Compares the set of metric names exposed at the exporter's ``/metrics`` endpoint
 against the metrics defined under ``metrics/`` for standalone mode. Exits 0 if
 all expected names are present, otherwise prints the missing metric names and
 exits 1.
+
+Optionally also waits for one or more required metrics to report a non-zero
+value (proving the exporter is actually receiving data from Memgraph, not just
+exposing default-zero gauges).
 """
 
 import argparse
@@ -69,6 +73,31 @@ def parse_metric_names(text):
     return names
 
 
+def parse_metric_values(text):
+    """Return name -> max value across label combinations.
+
+    Using max so a metric counts as "non-zero" if any sample has a positive
+    value, which is the right semantics for things like memory_usage that have
+    no labels but matters for any future labeled metrics too.
+    """
+    values = {}
+    for line in text.splitlines():
+        if not line or line.startswith("#"):
+            continue
+        parts = line.rsplit(" ", 1)
+        if len(parts) < 2:
+            continue
+        name = parts[0].split("{", 1)[0]
+        try:
+            value = float(parts[1])
+        except ValueError:
+            continue
+        prev = values.get(name)
+        if prev is None or value > prev:
+            values[name] = value
+    return values
+
+
 def wait_until_reachable(url, attempts, delay, timeout):
     last_err = None
     for i in range(1, attempts + 1):
@@ -79,6 +108,72 @@ def wait_until_reachable(url, attempts, delay, timeout):
             print(f"[{i}/{attempts}] exporter not reachable yet: {err}", flush=True)
             time.sleep(delay)
     raise SystemExit(f"Exporter never became reachable at {url}: {last_err}")
+
+
+def wait_for_names(url, expected, attempts, delay, http_timeout):
+    missing = expected
+    for attempt in range(1, attempts + 1):
+        try:
+            text = fetch(url, http_timeout)
+            print("========= Response Data =========", flush=True)
+            print(text, flush=True)
+            print("================================", flush=True)
+        except (urllib.error.URLError, ConnectionError, TimeoutError) as err:
+            print(f"[{attempt}/{attempts}] fetch failed: {err}", flush=True)
+            time.sleep(delay)
+            continue
+
+        scraped = parse_metric_names(text)
+        missing = expected - scraped
+        if not missing:
+            print(f"All {len(expected)} expected metrics are exposed by the exporter.")
+            return set()
+
+        print(
+            f"[{attempt}/{attempts}] {len(missing)} metric(s) still missing "
+            f"({len(expected) - len(missing)}/{len(expected)} present)",
+            flush=True,
+        )
+        time.sleep(delay)
+    return missing
+
+
+def wait_for_non_zero(url, names, timeout_seconds, delay, http_timeout):
+    deadline = time.monotonic() + timeout_seconds
+    print(
+        f"Waiting up to {timeout_seconds:.0f}s for required metrics to become "
+        f"non-zero: {names}",
+        flush=True,
+    )
+    still_zero = list(names)
+    while True:
+        try:
+            text = fetch(url, http_timeout)
+        except (urllib.error.URLError, ConnectionError, TimeoutError) as err:
+            print(f"fetch failed: {err}", flush=True)
+            text = ""
+
+        values = parse_metric_values(text)
+        still_zero = [n for n in names if values.get(n, 0.0) <= 0.0]
+        if not still_zero:
+            for name in names:
+                print(f"  {name} = {values.get(name)}", flush=True)
+            print("All required metrics have non-zero values.", flush=True)
+            return []
+
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return still_zero
+
+        present = [
+            f"{n}={values.get(n, 0.0)}" for n in names if n not in still_zero
+        ]
+        print(
+            f"still zero: {still_zero}; non-zero so far: {present}; "
+            f"~{int(remaining)}s remaining",
+            flush=True,
+        )
+        time.sleep(min(delay, max(remaining, 0.1)))
 
 
 def main():
@@ -92,7 +187,7 @@ def main():
         "--attempts",
         type=int,
         default=60,
-        help="Number of polling attempts before giving up.",
+        help="Number of polling attempts during the metric-name check.",
     )
     parser.add_argument(
         "--delay",
@@ -106,6 +201,23 @@ def main():
         default=5.0,
         help="HTTP timeout for each fetch.",
     )
+    parser.add_argument(
+        "--require-non-zero",
+        action="append",
+        default=[],
+        metavar="METRIC",
+        help=(
+            "Require this metric to report a non-zero value before exiting "
+            "successfully. May be repeated. Proves real data is flowing from "
+            "Memgraph through the exporter, not just default gauges."
+        ),
+    )
+    parser.add_argument(
+        "--non-zero-timeout",
+        type=float,
+        default=180.0,
+        help="Total seconds to wait for required metrics to become non-zero.",
+    )
     args = parser.parse_args()
 
     expected = expected_standalone_metrics()
@@ -114,36 +226,41 @@ def main():
 
     wait_until_reachable(args.url, args.attempts, args.delay, args.http_timeout)
 
-    missing = expected
-    for attempt in range(1, args.attempts + 1):
-        try:
-            text = fetch(args.url, args.http_timeout)
-            print("========= Response Data =========", flush=True)
-            print(text, flush=True)
-            print("================================", flush=True)
-        except (urllib.error.URLError, ConnectionError, TimeoutError) as err:
-            print(f"[{attempt}/{args.attempts}] fetch failed: {err}", flush=True)
-            time.sleep(args.delay)
-            continue
+    missing = wait_for_names(
+        args.url, expected, args.attempts, args.delay, args.http_timeout
+    )
+    if missing:
+        print("", flush=True)
+        print(f"FAIL: {len(missing)} metric(s) missing from {args.url}:", flush=True)
+        for name in sorted(missing):
+            print(f"  - {name}", flush=True)
+        return 1
 
-        scraped = parse_metric_names(text)
-        missing = expected - scraped
-        if not missing:
-            print(f"All {len(expected)} expected metrics are exposed by the exporter.")
-            return 0
-
-        print(
-            f"[{attempt}/{args.attempts}] {len(missing)} metric(s) still missing "
-            f"({len(expected) - len(missing)}/{len(expected)} present)",
-            flush=True,
+    if args.require_non_zero:
+        unknown = [n for n in args.require_non_zero if n not in expected]
+        if unknown:
+            print(
+                f"FAIL: --require-non-zero references unknown metric(s): {unknown}",
+                flush=True,
+            )
+            return 1
+        still_zero = wait_for_non_zero(
+            args.url,
+            args.require_non_zero,
+            args.non_zero_timeout,
+            args.delay,
+            args.http_timeout,
         )
-        time.sleep(args.delay)
+        if still_zero:
+            print("", flush=True)
+            print(
+                f"FAIL: required metric(s) never became non-zero "
+                f"within {args.non_zero_timeout:.0f}s: {still_zero}",
+                flush=True,
+            )
+            return 1
 
-    print("", flush=True)
-    print(f"FAIL: {len(missing)} metric(s) missing from {args.url}:", flush=True)
-    for name in sorted(missing):
-        print(f"  - {name}", flush=True)
-    return 1
+    return 0
 
 
 if __name__ == "__main__":
