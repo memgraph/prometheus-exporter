@@ -118,6 +118,9 @@ def main():
     for attempt in range(1, args.attempts + 1):
         try:
             text = fetch(args.url, args.http_timeout)
+            print("========= Response Data =========", flush=True)
+            print(text, flush=True)
+            print("================================", flush=True)
         except (urllib.error.URLError, ConnectionError, TimeoutError) as err:
             print(f"[{attempt}/{args.attempts}] fetch failed: {err}", flush=True)
             time.sleep(args.delay)

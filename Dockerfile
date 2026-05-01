@@ -22,7 +22,7 @@ RUN poetry export --without dev --without-hashes --format requirements.txt --out
   && pip install --no-cache-dir --target=/install --requirement requirements.txt
 
 
-FROM gcr.io/distroless/python3-debian13
+FROM gcr.io/distroless/python3-debian13:nonroot
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -32,11 +32,14 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /code
 
-COPY --from=builder /install /code/site-packages
-COPY mg_exporter.py \
+COPY --from=builder --chown=nonroot:nonroot /install /code/site-packages
+COPY --chown=nonroot:nonroot \
+     mg_exporter.py \
      standalone_main.py standalone_model.py standalone_config.yaml \
      ha_main.py ha_model.py ha_config.yaml \
      ./
-COPY metrics /code/metrics
+COPY --chown=nonroot:nonroot metrics /code/metrics
+
+USER nonroot:nonroot
 
 ENTRYPOINT ["python3", "/code/mg_exporter.py"]
