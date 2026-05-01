@@ -17,7 +17,7 @@ COPY . .
 
 RUN rm -rf .venv \
   && poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi
+  && poetry install --no-interaction --no-ansi --without dev
 
 # Set an environment variable default to standalone
 ENV DEPLOYMENT_TYPE=HA
