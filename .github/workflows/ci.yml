@@ -48,6 +48,8 @@ jobs:
             --network "$NETWORK" \
             -p 7687:7687 \
             -p 9091:9091 \
+            -e MEMGRAPH_ENTERPRISE_LICENSE=${{ secrets.MEMGRAPH_ENTERPRISE_LICENSE }} \
+            -e MEMGRAPH_ORGANIZATION_NAME=${{ secrets.MEMGRAPH_ORGANIZATION_NAME }} \
             "$MEMGRAPH_IMAGE" \
             --also-log-to-stderr=true
 
