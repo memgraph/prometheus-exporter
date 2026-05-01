@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 
 
 logging.basicConfig(format="%(asctime)-15s [%(levelname)s]: %(message)s")
@@ -30,16 +31,14 @@ if __name__ == "__main__":
         "--type",
         type=str,
         choices=["standalone", "HA"],
-        default="standalone",
-        required=True,
-        help="Type of deployment: standalone or HA",
+        default=os.environ.get("DEPLOYMENT_TYPE", "standalone"),
+        help="Type of deployment: standalone or HA. Defaults to $DEPLOYMENT_TYPE.",
     )
     parser.add_argument(
         "--config-file",
         type=str,
-        default="standalone_config.yaml",
-        required=True,
-        help="Path to the config file needed to start standalone or HA exporter",
+        default=os.environ.get("CONFIG_FILE", "standalone_config.yaml"),
+        help="Path to the config file. Defaults to $CONFIG_FILE.",
     )
 
     args = parser.parse_args()
