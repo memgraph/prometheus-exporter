@@ -7,7 +7,7 @@ RUN apt-get update \
   && apt-get -y upgrade \
   && python3 -m pip install --upgrade pip \
   && apt-get install -y curl \
-  && curl -sSL https://install.python-poetry.org | python3 -
+  && curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.8.5 python3 -
 
 ENV PATH="/root/.local/bin:$PATH"
 
