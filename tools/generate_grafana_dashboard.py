@@ -26,8 +26,11 @@ from metrics.ha_metrics import (
     ha_data_instances_counter_metrics,
     ha_data_instances_metrics,
 )
+from metrics.constraint_metrics import constraint_data
 from metrics.index_metrics import index_data
+from metrics.memory_metrics import memory_data
 from metrics.operator_metrics import operator_data
+from metrics.schema_storage_metrics import schema_info_data, storage_info_data
 from metrics.query_metrics import query_data
 from metrics.query_type_metrics import query_type_data
 from metrics.session_metrics import session_data
@@ -169,6 +172,10 @@ def _build_title_map() -> Dict[str, str]:
     add_metrics(txn_data)
     add_metrics(trigger_data)
     add_metrics(ttl_data)
+    add_metrics(constraint_data)
+    add_metrics(schema_info_data)
+    add_metrics(storage_info_data)
+    add_metrics(memory_data)
     metric_names.extend(list(operator_data))
     add_metrics(ha_data_instances_metrics)
     add_metrics(ha_data_instances_counter_metrics)
@@ -534,6 +541,10 @@ def main() -> None:
         MetricGroup("Transaction metrics", txn_data, legend_format=LEGEND),
         MetricGroup("Trigger metrics", trigger_data, legend_format=LEGEND),
         MetricGroup("TTL metrics", ttl_data, legend_format=LEGEND),
+        MetricGroup("Constraint metrics", constraint_data, legend_format=LEGEND),
+        MetricGroup("Schema info metrics", schema_info_data, legend_format=LEGEND),
+        MetricGroup("Storage info metrics", storage_info_data, legend_format=LEGEND),
+        MetricGroup("Memory metrics", memory_data, legend_format=LEGEND),
         MetricGroup(
             "HA data instances — latency (p50/p90/p99)",
             ha_data_instances_metrics,

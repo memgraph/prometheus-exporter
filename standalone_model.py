@@ -15,6 +15,9 @@ from metrics.query_type_metrics import query_type_data
 from metrics.query_metrics import query_data
 from metrics.index_metrics import index_data
 from metrics.operator_metrics import operator_data
+from metrics.constraint_metrics import constraint_data
+from metrics.schema_storage_metrics import schema_info_data, storage_info_data
+from metrics.memory_metrics import memory_data
 
 logger = logging.getLogger("prometheus_handler")
 
@@ -30,6 +33,10 @@ PrometheusStreamData = {name: Gauge(name, description) for name, description in 
 PrometheusTransactionData = {name: Gauge(name, description) for name, description in txn_data}
 PrometheusTriggerData = {name: Gauge(name, description) for name, description in trigger_data}
 PrometheusTTLData = {name: Gauge(name, description) for name, description in ttl_data}
+PrometheusConstraintData = {name: Gauge(name, description) for name, description in constraint_data}
+PrometheusSchemaInfoData = {name: Gauge(name, description) for name, description in schema_info_data}
+PrometheusStorageInfoData = {name: Gauge(name, description) for name, description in storage_info_data}
+PrometheusMemoryData = {name: Gauge(name, description) for name, description in memory_data}
 
 
 def safe_execute(func):
@@ -50,77 +57,105 @@ def update_metrics(mg_data: Dict[str, Dict[str, int]]):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Index"],
+            mg_data.get("Index", {}),
             PrometheusIndexData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Operator"],
+            mg_data.get("Operator", {}),
             PrometheusOperatorData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Query"],
+            mg_data.get("Query", {}),
             PrometheusQueryData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["QueryType"],
+            mg_data.get("QueryType", {}),
             PrometheusQueryTypeData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Session"],
+            mg_data.get("Session", {}),
             PrometheusSessionData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Snapshot"],
+            mg_data.get("Snapshot", {}),
             PrometheusSnapshotData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Stream"],
+            mg_data.get("Stream", {}),
             PrometheusStreamData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Transaction"],
+            mg_data.get("Transaction", {}),
             PrometheusTransactionData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Trigger"],
+            mg_data.get("Trigger", {}),
             PrometheusTriggerData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["TTL"],
+            mg_data.get("TTL", {}),
             PrometheusTTLData,
         )
     )
     safe_execute(
         partial(
             update_gauges,
-            mg_data["General"],
+            mg_data.get("General", {}),
             PrometheusGeneralData,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("Constraint", {}),
+            PrometheusConstraintData,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("SchemaInfo", {}),
+            PrometheusSchemaInfoData,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("StorageInfo", {}),
+            PrometheusStorageInfoData,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("Memory", {}),
+            PrometheusMemoryData,
         )
     )

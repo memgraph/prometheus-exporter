@@ -6,4 +6,6 @@ txn_data = [
     ("FailedQuery", "Number of times executing a query failed."),
     ("RollbackedTransactions", "Number of rollbacked transactions."),
     ("SuccessfulQuery", "Number of successful queries"),
+    ("TransientErrors", "Number of times a transient error happened."),
+    ("WriteWriteConflicts", "Number of times a write-write conflict happened."),
 ]

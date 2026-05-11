@@ -1,18 +1,8 @@
-_percentiles = [50, 90, 99]
-
-
-def generate_timer_metrics(metric):
-    return [
-        (
-            f"{metric}_us_{percentile}p",
-            f"{metric} latency in microseconds, {percentile}th percentile",
-        )
-        for percentile in _percentiles
-    ]
+from metrics._timer_helpers import generate_timer_metrics
 
 
 ha_data_instances_metrics = (
-    generate_timer_metrics("AppendDeltasRpc")
+    generate_timer_metrics("PrepareCommitRpc")
     + generate_timer_metrics("CurrentWalRpc")
     + generate_timer_metrics("WalFilesRpc")
     + generate_timer_metrics("SnapshotRpc")
@@ -50,6 +40,7 @@ ha_coordinator_metrics = (
     + generate_timer_metrics("RegisterReplicaOnMainRpc")
     + generate_timer_metrics("StateCheckRpc")
     + generate_timer_metrics("UnregisterReplicaRpc")
+    + generate_timer_metrics("UpdateDataInstanceConfigRpc")
     + generate_timer_metrics("DataFailover")
 )
 
@@ -141,5 +132,13 @@ ha_coordinators_agg_metrics = [
     (
         "GetDatabaseHistoriesRpcSuccess",
         "How many times we received sucessful response to GetDatabaseHistoriesRpc",
+    ),
+    (
+        "UpdateDataInstanceConfigRpcFail",
+        "How many times we received unsuccessful or no response to UpdateDataInstanceConfigRpc",
+    ),
+    (
+        "UpdateDataInstanceConfigRpcSuccess",
+        "How many times we received sucessful response to UpdateDataInstanceConfigRpc",
     ),
 ]

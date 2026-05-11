@@ -16,6 +16,9 @@ from metrics.query_type_metrics import query_type_data
 from metrics.query_metrics import query_data
 from metrics.index_metrics import index_data
 from metrics.operator_metrics import operator_data
+from metrics.constraint_metrics import constraint_data
+from metrics.schema_storage_metrics import schema_info_data, storage_info_data
+from metrics.memory_metrics import memory_data
 from metrics.ha_metrics import (
     ha_data_instances_metrics,
     ha_coordinator_metrics,
@@ -88,6 +91,22 @@ PrometheusTriggerData = {
 PrometheusTTLData = {
     name: Gauge(name, description, ["instance_name"]) for name, description in ttl_data
 }
+PrometheusConstraintData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in constraint_data
+}
+PrometheusSchemaInfoData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in schema_info_data
+}
+PrometheusStorageInfoData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in storage_info_data
+}
+PrometheusMemoryData = {
+    name: Gauge(name, description, ["instance_name"])
+    for name, description in memory_data
+}
 
 
 logger = logging.getLogger("prometheus_handler")
@@ -124,7 +143,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Index"],
+            mg_data.get("Index", {}),
             PrometheusIndexData,
             instance_name,
         )
@@ -132,7 +151,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Operator"],
+            mg_data.get("Operator", {}),
             PrometheusOperatorData,
             instance_name,
         )
@@ -140,7 +159,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Query"],
+            mg_data.get("Query", {}),
             PrometheusQueryData,
             instance_name,
         )
@@ -148,7 +167,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["QueryType"],
+            mg_data.get("QueryType", {}),
             PrometheusQueryTypeData,
             instance_name,
         )
@@ -156,7 +175,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Session"],
+            mg_data.get("Session", {}),
             PrometheusSessionData,
             instance_name,
         )
@@ -164,7 +183,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Snapshot"],
+            mg_data.get("Snapshot", {}),
             PrometheusSnapshotData,
             instance_name,
         )
@@ -172,7 +191,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Stream"],
+            mg_data.get("Stream", {}),
             PrometheusStreamData,
             instance_name,
         )
@@ -180,7 +199,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Transaction"],
+            mg_data.get("Transaction", {}),
             PrometheusTransactionData,
             instance_name,
         )
@@ -188,7 +207,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["Trigger"],
+            mg_data.get("Trigger", {}),
             PrometheusTriggerData,
             instance_name,
         )
@@ -196,7 +215,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["TTL"],
+            mg_data.get("TTL", {}),
             PrometheusTTLData,
             instance_name,
         )
@@ -204,8 +223,40 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["General"],
+            mg_data.get("General", {}),
             PrometheusGeneralData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("Constraint", {}),
+            PrometheusConstraintData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("SchemaInfo", {}),
+            PrometheusSchemaInfoData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("StorageInfo", {}),
+            PrometheusStorageInfoData,
+            instance_name,
+        )
+    )
+    safe_execute(
+        partial(
+            update_gauges,
+            mg_data.get("Memory", {}),
+            PrometheusMemoryData,
             instance_name,
         )
     )
@@ -213,7 +264,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["HighAvailability"],
+            mg_data.get("HighAvailability", {}),
             PrometheusHADataInstancesMetrics,
             instance_name,
         )
@@ -222,7 +273,7 @@ def update_data_instance_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["HighAvailability"],
+            mg_data.get("HighAvailability", {}),
             PrometheusHADataInstancesCounterMetrics,
             instance_name,
         )
@@ -233,7 +284,7 @@ def update_coordinator_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["General"],
+            mg_data.get("General", {}),
             PrometheusGeneralData,
             instance_name,
         )
@@ -242,7 +293,7 @@ def update_coordinator_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             update_gauges,
-            mg_data["HighAvailability"],
+            mg_data.get("HighAvailability", {}),
             PrometheusHACoordinatorMetrics,
             instance_name,
         )
@@ -251,7 +302,7 @@ def update_coordinator_metrics(mg_data, instance_name):
     safe_execute(
         partial(
             aggregate_gauges,
-            mg_data["HighAvailability"],
+            mg_data.get("HighAvailability", {}),
             PrometheusHACoordinatorsAggMetrics,
         )
     )
