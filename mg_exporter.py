@@ -1,4 +1,3 @@
-import argparse
 import logging
 import os
 
@@ -21,26 +20,14 @@ def main(deployment_type, config_file):
 
         ha_main.run(config_file)
     else:
-        logger.error("Invalid deployment type. Please choose 'standalone' or 'HA'.")
+        raise SystemExit(
+            f"Invalid DEPLOYMENT_TYPE={deployment_type!r}; "
+            "expected 'standalone' or 'HA'."
+        )
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process deployment type.")
-
-    parser.add_argument(
-        "--type",
-        type=str,
-        choices=["standalone", "HA"],
-        default=os.environ.get("DEPLOYMENT_TYPE", "standalone"),
-        help="Type of deployment: standalone or HA. Defaults to $DEPLOYMENT_TYPE.",
+    main(
+        os.environ.get("DEPLOYMENT_TYPE", "standalone"),
+        os.environ.get("CONFIG_FILE", "standalone_config.yaml"),
     )
-    parser.add_argument(
-        "--config-file",
-        type=str,
-        default=os.environ.get("CONFIG_FILE", "standalone_config.yaml"),
-        help="Path to the config file. Defaults to $CONFIG_FILE.",
-    )
-
-    args = parser.parse_args()
-
-    main(args.type, args.config_file)
