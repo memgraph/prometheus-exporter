@@ -1,0 +1,114 @@
+name: CI
+
+concurrency:
+  group: ci-${{ github.head_ref || github.sha }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        type: choice
+        description: "Runner architecture"
+        default: "amd64"
+        options:
+          - amd64
+          - arm64
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ${{ (inputs.arch == 'arm64') && fromJSON('["self-hosted", "ARM64"]') || fromJSON('["self-hosted", "X64"]') }}
+    env:
+      EXPORTER_IMAGE: memgraph/prometheus-exporter:ci-${{ github.run_id }}
+      MEMGRAPH_IMAGE: memgraph/memgraph:latest
+      NETWORK: prom-exporter-ci-${{ github.run_id }}
+      MEMGRAPH_CONTAINER: memgraph-ci-${{ github.run_id }}
+      EXPORTER_CONTAINER: exporter-ci-${{ github.run_id }}
+      EXPORTER_PORT: "9115"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Build exporter image
+        run: docker build --tag "$EXPORTER_IMAGE" .
+
+      - name: Pull latest Memgraph image
+        run: docker pull "$MEMGRAPH_IMAGE"
+
+      - name: Create docker network
+        run: docker network create "$NETWORK"
+
+      - name: Start Memgraph
+        run: |
+          docker run -d \
+            --name "$MEMGRAPH_CONTAINER" \
+            --network "$NETWORK" \
+            -p 7687:7687 \
+            -p 9091:9091 \
+            -e MEMGRAPH_ENTERPRISE_LICENSE=${{ secrets.MEMGRAPH_ENTERPRISE_LICENSE }} \
+            -e MEMGRAPH_ORGANIZATION_NAME=${{ secrets.MEMGRAPH_ORGANIZATION_NAME }} \
+            "$MEMGRAPH_IMAGE" \
+            --also-log-to-stderr=true
+
+      - name: Wait for Memgraph metrics endpoint
+        run: |
+          for i in $(seq 1 120); do
+            if curl -fsS http://localhost:9091 >/dev/null 2>&1; then
+              echo "Memgraph metrics endpoint is up after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Memgraph metrics endpoint never came up" >&2
+          docker logs "$MEMGRAPH_CONTAINER" || true
+          exit 1
+
+      - name: Write exporter config
+        run: |
+          cat > ci_standalone_config.yaml <<EOF
+          exporter:
+            port: ${EXPORTER_PORT}
+          memgraph:
+            endpoint_url: http://${MEMGRAPH_CONTAINER}
+            port: 9091
+          general:
+            pull_frequency_seconds: 2
+          EOF
+          cat ci_standalone_config.yaml
+
+      - name: Start exporter
+        run: |
+          docker run -d \
+            --name "$EXPORTER_CONTAINER" \
+            --network "$NETWORK" \
+            -p ${EXPORTER_PORT}:${EXPORTER_PORT} \
+            -e DEPLOYMENT_TYPE=standalone \
+            -e CONFIG_FILE=/code/ci_standalone_config.yaml \
+            -v "$PWD/ci_standalone_config.yaml:/code/ci_standalone_config.yaml:ro" \
+            "$EXPORTER_IMAGE"
+
+      - name: Verify exporter scrapes all metrics
+        run: |
+          python3 tools/verify_metrics.py \
+            --url "http://localhost:${EXPORTER_PORT}/metrics" \
+            --attempts 30 \
+            --delay 2 \
+            --require-non-zero memory_usage \
+            --non-zero-timeout 180
+
+      - name: Show exporter logs
+        if: always()
+        run: docker logs "$EXPORTER_CONTAINER" || true
+
+      - name: Show Memgraph logs
+        if: failure()
+        run: docker logs "$MEMGRAPH_CONTAINER" || true
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rm -f "$EXPORTER_CONTAINER" "$MEMGRAPH_CONTAINER" || true
+          docker network rm "$NETWORK" || true
+          docker rmi "$EXPORTER_IMAGE" || true
