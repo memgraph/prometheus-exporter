@@ -7,6 +7,10 @@ instances:
     url: http://127.0.0.1
     port: 9091
     type: coordinator
+    # When url is https://, you can either skip server cert verification or point
+    # at a CA bundle inside the container. skip_tls_verify wins if both are set.
+    # skip_tls_verify: false
+    # ca_file: /etc/ssl/certs/memgraph-ca.crt
   - name: coord2
     url: http://127.0.0.1
     port: 9092

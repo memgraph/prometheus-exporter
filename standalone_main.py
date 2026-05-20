@@ -1,6 +1,7 @@
 import logging
 import time
 import requests
+import urllib3
 import yaml
 
 from yaml.loader import SafeLoader
@@ -19,6 +20,8 @@ class ConfigConstants:
     MEMGRAPH = "memgraph"
     PORT = "port"
     PULL_FREQUENCY_SECONDS = "pull_frequency_seconds"
+    SKIP_TLS_VERIFY = "skip_tls_verify"
+    CA_FILE = "ca_file"
 
 
 class Config:
@@ -28,21 +31,33 @@ class Config:
         memgraph_port: int,
         exporter_port: int,
         pull_frequency_seconds: int,
+        skip_tls_verify: bool = True,
+        ca_file: str = None,
     ) -> None:
         self._memgraph_endpoint_url = memgraph_endpoint_url
         self._memgraph_port = memgraph_port
         self._exporter_port = exporter_port
         self._pull_frequency_seconds = pull_frequency_seconds
+        self._skip_tls_verify = skip_tls_verify
+        self._ca_file = ca_file
+        if self._skip_tls_verify and self._ca_file:
+            logger.warning(
+                "Both skip_tls_verify=true and ca_file set; "
+                "skip_tls_verify takes precedence and ca_file is ignored."
+            )
 
     @classmethod
     def from_yaml_file(cls, file_name: str = "standalone_config.yaml") -> "Config":
         with open(file_name) as f:
             data = yaml.load(f, Loader=SafeLoader)
+            memgraph = data[ConfigConstants.MEMGRAPH]
             return Config(
-                data[ConfigConstants.MEMGRAPH][ConfigConstants.ENDPOINT_URL],
-                data[ConfigConstants.MEMGRAPH][ConfigConstants.PORT],
+                memgraph[ConfigConstants.ENDPOINT_URL],
+                memgraph[ConfigConstants.PORT],
                 data[ConfigConstants.EXPORTER][ConfigConstants.PORT],
                 data[ConfigConstants.GENERAL][ConfigConstants.PULL_FREQUENCY_SECONDS],
+                memgraph.get(ConfigConstants.SKIP_TLS_VERIFY, True),
+                memgraph.get(ConfigConstants.CA_FILE),
             )
 
     @property
@@ -61,9 +76,28 @@ class Config:
     def pull_frequency_seconds(self) -> int:
         return self._pull_frequency_seconds
 
+    @property
+    def skip_tls_verify(self) -> bool:
+        return self._skip_tls_verify
+
+    @property
+    def ca_file(self):
+        return self._ca_file
+
+
+def _verify_arg(config: Config):
+    if config.skip_tls_verify:
+        return False
+    if config.ca_file:
+        return config.ca_file
+    return True
+
 
 def pull_metrics(config: Config):
-    res = requests.get(f"{config.memgraph_endpoint_url}:{config.memgraph_port}")
+    res = requests.get(
+        f"{config.memgraph_endpoint_url}:{config.memgraph_port}",
+        verify=_verify_arg(config),
+    )
 
     if res.status_code != 200:
         raise Exception(
@@ -79,6 +113,8 @@ def pull_metrics(config: Config):
 def run(config_file):
     # Parse the configuration for starting the service and retrieve data from correct endpoints
     config = Config.from_yaml_file(file_name=config_file)
+    if config.skip_tls_verify:
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     start_http_server(config.exporter_port)
 
     # Continuously fetch metrics
