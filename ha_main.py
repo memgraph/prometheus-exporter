@@ -1,6 +1,7 @@
 import logging
 import time
 import requests
+import urllib3
 import yaml
 
 from prometheus_client import start_http_server
@@ -18,14 +19,25 @@ class GeneralConfig:
 
 
 class InstanceConfig:
-    def __init__(self, name, url, port, type):
+    def __init__(self, name, url, port, type, skip_tls_verify=True, ca_file=None):
         self.name = name
         self.url = url
         self.port = port
         self.type = type
+        self.skip_tls_verify = skip_tls_verify
+        self.ca_file = ca_file
+        if self.skip_tls_verify and self.ca_file:
+            logger.warning(
+                "Instance %s has both skip_tls_verify=true and ca_file set; "
+                "skip_tls_verify takes precedence and ca_file is ignored.",
+                self.name,
+            )
 
     def __str__(self):
-        return f"InstanceConfig(name={self.name}, url={self.url}, port={self.port})"
+        return (
+            f"InstanceConfig(name={self.name}, url={self.url}, port={self.port}, "
+            f"skip_tls_verify={self.skip_tls_verify}, ca_file={self.ca_file})"
+        )
 
 
 class HAExporterConfig:
@@ -39,8 +51,18 @@ def load_yaml_config(filepath):
         return yaml.safe_load(file)
 
 
+def _verify_arg(instance):
+    if instance.skip_tls_verify:
+        return False
+    if instance.ca_file:
+        return instance.ca_file
+    return True
+
+
 def pull_metrics(instance):
-    res = requests.get(f"{instance.url}:{instance.port}")
+    res = requests.get(
+        f"{instance.url}:{instance.port}", verify=_verify_arg(instance)
+    )
 
     if res.status_code != 200:
         raise Exception(
@@ -58,9 +80,13 @@ def run(config_file):
             url=instance["url"],
             port=instance["port"],
             type=instance["type"],
+            skip_tls_verify=instance.get("skip_tls_verify", True),
+            ca_file=instance.get("ca_file"),
         )
         for instance in config.get("instances", [])
     ]
+    if any(inst.skip_tls_verify for inst in instances):
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     instances_str = "\n\t".join(str(instance) for instance in instances)
     logger.info(
         "HA exporter will use the following instances to collect metrics:\n\t%s",
