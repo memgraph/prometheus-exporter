@@ -34,7 +34,7 @@ PrometheusHADataInstancesMetrics = {
 
 # Counter metrics for data instances
 PrometheusHADataInstancesCounterMetrics = {
-    name: Counter(name, description)
+    name: Counter(name, description, ["instance_name"])
     for name, description in ha_data_instances_counter_metrics
 }
 
@@ -137,6 +137,13 @@ def update_gauges(mg_data, prom_data, instance_name):
         if key not in prom_data:
             continue
         prom_data[key].labels(instance_name=instance_name).set(value)
+
+
+def update_counters(mg_data, prom_data, instance_name):
+    for key, value in mg_data.items():
+        if key not in prom_data:
+            continue
+        prom_data[key].labels(instance_name=instance_name).inc(amount=value)
 
 
 def update_data_instance_metrics(mg_data, instance_name):
@@ -272,7 +279,7 @@ def update_data_instance_metrics(mg_data, instance_name):
 
     safe_execute(
         partial(
-            update_gauges,
+            update_counters,
             mg_data.get("HighAvailability", {}),
             PrometheusHADataInstancesCounterMetrics,
             instance_name,
