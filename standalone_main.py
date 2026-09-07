@@ -9,6 +9,7 @@ from yaml.loader import SafeLoader
 from prometheus_client import start_http_server
 
 from standalone_model import update_metrics
+from metrics_response import parse_json_metrics
 
 logger = logging.getLogger("prometheus_handler")
 
@@ -104,7 +105,9 @@ def pull_metrics(config: Config):
             f"Status code is not 200, but {res.status_code}, please check running services!"
         )
 
-    json_data = res.json()
+    json_data = parse_json_metrics(
+        res, f"{config.memgraph_endpoint_url}:{config.memgraph_port}"
+    )
 
     update_metrics(json_data)
     logger.info("Sent update to Prometheus")

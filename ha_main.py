@@ -7,6 +7,7 @@ import yaml
 from prometheus_client import start_http_server
 
 from ha_model import update_metrics
+from metrics_response import parse_json_metrics
 
 
 logger = logging.getLogger("prometheus_handler")
@@ -69,7 +70,7 @@ def pull_metrics(instance):
             f"Memgraph instance on {instance.url}:{instance.port} couldn't be reached."
         )
 
-    return res.json()
+    return parse_json_metrics(res, f"{instance.url}:{instance.port}")
 
 
 def run(config_file):
